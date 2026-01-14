@@ -1,0 +1,951 @@
+// app/page.tsx
+"use client";
+
+import React, { useEffect, useState } from "react";
+import ScreenshotSlider from "@/components/ScreenshotSlider";
+import StickyCta from "@/components/StickyCta";
+import { links } from "@/lib/links";
+
+const slides = [
+  { src: "/screenshots/app-dashboard.png", alt: "Dashboard overview" },
+  { src: "/screenshots/invoices-list.png", alt: "Invoices list and tracking" },
+  { src: "/screenshots/invoice-preview.png", alt: "Invoice PDF preview" },
+  { src: "/screenshots/quotes-list.png", alt: "Quotes management" },
+  { src: "/screenshots/customers-list.png", alt: "Customer list" },
+  { src: "/screenshots/reports-dashboard.png", alt: "Reports and insights" },
+  { src: "/screenshots/settings.png", alt: "Settings and preferences" },
+  { src: "/screenshots/delivery-note-preview.png", alt: "Delivery note preview" },
+];
+
+function ZoomableImage({
+  src,
+  alt,
+  hint = "Click to zoom • Esc to close",
+}: {
+  src: string;
+  alt: string;
+  hint?: string;
+}) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [open]);
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label="Zoom image"
+        title={hint}
+        style={{
+          all: "unset",
+          cursor: "zoom-in",
+          display: "block",
+          width: "100%",
+        }}
+      >
+        <img src={src} alt={alt} loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
+      </button>
+
+      {open ? (
+        <div
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setOpen(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            background: "rgba(0,0,0,.72)",
+            display: "grid",
+            placeItems: "center",
+            padding: 16,
+            cursor: "zoom-out",
+            animation: "zoomFade .14s ease-out",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: 1200,
+              width: "min(1200px, 96vw)",
+              maxHeight: "92vh",
+              background: "#fff",
+              borderRadius: 16,
+              overflow: "hidden",
+              boxShadow: "0 18px 70px rgba(0,0,0,.35)",
+              border: "1px solid rgba(255,255,255,.10)",
+              display: "grid",
+              gridTemplateRows: "auto 1fr",
+              cursor: "default",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: 10,
+                borderBottom: "1px solid rgba(0,0,0,.06)",
+                background: "#fff",
+              }}
+            >
+              <span style={{ fontWeight: 900, fontSize: 13, color: "#0d2030", opacity: 0.85 }}>{hint}</span>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label="Close"
+                style={{
+                  border: "1px solid rgba(0,0,0,.10)",
+                  background: "#fff",
+                  borderRadius: 10,
+                  padding: "8px 10px",
+                  fontWeight: 900,
+                  cursor: "pointer",
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div style={{ overflow: "auto", background: "#f7f9fc" }}>
+              <img src={src} alt={alt} style={{ width: "100%", height: "auto", display: "block" }} />
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+export default function HomePage() {
+  useEffect(() => {
+    const items = document.querySelectorAll(".reveal");
+    items.forEach((el, i) => {
+      setTimeout(() => el.classList.add("show"), i * 110);
+    });
+  }, []);
+
+  return (
+    <main>
+      {/* Announcement */}
+      <div
+        className="sectionTight"
+        style={{
+          marginBottom: 0,
+          position: "relative",
+          zIndex: 2,
+        }}
+      >
+        <div
+          className="container"
+          style={{
+            textAlign: "center",
+            paddingTop: 14,
+            paddingBottom: 22, // 👈 gives room for the fade
+          }}
+        >
+          <span className="announcement">
+            Now on Windows &amp; macOS <small>• Works offline • VAT-ready</small>
+          </span>
+        </div>
+
+        {/* Soft fade into hero */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: -1,
+            height: 32,
+            background: "linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0))",
+            pointerEvents: "none",
+          }}
+        />
+      </div>
+
+      {/* HERO */}
+      <section
+        style={{
+          paddingTop: 64,
+          paddingBottom: 72,
+          background:
+            "radial-gradient(1000px 600px at 10% 0%, rgba(255,255,255,.14), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
+        }}
+      >
+        <div className="container" style={{ maxWidth: 1200 }}>
+          <div
+            className="heroGrid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1.05fr .95fr",
+              gap: 52,
+              alignItems: "center",
+            }}
+          >
+            <div>
+              <h1
+                className="reveal"
+                style={{
+                  margin: 0,
+                  color: "#fff",
+                  fontWeight: 950,
+                  letterSpacing: "-0.03em",
+                  lineHeight: 1.02,
+                  fontSize: 56,
+                }}
+              >
+                Look pro. Bill faster. Get paid.
+              </h1>
+
+              <p
+                className="reveal"
+                style={{
+                  marginTop: 16,
+                  marginBottom: 0,
+                  color: "rgba(231,243,244,.95)",
+                  fontSize: 18,
+                  lineHeight: 1.65,
+                  maxWidth: 640,
+                }}
+              >
+                Create branded quotations, convert to invoices, and send statements in minutes — without the monthly
+                fees.
+              </p>
+
+              <div
+                className="reveal"
+                style={{
+                  display: "flex",
+                  gap: 12,
+                  flexWrap: "wrap",
+                  marginTop: 22,
+                }}
+              >
+                <a
+                  href={links.download}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 999,
+                    padding: "14px 18px",
+                    fontWeight: 950,
+                    textDecoration: "none",
+                    background: "#fff",
+                    color: "var(--ink)",
+                    border: "1px solid rgba(255,255,255,.22)",
+                    boxShadow: "0 16px 42px rgba(0,0,0,.20)",
+                    transition: "transform .2s ease, box-shadow .2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow = "0 22px 60px rgba(0,0,0,.24)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "0 16px 42px rgba(0,0,0,.20)";
+                  }}
+                >
+                  Download
+                </a>
+
+                <a
+                  href={links.pricing}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 999,
+                    padding: "14px 18px",
+                    fontWeight: 950,
+                    textDecoration: "none",
+                    background: "rgba(255,255,255,.08)",
+                    color: "#fff",
+                    border: "1px solid rgba(255,255,255,.22)",
+                    transition: "transform .2s ease, background .2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.background = "rgba(255,255,255,.12)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.background = "rgba(255,255,255,.08)";
+                  }}
+                >
+                  See Pricing
+                </a>
+              </div>
+
+              <div
+                className="reveal"
+                style={{
+                  marginTop: 18,
+                  display: "flex",
+                  gap: 10,
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                }}
+              >
+                {["Your logo & colours", "PDF export", "Local backups", "Customer statements"].map((t) => (
+                  <span
+                    key={t}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      padding: "8px 12px",
+                      borderRadius: 999,
+                      background: "rgba(255,255,255,.10)",
+                      border: "1px solid rgba(255,255,255,.18)",
+                      color: "rgba(255,255,255,.92)",
+                      fontWeight: 900,
+                      fontSize: 12,
+                      letterSpacing: ".02em",
+                    }}
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Device */}
+            <div className="reveal" aria-label="eKasiBooks App UI preview">
+              <div
+                style={{
+                  borderRadius: 18,
+                  border: "1px solid rgba(255,255,255,.16)",
+                  background: "rgba(255,255,255,.08)",
+                  boxShadow: "0 26px 80px rgba(0,0,0,.28)",
+                  padding: 14,
+                }}
+              >
+                <div
+                  style={{
+                    borderRadius: 14,
+                    overflow: "hidden",
+                    background: "#fff",
+                    border: "1px solid rgba(0,0,0,.06)",
+                  }}
+                >
+                  {/* ✅ replace wp-content image with local screenshot + zoom-on-click */}
+                  <ZoomableImage src="/screenshots/app-dashboard.png" alt="eKasiBooks App UI" />
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: 10,
+                    marginTop: 12,
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <span style={{ color: "rgba(255,255,255,.9)", fontWeight: 900, fontSize: 12 }}>
+                    Desktop app • Offline-first
+                  </span>
+                  <a
+                    href={links.features}
+                    style={{
+                      color: "rgba(255,255,255,.95)",
+                      fontWeight: 950,
+                      fontSize: 12,
+                      textDecoration: "none",
+                      borderBottom: "1px solid rgba(255,255,255,.35)",
+                    }}
+                  >
+                    Explore features
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <style>{`
+            @media (max-width: 992px){
+              .heroGrid{
+                grid-template-columns: 1fr !important;
+                gap: 28px !important;
+              }
+            }
+            @media (max-width: 520px){
+              .heroTitle{
+                font-size: 42px !important;
+              }
+            }
+          `}</style>
+        </div>
+      </section>
+
+      {/* BENEFITS */}
+      <section className="section" style={{ paddingTop: 72, paddingBottom: 24 }}>
+        <div className="container" style={{ maxWidth: 1200 }}>
+          <div
+            className="benefitsGrid reveal"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+              gap: 20,
+            }}
+          >
+            {[
+              { title: "Professional docs", icon: "🧾", desc: "Clean quotes & invoices with your logo and VAT details." },
+              { title: "Offline first", icon: "🔌", desc: "No internet? No problem. Sync/updates only when you want." },
+              { title: "Safe backups", icon: "💾", desc: "Export and restore anytime. CSV compatible." },
+            ].map((b) => (
+              <div
+                key={b.title}
+                className="cardLift"
+                style={{
+                  background: "#fff",
+                  border: "1px solid var(--ring)",
+                  borderRadius: 16,
+                  padding: 22,
+                  boxShadow: "0 10px 28px rgba(10,37,64,.08)",
+                }}
+              >
+                <div style={{ fontWeight: 950, color: "var(--ink)" }}>
+                  <span style={{ marginRight: 8 }}>{b.icon}</span>
+                  {b.title}
+                </div>
+                <p className="muted" style={{ marginTop: 10, marginBottom: 0, lineHeight: 1.65 }}>
+                  {b.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <style>{`
+            @media (max-width: 992px){
+              .benefitsGrid{
+                grid-template-columns: 1fr !important;
+              }
+            }
+          `}</style>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section className="section" style={{ paddingTop: 48, paddingBottom: 72 }}>
+        <div className="container" style={{ maxWidth: 1200 }}>
+          <h2 className="h2 center reveal">Why teams choose eKasiBooks</h2>
+          <p className="center muted reveal" style={{ marginTop: 12, maxWidth: 820, marginInline: "auto" }}>
+            Built for small businesses that need speed, professionalism, and control — without cloud lock-in.
+          </p>
+
+          <div
+            className="featuresGrid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, minmax(0,1fr))",
+              gap: 18,
+              marginTop: 28,
+              alignItems: "stretch",
+            }}
+          >
+            {[
+              { t: "Quotes → Invoices", d: "Create quotes and convert to invoices in one click. VAT/no-VAT friendly.", i: "🧰" },
+              { t: "Customers & Statements", d: "Keep customer records tidy and generate statements instantly.", i: "👥" },
+              { t: "Branding & Templates", d: "Your logo, colours and templates that make you look pro.", i: "🎨" },
+              { t: "Payment Tracking", d: "Record payments, see who owes you, and follow up faster.", i: "💸" },
+              { t: "Backups & Export", d: "Local backups and CSV export for peace of mind.", i: "💾" },
+              { t: "Your data stays yours", d: "Desktop app. No forced cloud lock-in.", i: "🔒" },
+            ].map((f) => (
+              <div
+                key={f.t}
+                className="reveal cardLift"
+                style={{
+                  background: "#fff",
+                  border: "1px solid var(--ring)",
+                  borderRadius: 16,
+                  padding: 22,
+                  boxShadow: "0 10px 28px rgba(10,37,64,.08)",
+                  height: "100%",
+                }}
+              >
+                <h3 className="h3" style={{ marginBottom: 10 }}>
+                  <span style={{ marginRight: 8 }}>{f.i}</span>
+                  {f.t}
+                </h3>
+                <p className="muted" style={{ margin: 0, lineHeight: 1.65 }}>
+                  {f.d}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="reveal" style={{ textAlign: "center", marginTop: 22 }}>
+            <a
+              href={links.features}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 999,
+                padding: "12px 18px",
+                fontWeight: 950,
+                textDecoration: "none",
+                background: "var(--card)",
+                border: "1px solid var(--ring)",
+                color: "var(--ink)",
+                boxShadow: "0 10px 24px rgba(10,37,64,.08)",
+                transition: "transform .2s ease, box-shadow .2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow = "0 16px 34px rgba(10,37,64,.12)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 10px 24px rgba(10,37,64,.08)";
+              }}
+            >
+              Explore all features →
+            </a>
+          </div>
+
+          <style>{`
+            @media (max-width: 992px){
+              .featuresGrid{
+                grid-template-columns: 1fr !important;
+              }
+            }
+          `}</style>
+        </div>
+      </section>
+
+      {/* LIVE PREVIEW */}
+      <section className="section" style={{ paddingTop: 56, paddingBottom: 72 }}>
+        <div className="container" style={{ maxWidth: 1200 }}>
+          <h2 className="h2 center reveal">Live Preview</h2>
+          <p className="center muted reveal" style={{ marginTop: 10 }}>
+            Swipe through a few screens from quoting to statements.
+          </p>
+
+          <div className="reveal" style={{ marginTop: 18 }}>
+            <ScreenshotSlider slides={slides} />
+          </div>
+        </div>
+      </section>
+
+      {/* STEPS */}
+      <section className="section" style={{ paddingTop: 56, paddingBottom: 56 }}>
+        <div className="container" style={{ maxWidth: 1200 }}>
+          <div
+            className="reveal"
+            style={{
+              background: "var(--card)",
+              borderRadius: 16,
+              padding: 28,
+              border: "1px solid var(--ring)",
+              boxShadow: "0 10px 28px rgba(10,37,64,.08)",
+            }}
+          >
+            <h3 className="h3 center" style={{ marginBottom: 16 }}>
+              Get started in 3 simple steps
+            </h3>
+
+            <div
+              className="stepsGrid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, minmax(0,1fr))",
+                gap: 18,
+              }}
+            >
+              {[
+                { n: "1", t: "Add your business", d: "Logo, address, VAT number and defaults." },
+                { n: "2", t: "Send a quote", d: "Create in seconds. Email or print beautifully." },
+                { n: "3", t: "Convert & get paid", d: "Convert to invoice, record payments, send statements." },
+              ].map((s) => (
+                <div
+                  key={s.n}
+                  className="cardLift"
+                  style={{
+                    background: "#fff",
+                    border: "1px solid var(--ring)",
+                    borderRadius: 16,
+                    padding: 22,
+                    boxShadow: "0 10px 28px rgba(10,37,64,.08)",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span
+                      style={{
+                        width: 34,
+                        height: 34,
+                        borderRadius: 999,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontWeight: 950,
+                        color: "#fff",
+                        background: "var(--brand)",
+                      }}
+                    >
+                      {s.n}
+                    </span>
+                    <strong style={{ color: "var(--ink)" }}>{s.t}</strong>
+                  </div>
+                  <p className="muted" style={{ marginTop: 10, marginBottom: 0, lineHeight: 1.65 }}>
+                    {s.d}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <style>{`
+              @media (max-width: 992px){
+                .stepsGrid{
+                  grid-template-columns: 1fr !important;
+                }
+              }
+            `}</style>
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIAL */}
+      <section className="section" style={{ paddingTop: 28, paddingBottom: 56 }}>
+        <div className="container" style={{ maxWidth: 1200 }}>
+          <div
+            className="reveal"
+            style={{
+              borderRadius: 16,
+              border: "1px solid var(--ring)",
+              background: "#fff",
+              padding: 28,
+              boxShadow: "0 10px 28px rgba(10,37,64,.08)",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                inset: "auto -140px -140px auto",
+                width: 260,
+                height: 260,
+                background: "radial-gradient(circle, rgba(33,93,99,.18), transparent 70%)",
+                borderRadius: 999,
+              }}
+            />
+            <p style={{ margin: 0, fontWeight: 900, color: "var(--ink)", lineHeight: 1.55, fontSize: 18 }}>
+              “I used to struggle with Word templates. With eKasiBooks I send quotes in 2 minutes and look legit.”
+            </p>
+            <p className="muted" style={{ marginTop: 10, marginBottom: 0 }}>
+              – Small business owner, Pretoria
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING TEASER */}
+      <section className="section" style={{ paddingTop: 28, paddingBottom: 72 }}>
+        <div className="container" style={{ maxWidth: 1200 }}>
+          <div
+            className="reveal billCard"
+            style={{
+              background: "var(--card)",
+              borderRadius: 16,
+              padding: 26,
+              border: "1px solid var(--ring)",
+              boxShadow: "0 10px 28px rgba(10,37,64,.08)",
+              transition: "transform .25s ease, box-shadow .25s ease",
+            }}
+          >
+            <div
+              className="billGrid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1.2fr .8fr",
+                gap: 18,
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <h3 className="h3" style={{ marginBottom: 8 }}>
+                  Simple pricing
+                </h3>
+                <p className="muted" style={{ margin: 0, lineHeight: 1.65 }}>
+                  Start on Trial. Upgrade to Pro when you’re ready.
+                </p>
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: 12,
+                  justifyContent: "flex-end",
+                  flexWrap: "wrap",
+                }}
+              >
+                <a
+                  href={links.pricing}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 999,
+                    padding: "12px 18px",
+                    fontWeight: 950,
+                    textDecoration: "none",
+                    background: "var(--brand)",
+                    color: "#fff",
+                    transition: "transform .2s ease, box-shadow .2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow = "0 16px 34px rgba(10,37,64,.12)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                >
+                  See Pricing
+                </a>
+
+                <a
+                  href={links.download}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 999,
+                    padding: "12px 18px",
+                    fontWeight: 950,
+                    textDecoration: "none",
+                    background: "var(--brand-700)",
+                    color: "#fff",
+                    transition: "transform .2s ease, box-shadow .2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow = "0 16px 34px rgba(10,37,64,.12)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                >
+                  Download
+                </a>
+              </div>
+            </div>
+
+            <style>{`
+              @media (max-width: 992px){
+                .billGrid{
+                  grid-template-columns: 1fr !important;
+                }
+              }
+            `}</style>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section" style={{ paddingTop: 28, paddingBottom: 88 }}>
+        <div className="container" style={{ maxWidth: 1200 }}>
+          <h2 className="h2 center reveal">Questions, answered</h2>
+
+          <div
+            className="faqGrid reveal"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 22,
+              marginTop: 16,
+            }}
+          >
+            <div
+              className="cardLift"
+              style={{
+                background: "#fff",
+                border: "1px solid var(--ring)",
+                borderRadius: 16,
+                padding: 20,
+                boxShadow: "0 10px 28px rgba(10,37,64,.08)",
+              }}
+            >
+              <details>
+                <summary>Does it work offline?</summary>
+                <p>Yes — quoting &amp; invoicing works without internet.</p>
+              </details>
+              <details>
+                <summary>Do you support VAT?</summary>
+                <p>Enable VAT, pick your rate, and totals are calculated automatically.</p>
+              </details>
+            </div>
+
+            <div
+              className="cardLift"
+              style={{
+                background: "#fff",
+                border: "1px solid var(--ring)",
+                borderRadius: 16,
+                padding: 20,
+                boxShadow: "0 10px 28px rgba(10,37,64,.08)",
+              }}
+            >
+              <details>
+                <summary>Can I use my logo &amp; colours?</summary>
+                <p>Absolutely. Upload your logo and choose templates to match your brand.</p>
+              </details>
+              <details>
+                <summary>How do I backup?</summary>
+                <p>Use the built-in backup to export a safe copy of your data anytime.</p>
+              </details>
+            </div>
+          </div>
+
+          <style>{`
+            @media (max-width: 992px){
+              .faqGrid{
+                grid-template-columns: 1fr !important;
+              }
+            }
+            details { margin-top: 12px; }
+            details:first-of-type { margin-top: 0; }
+            details > summary { padding: 14px 16px; cursor: pointer; font-weight: 900; list-style: none; }
+            details > summary::-webkit-details-marker { display: none; }
+            details > summary:before {
+              content: "▸";
+              display: inline-block;
+              margin-right: 10px;
+              transform: translateY(-1px);
+              transition: transform .2s ease;
+              color: var(--brand);
+              font-weight: 950;
+            }
+            details[open] > summary:before { transform: rotate(90deg) translateY(-1px); }
+            details p { margin: 10px 0 0; padding: 0 16px 16px; color: var(--muted); line-height: 1.65; }
+          `}</style>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="section" style={{ paddingTop: 0, paddingBottom: 72 }}>
+        <div className="container" style={{ maxWidth: 1200 }}>
+          <div
+            className="reveal"
+            style={{
+              borderRadius: 16,
+              border: "1px solid var(--ring)",
+              background: "var(--card)",
+              padding: 28,
+              boxShadow: "0 10px 28px rgba(10,37,64,.08)",
+              textAlign: "center",
+            }}
+          >
+            <h3 className="h3" style={{ marginBottom: 10 }}>
+              Ready to look pro and get paid faster?
+            </h3>
+
+            <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginTop: 12 }}>
+              <a
+                href={links.download}
+                style={{
+                  borderRadius: 999,
+                  padding: "12px 20px",
+                  fontWeight: 950,
+                  textDecoration: "none",
+                  background: "var(--brand)",
+                  color: "#fff",
+                  transition: "transform .2s ease, box-shadow .2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow = "0 16px 34px rgba(10,37,64,.12)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+              >
+                Download eKasiBooks
+              </a>
+
+              <a
+                href={links.features}
+                style={{
+                  borderRadius: 999,
+                  padding: "12px 20px",
+                  fontWeight: 950,
+                  textDecoration: "none",
+                  background: "var(--brand-700)",
+                  color: "#fff",
+                  transition: "transform .2s ease, box-shadow .2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow = "0 16px 34px rgba(10,37,64,.12)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+              >
+                Explore Features
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactions */}
+      <style>{`
+        .reveal{
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all .6s ease;
+        }
+        .reveal.show{
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .cardLift{
+          transition: transform .25s ease, box-shadow .25s ease;
+        }
+        .cardLift:hover{
+          transform: translateY(-4px);
+          box-shadow: 0 18px 40px rgba(10,37,64,.12);
+        }
+        .billCard:hover{
+          transform: translateY(-4px);
+          box-shadow: 0 18px 40px rgba(10,37,64,.12);
+        }
+        @keyframes zoomFade {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `}</style>
+
+      {/* Sticky CTA */}
+      <StickyCta
+        primaryHref={links.download}
+        primaryLabel="Download eKasiBooks"
+        secondaryHref={links.pricing}
+        secondaryLabel="See Pricing"
+      />
+    </main>
+  );
+}
