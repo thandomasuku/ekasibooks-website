@@ -201,3 +201,38 @@ details p{margin:10px 0 0;color:var(--muted)}
 .h2{margin:0;font-size:34px;line-height:1.15;font-weight:900}
 .h3{margin:0;font-size:22px;line-height:1.25;font-weight:900}
 .center{text-align:center}
+
+/* =========================
+   Navbar hard-left logo on mobile
+   (force logo left, hamburger right)
+========================= */
+
+@media (max-width: 920px) {
+  /* make sure the navbar row is truly a flex row */
+  .navBarInner {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* logo must NEVER be centered */
+  .navBrand {
+    margin: 0 !important;
+    margin-right: auto !important; /* ✅ key: pushes everything else right */
+    width: auto !important;
+    flex: 0 0 auto !important;
+    text-align: left !important;
+    justify-content: flex-start !important;
+  }
+
+  /* hamburger stays hard-right */
+  .navMobileBtn {
+    margin-left: auto !important; /* ✅ key */
+    flex: 0 0 auto !important;
+  }
+
+  /* optional: tighten mobile padding */
+  .navBarInner {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}

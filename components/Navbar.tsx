@@ -5,7 +5,10 @@ import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import { links } from "@/lib/links";
 
-type NavItem = { label: string; href: string };
+type NavItem = {
+  label: "HOME" | "FEATURES" | "PRICING" | "DOWNLOAD" | "SUPPORT" | "CONTACT" | string;
+  href: string;
+};
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -35,6 +38,15 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  // ✅ lock background scroll when mobile menu is open
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = open ? "hidden" : prev || "";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname?.startsWith(href);
@@ -55,26 +67,74 @@ export default function Navbar() {
     >
       {/* full-width bar */}
       <div
+        className="navBarInner"
         style={{
           width: "100%",
           padding: "10px 18px",
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "flex-start",
           gap: 16,
-          minHeight: 84, // stable navbar height
+          minHeight: 84,
         }}
       >
-        {/* Brand */}
+        {/* Mobile button (LEFT on mobile via CSS ordering) */}
+        <button
+          className="navMobileBtn"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          style={{
+            width: 52,
+            height: 52,
+            borderRadius: 14,
+            border: "1px solid rgba(33,93,99,.22)",
+            background: "#fff",
+            color: "var(--brand)",
+            display: "none",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            boxShadow: "0 8px 20px rgba(10,37,64,.06)",
+            flex: "0 0 auto",
+          }}
+        >
+          {/* Custom hamburger so we can control thickness/size */}
+          <span
+            aria-hidden="true"
+            className={open ? "hamburger isOpen" : "hamburger"}
+            style={{
+              width: 26,
+              height: 18,
+              display: "grid",
+              alignContent: "center",
+              gap: 5,
+            }}
+          >
+            <span className="hamburgerLine" />
+            <span className="hamburgerLine" />
+            <span className="hamburgerLine" />
+          </span>
+
+          {/* Screen-reader text fallback */}
+          <span style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>
+            {open ? "Close menu" : "Open menu"}
+          </span>
+        </button>
+
+        {/* Brand (always hard-left on desktop; sits after hamburger on mobile) */}
         <a
           href="/"
+          className="navBrand"
           style={{
             display: "flex",
             alignItems: "center",
-            height: 84, // match navbar height
+            height: 84,
             overflow: "hidden",
             textDecoration: "none",
             whiteSpace: "nowrap",
+            margin: 0,
+            justifyContent: "flex-start",
           }}
           aria-label="eKasiBooks Home"
         >
@@ -82,16 +142,19 @@ export default function Navbar() {
             src="/ekasibooks-logo.png"
             alt="eKasiBooks"
             style={{
-              height: 135, // BIG logo stays
+              height: 135,
               width: "auto",
               display: "block",
               objectFit: "contain",
-              transform: "translateY(2px)", // tiny nudge to visually center
+              transform: "translateY(2px)",
             }}
           />
         </a>
 
-        {/* Desktop nav */}
+        {/* Spacer pushes everything else to the right */}
+        <div className="navSpacer" style={{ flex: 1 }} />
+
+        {/* Desktop nav (right side) */}
         <nav
           className="navDesktop"
           style={{
@@ -156,27 +219,6 @@ export default function Navbar() {
             LOGIN
           </a>
         </nav>
-
-        {/* Mobile button */}
-        <button
-          className="navMobileBtn"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-          style={{
-            width: 44,
-            height: 44,
-            borderRadius: 12,
-            border: "1px solid rgba(0,0,0,.08)",
-            background: "#fff",
-            display: "none",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            boxShadow: "0 8px 20px rgba(10,37,64,.06)",
-          }}
-        >
-          <span style={{ fontSize: 18, fontWeight: 950 }}>{open ? "✕" : "☰"}</span>
-        </button>
       </div>
 
       {/* Mobile panel */}
@@ -236,11 +278,46 @@ export default function Navbar() {
         </div>
       ) : null}
 
-      {/* Responsive switches */}
+      {/* Responsive switches + hamburger styling */}
       <style>{`
+        .hamburgerLine{
+          height: 3px;
+          border-radius: 999px;
+          background: var(--brand);
+          width: 100%;
+          display: block;
+          transition: transform .18s ease, opacity .18s ease;
+        }
+
+        /* Animate into an X when open */
+        .hamburger.isOpen .hamburgerLine:nth-child(1){
+          transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger.isOpen .hamburgerLine:nth-child(2){
+          opacity: 0;
+        }
+        .hamburger.isOpen .hamburgerLine:nth-child(3){
+          transform: translateY(-8px) rotate(-45deg);
+        }
+
         @media (max-width: 920px){
           .navDesktop{ display:none !important; }
-          .navMobileBtn{ display:flex !important; }
+          .navMobileBtn{ display:flex !important; order: 0; }
+          .navBrand{ order: 1; }
+          .navSpacer{ order: 2; }
+
+          /* Pull content closer to edges on mobile */
+          .navBarInner{
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+            gap: 12px !important;
+          }
+
+          /* Make the button even more tappable on small screens */
+          .navMobileBtn{
+            width: 54px !important;
+            height: 54px !important;
+          }
         }
       `}</style>
     </header>

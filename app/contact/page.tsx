@@ -1,250 +1,106 @@
 // app/contact/page.tsx
-"use client";
+import type { Metadata } from "next";
+import ContactClient from "@/components/ContactClient";
 
-import { useEffect } from "react";
-import StickyCta from "@/components/StickyCta";
+const SITE = "https://ekasibooks.co.za";
+
+export const metadata: Metadata = {
+  title: "Contact eKasiBooks – Sales, Support & WhatsApp",
+  description:
+    "Contact eKasiBooks for sales, billing, and support. Send a message, email us, or chat on WhatsApp during business hours.",
+  alternates: {
+    canonical: `${SITE}/contact`,
+  },
+  openGraph: {
+    title: "Contact eKasiBooks",
+    description:
+      "Sales, billing, and support — send a message or chat on WhatsApp. We usually reply within one business day.",
+    url: `${SITE}/contact`,
+    siteName: "eKasiBooks",
+    type: "website",
+    locale: "en_ZA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact eKasiBooks",
+    description:
+      "Sales, billing, and support — send a message or chat on WhatsApp.",
+  },
+};
 
 export default function ContactPage() {
-  useEffect(() => {
-    const items = document.querySelectorAll(".reveal");
-    items.forEach((el, i) => {
-      setTimeout(() => el.classList.add("show"), i * 120);
-    });
-  }, []);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${SITE}#website`,
+        name: "eKasiBooks",
+        url: SITE,
+      },
+      {
+        "@type": "Organization",
+        "@id": `${SITE}#org`,
+        name: "eKasiBooks",
+        url: SITE,
+        email: "support@ekasibooks.co.za",
+        contactPoint: [
+          {
+            "@type": "ContactPoint",
+            contactType: "sales",
+            email: "sales@ekasibooks.co.za",
+            availableLanguage: ["en"],
+          },
+          {
+            "@type": "ContactPoint",
+            contactType: "customer support",
+            email: "support@ekasibooks.co.za",
+            availableLanguage: ["en"],
+            hoursAvailable: [
+              {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                opens: "09:00",
+                closes: "17:00",
+              },
+            ],
+          },
+          {
+            "@type": "ContactPoint",
+            contactType: "customer support",
+            telephone: "+27-82-340-3945",
+            availableLanguage: ["en"],
+            hoursAvailable: [
+              {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                opens: "09:00",
+                closes: "17:00",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        "@type": "ContactPage",
+        name: "Contact eKasiBooks",
+        url: `${SITE}/contact`,
+        description:
+          "Contact eKasiBooks for sales, billing, and support. Use email, WhatsApp, or the contact form.",
+        isPartOf: { "@id": `${SITE}#website` },
+        about: { "@id": `${SITE}#org` },
+      },
+    ],
+  };
 
   return (
-    <main>
-      {/* HERO */}
-      <section
-        style={{
-          minHeight: 420,
-          display: "flex",
-          alignItems: "center",
-          background:
-            "radial-gradient(1000px 600px at 10% 0%, rgba(255,255,255,.16), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
-        }}
-      >
-        <div className="container reveal">
-          <h1 className="h1 center" style={{ color: "#fff" }}>
-            Let’s talk
-          </h1>
-          <p
-            className="center"
-            style={{
-              color: "#e7f3f4",
-              marginTop: 16,
-              fontSize: 18,
-              maxWidth: 720,
-              marginInline: "auto",
-            }}
-          >
-            Billing, pricing, or support — we’ll get you sorted quickly.
-          </p>
-        </div>
-      </section>
-
-      {/* CONTENT */}
-      <section className="section">
-        <div className="container" style={{ maxWidth: 1280 }}>
-          <p className="center muted reveal" style={{ marginBottom: 64 }}>
-            We usually reply within one business day.
-          </p>
-
-          <div className="contactGrid">
-            {/* FORM */}
-            <div className="card reveal">
-              <h2 className="h3">Send us a message</h2>
-              <p className="muted">Our team will get back to you.</p>
-
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  alert("Contact form will be connected shortly.");
-                }}
-              >
-                <input placeholder="Your name" required />
-                <input type="email" placeholder="Your email" required />
-                <textarea rows={6} placeholder="How can we help?" required />
-
-                <button type="submit">Send message</button>
-              </form>
-
-              <p className="muted small">
-                By submitting, you agree to our <a href="/privacy">Privacy Policy</a>.
-              </p>
-            </div>
-
-            {/* CONTACT OPTIONS */}
-            <div className="reveal">
-              <h2 className="h3">Contact options</h2>
-
-              <div className="grid3">
-                <div className="thinCard iconCard">
-                  <span className="icon">📧</span>
-                  <strong>Sales</strong>
-                  <a href="mailto:sales@ekasibooks.co.za">sales@ekasibooks.co.za</a>
-                  <p className="muted">Licensing & pricing</p>
-                </div>
-
-                <div className="thinCard iconCard">
-                  <span className="icon">🛠️</span>
-                  <strong>Support</strong>
-                  <a href="mailto:support@ekasibooks.co.za">support@ekasibooks.co.za</a>
-                  <p className="muted">Product help</p>
-                </div>
-
-                <div className="thinCard iconCard">
-                  <span className="icon">💬</span>
-                  <strong>WhatsApp</strong>
-                  <a
-                    href="https://wa.me/27XXXXXXXXX"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Chat with us
-                  </a>
-                  <p className="muted">Mon–Fri, 09:00–17:00</p>
-                </div>
-              </div>
-
-              {/* DEMO CTA */}
-              <div className="demoCta reveal">
-                <h3>Prefer a quick walkthrough?</h3>
-                <p className="muted">
-                  Book a short demo and see how eKasiBooks fits your business.
-                </p>
-                <a href="/contact" className="demoBtn">
-                  Book a demo
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* STYLES */}
-          <style>{`
-            .contactGrid {
-              display: grid;
-              grid-template-columns: 1.1fr 0.9fr;
-              gap: 64px;
-            }
-
-            form {
-              display: grid;
-              gap: 18px;
-              margin-top: 20px;
-            }
-
-            input, textarea {
-              padding: 16px 18px;
-              border-radius: 16px;
-              border: 1px solid var(--ring);
-            }
-
-            input:focus, textarea:focus {
-              outline: none;
-              border-color: var(--brand);
-              box-shadow: 0 0 0 3px rgba(33,93,99,.15);
-            }
-
-            button {
-              margin-top: 12px;
-              border-radius: 999px;
-              padding: 16px 22px;
-              font-weight: 900;
-              background: var(--brand);
-              color: #fff;
-              border: none;
-              cursor: pointer;
-              transition: transform .2s ease;
-            }
-
-            button:active {
-              transform: scale(.97);
-            }
-
-            .grid3 {
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 20px;
-              margin-top: 24px;
-            }
-
-            .thinCard {
-              padding: 24px;
-              border-radius: 16px;
-              transition: transform .25s ease, box-shadow .25s ease;
-              word-break: break-all;
-            }
-
-            .iconCard .icon {
-              display: inline-block;
-              font-size: 22px;
-              margin-bottom: 6px;
-              transition: transform .3s ease;
-            }
-
-            .iconCard:hover .icon {
-              transform: translateY(-4px);
-            }
-
-            .card:hover,
-            .thinCard:hover {
-              transform: translateY(-4px);
-              box-shadow: 0 18px 40px rgba(10,37,64,.12);
-            }
-
-            .demoCta {
-              margin-top: 48px;
-              padding: 32px;
-              border-radius: 20px;
-              background: linear-gradient(
-                135deg,
-                rgba(33,93,99,.08),
-                rgba(33,93,99,.04)
-              );
-            }
-
-            .demoBtn {
-              display: inline-block;
-              margin-top: 12px;
-              padding: 14px 20px;
-              border-radius: 999px;
-              background: var(--brand);
-              color: #fff;
-              font-weight: 900;
-              text-decoration: none;
-            }
-
-            /* REVEAL ANIMATION */
-            .reveal {
-              opacity: 0;
-              transform: translateY(20px);
-              transition: all .6s ease;
-            }
-
-            .reveal.show {
-              opacity: 1;
-              transform: translateY(0);
-            }
-
-            @media (max-width: 992px){
-              .contactGrid {
-                grid-template-columns: 1fr;
-              }
-              .grid3 {
-                grid-template-columns: 1fr;
-              }
-            }
-          `}</style>
-        </div>
-      </section>
-
-      <StickyCta
-        primaryHref="/download"
-        primaryLabel="Download eKasiBooks"
-        secondaryHref="/pricing"
-        secondaryLabel="See Pricing"
+    <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-    </main>
+      <ContactClient />
+    </>
   );
 }
