@@ -13,11 +13,12 @@ const DOWNLOADS = [
     tone: "primary",
   },
   {
-    label: "🍎 Download for macOS",
-    sub: "macOS 12+ (Monterey)",
-    href: "https://your-download-link.com/ekasibooks-macos.dmg",
-    tone: "secondary",
-  },
+  label: "🍎 macOS",
+  sub: "Coming soon",
+  href: "#",
+  tone: "secondary",
+  disabled: true,
+},
 ] as const;
 
 function ZoomableImage({
