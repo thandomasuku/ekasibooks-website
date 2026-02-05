@@ -164,7 +164,7 @@ export default function HomeClient() {
           style={{
             textAlign: "center",
             paddingTop: 14,
-            paddingBottom: 22, // 👈 gives room for the fade
+            paddingBottom: 22, // gives room for the fade
           }}
         >
           <span className="announcement">
@@ -189,6 +189,7 @@ export default function HomeClient() {
 
       {/* HERO */}
       <section
+        className="homeHero"
         style={{
           paddingTop: 64,
           paddingBottom: 72,
@@ -208,26 +209,26 @@ export default function HomeClient() {
           >
             <div>
               <h1
-                className="reveal"
+                className="reveal heroTitle"
                 style={{
                   margin: 0,
                   color: "#fff",
                   fontWeight: 950,
                   letterSpacing: "-0.03em",
                   lineHeight: 1.02,
-                  fontSize: 56,
+                  fontSize: 56, // desktop
                 }}
               >
                 Simple accounting &amp; invoicing software for small businesses
               </h1>
 
               <p
-                className="reveal"
+                className="reveal heroSubtitle"
                 style={{
                   marginTop: 16,
                   marginBottom: 0,
                   color: "rgba(231,243,244,.95)",
-                  fontSize: 18,
+                  fontSize: 18, // desktop
                   lineHeight: 1.65,
                   maxWidth: 640,
                 }}
@@ -392,6 +393,30 @@ export default function HomeClient() {
               .heroGrid{
                 grid-template-columns: 1fr !important;
                 gap: 28px !important;
+              }
+            }
+
+            /* Mobile font sizing fix (targets hero only) */
+            @media (max-width: 600px){
+              .homeHero{
+                padding-top: 46px !important;
+                padding-bottom: 52px !important;
+              }
+              .heroTitle{
+                font-size: 34px !important;
+                line-height: 1.08 !important;
+                letter-spacing: -0.02em !important;
+              }
+              .heroSubtitle{
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+              }
+            }
+
+            /* Extra-small phones */
+            @media (max-width: 380px){
+              .heroTitle{
+                font-size: 30px !important;
               }
             }
           `}</style>
