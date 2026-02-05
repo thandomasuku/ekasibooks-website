@@ -17,12 +17,21 @@ export const metadata: Metadata = {
     siteName: "eKasiBooks",
     type: "website",
     locale: "en_ZA",
+    images: [
+      {
+        url: "https://ekasibooks.co.za/og/download.png",
+        width: 1200,
+        height: 630,
+        alt: "Download eKasiBooks",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Download eKasiBooks",
     description:
       "Download the eKasiBooks desktop app for Windows and macOS. Offline-first invoicing with branded PDFs.",
+    images: ["https://ekasibooks.co.za/og/download.png"],
   },
 };
 

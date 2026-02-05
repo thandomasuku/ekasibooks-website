@@ -13,12 +13,12 @@ const DOWNLOADS = [
     tone: "primary",
   },
   {
-  label: "🍎 macOS",
-  sub: "Coming soon",
-  href: "#",
-  tone: "secondary",
-  disabled: true,
-},
+    label: "🍎 macOS",
+    sub: "Coming soon",
+    href: "#",
+    tone: "secondary",
+    disabled: true,
+  },
 ] as const;
 
 function ZoomableImage({
@@ -63,7 +63,12 @@ function ZoomableImage({
           width: "100%",
         }}
       >
-        <img src={src} alt={alt} loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          style={{ width: "100%", height: "auto", display: "block" }}
+        />
       </button>
 
       {open ? (
@@ -109,7 +114,16 @@ function ZoomableImage({
                 background: "#fff",
               }}
             >
-              <span style={{ fontWeight: 900, fontSize: 13, color: "#0d2030", opacity: 0.85 }}>{hint}</span>
+              <span
+                style={{
+                  fontWeight: 900,
+                  fontSize: 13,
+                  color: "#0d2030",
+                  opacity: 0.85,
+                }}
+              >
+                {hint}
+              </span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -128,7 +142,11 @@ function ZoomableImage({
             </div>
 
             <div style={{ overflow: "auto", background: "#f7f9fc" }}>
-              <img src={src} alt={alt} style={{ width: "100%", height: "auto", display: "block" }} />
+              <img
+                src={src}
+                alt={alt}
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
             </div>
           </div>
         </div>
@@ -144,6 +162,12 @@ export default function DownloadClient() {
       setTimeout(() => el.classList.add("show"), i * 120);
     });
   }, []);
+
+  // If you later add screenshots for SmartScreen steps, flip this to true.
+  // Expected paths:
+  // /public/screenshots/smartscreen-more-info.png
+  // /public/screenshots/smartscreen-run-anyway.png
+  const SHOW_SMARTSCREEN_SCREENSHOTS = false;
 
   return (
     <main>
@@ -192,56 +216,181 @@ export default function DownloadClient() {
           >
             {/* DOWNLOAD CARDS */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 18 }}>
-              {DOWNLOADS.map((d, i) => (
-                <a
-                  key={d.label}
-                  href={d.href}
-                  className="downloadCard reveal"
-                  style={{
-                    textDecoration: "none",
-                    color: "inherit",
-                    transition: "transform .25s ease, box-shadow .25s ease",
-                    animationDelay: `${i * 120}ms`,
-                  }}
-                >
-                  <div
-                    className="card"
+              {DOWNLOADS.map((d, i) => {
+                const disabled = "disabled" in d && d.disabled;
+
+                return (
+                  <a
+                    key={d.label}
+                    href={disabled ? undefined : d.href}
+                    aria-disabled={disabled ? true : undefined}
+                    className="downloadCard reveal"
+                    onClick={(e) => {
+                      if (disabled) e.preventDefault();
+                    }}
                     style={{
-                      padding: 26,
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
+                      textDecoration: "none",
+                      color: "inherit",
+                      transition: "transform .25s ease, box-shadow .25s ease",
+                      animationDelay: `${i * 120}ms`,
+                      cursor: disabled ? "not-allowed" : "pointer",
+                      opacity: disabled ? 0.6 : 1,
                     }}
                   >
-                    <div>
-                      <h3 className="h3" style={{ marginBottom: 6 }}>
-                        {d.label}
-                      </h3>
-                      <p className="muted" style={{ marginTop: 0 }}>
-                        {d.sub}
-                      </p>
-                    </div>
-
                     <div
+                      className="card"
                       style={{
-                        marginTop: 18,
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: 10,
-                        fontWeight: 900,
-                        color: "#fff",
-                        background: d.tone === "primary" ? "var(--brand)" : "var(--brand-700)",
-                        padding: "12px 18px",
-                        borderRadius: 999,
-                        width: "fit-content",
+                        padding: 26,
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
                       }}
                     >
-                      Download <span aria-hidden>→</span>
+                      <div>
+                        <h3 className="h3" style={{ marginBottom: 6 }}>
+                          {d.label}
+                        </h3>
+                        <p className="muted" style={{ marginTop: 0 }}>
+                          {d.sub}
+                        </p>
+                      </div>
+
+                      <div
+                        style={{
+                          marginTop: 18,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 10,
+                          fontWeight: 900,
+                          color: "#fff",
+                          background: disabled
+                            ? "rgba(13,32,48,.35)"
+                            : d.tone === "primary"
+                            ? "var(--brand)"
+                            : "var(--brand-700)",
+                          padding: "12px 18px",
+                          borderRadius: 999,
+                          width: "fit-content",
+                        }}
+                      >
+                        {disabled ? (
+                          "Coming soon"
+                        ) : (
+                          <>
+                            Download <span aria-hidden>→</span>
+                          </>
+                        )}
+                      </div>
                     </div>
+                  </a>
+                );
+              })}
+
+              {/* SMARTSCREEN NOTICE */}
+              <div
+                className="reveal"
+                style={{
+                  borderRadius: 16,
+                  border: "1px solid rgba(0,0,0,.10)",
+                  background: "rgba(13,32,48,.03)",
+                  padding: 16,
+                  lineHeight: 1.6,
+                }}
+              >
+                <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                  <div style={{ fontSize: 18, lineHeight: 1 }}>🛡️</div>
+                  <div>
+                    <strong style={{ color: "var(--ink)" }}>Windows SmartScreen notice</strong>
+                    <p className="muted" style={{ margin: "6px 0 0", fontSize: 14 }}>
+                      Because eKasiBooks is a newer desktop app, Windows may show a “protected your PC” message on first
+                      install. This is normal for new publishers.
+                    </p>
+
+                    <div style={{ marginTop: 10 }}>
+                      <div style={{ fontWeight: 900, fontSize: 13, color: "var(--ink)", opacity: 0.9 }}>
+                        If you see the warning:
+                      </div>
+                      <ol
+                        style={{
+                          margin: "6px 0 0",
+                          paddingLeft: 18,
+                          color: "var(--muted)",
+                          fontSize: 14,
+                        }}
+                      >
+                        <li>
+                          Click <strong style={{ color: "var(--ink)" }}>More info</strong>
+                        </li>
+                        <li>
+                          Click <strong style={{ color: "var(--ink)" }}>Run anyway</strong>
+                        </li>
+                      </ol>
+                    </div>
+
+                    <p className="muted" style={{ margin: "10px 0 0", fontSize: 13 }}>
+                      Always download from <strong style={{ color: "var(--ink)" }}>ekasibooks.co.za</strong>.
+                    </p>
                   </div>
-                </a>
-              ))}
+                </div>
+
+                {/* COLLAPSIBLE INSTALL GUIDE */}
+                <details className="installDetails" style={{ marginTop: 12 }}>
+                  <summary className="installSummary">
+                    How to install safely (step-by-step)
+                    <span className="chev" aria-hidden>
+                      ▾
+                    </span>
+                  </summary>
+
+                  <div className="installBody">
+                    <ol className="installList">
+                      <li>
+                        Download <strong>eKasiBooks-Setup-latest.exe</strong> from{" "}
+                        <strong>ekasibooks.co.za</strong>.
+                      </li>
+                      <li>
+                        If Windows shows <em>“Windows protected your PC”</em>, click{" "}
+                        <strong>More info</strong>.
+                      </li>
+                      <li>
+                        Click <strong>Run anyway</strong> to start the installer.
+                      </li>
+                      <li>
+                        Follow the installer prompts. After installation, you can open eKasiBooks from the Start Menu.
+                      </li>
+                    </ol>
+
+                    <div className="installNote">
+                      <strong>Tip:</strong> If your company uses managed PCs, your IT team can approve the installer for
+                      easier installs in future.
+                    </div>
+
+                    {SHOW_SMARTSCREEN_SCREENSHOTS ? (
+                      <div className="ssGrid">
+                        <div className="ssCard">
+                          <div className="ssTitle">Step 1: Click “More info”</div>
+                          <img
+                            src="/screenshots/smartscreen-more-info.png"
+                            alt='Windows SmartScreen: click "More info"'
+                            style={{ width: "100%", height: "auto", display: "block", borderRadius: 12 }}
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="ssCard">
+                          <div className="ssTitle">Step 2: Click “Run anyway”</div>
+                          <img
+                            src="/screenshots/smartscreen-run-anyway.png"
+                            alt='Windows SmartScreen: click "Run anyway"'
+                            style={{ width: "100%", height: "auto", display: "block", borderRadius: 12 }}
+                            loading="lazy"
+                          />
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                </details>
+              </div>
 
               <div className="reveal" style={{ paddingLeft: 2 }}>
                 <p className="muted" style={{ margin: 0, fontSize: 14, lineHeight: 1.6 }}>
@@ -272,7 +421,14 @@ export default function DownloadClient() {
                   </p>
                 </div>
 
-                <div style={{ borderRadius: 14, overflow: "hidden", border: "1px solid rgba(0,0,0,.08)", background: "#fff" }}>
+                <div
+                  style={{
+                    borderRadius: 14,
+                    overflow: "hidden",
+                    border: "1px solid rgba(0,0,0,.08)",
+                    background: "#fff",
+                  }}
+                >
                   <ZoomableImage src="/screenshots/app-dashboard.png" alt="eKasiBooks dashboard screenshot" />
                 </div>
 
@@ -362,14 +518,80 @@ export default function DownloadClient() {
             .downloadCard:hover { transform: translateY(-4px); }
             .card:hover { box-shadow: 0 18px 40px rgba(10,37,64,.12); }
 
+            .downloadCard[aria-disabled="true"]:hover { transform: none; }
+
             .thinCard { padding: 22px; border-radius: 16px; transition: transform .25s ease, box-shadow .25s ease; }
             .thinCard:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,37,64,.10); }
+
+            /* Collapsible install guide */
+            .installDetails{
+              border-top: 1px solid rgba(0,0,0,.08);
+              padding-top: 12px;
+            }
+            .installSummary{
+              list-style: none;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 12px;
+              cursor: pointer;
+              font-weight: 900;
+              color: var(--ink);
+              font-size: 14px;
+              user-select: none;
+            }
+            .installSummary::-webkit-details-marker { display: none; }
+            .installDetails[open] .chev { transform: rotate(180deg); }
+            .chev { transition: transform .15s ease; opacity: .75; }
+
+            .installBody{
+              margin-top: 10px;
+              background: rgba(255,255,255,.7);
+              border: 1px solid rgba(0,0,0,.08);
+              border-radius: 14px;
+              padding: 14px;
+            }
+            .installList{
+              margin: 0;
+              padding-left: 18px;
+              color: var(--muted);
+              line-height: 1.75;
+              font-size: 14px;
+            }
+            .installNote{
+              margin-top: 10px;
+              font-size: 13px;
+              color: var(--muted);
+              background: rgba(13,32,48,.03);
+              border: 1px solid rgba(0,0,0,.08);
+              padding: 10px 12px;
+              border-radius: 12px;
+            }
+            .ssGrid{
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 12px;
+              margin-top: 12px;
+            }
+            .ssCard{
+              border: 1px solid rgba(0,0,0,.08);
+              border-radius: 14px;
+              background: #fff;
+              padding: 10px;
+            }
+            .ssTitle{
+              font-size: 12px;
+              font-weight: 900;
+              color: rgba(13,32,48,.85);
+              margin: 0 0 8px;
+            }
 
             @keyframes zoomFade { from { opacity: 0; } to { opacity: 1; } }
 
             @media (max-width: 900px){
               .topGrid{ grid-template-columns: 1fr !important; }
               .trustGrid{ grid-template-columns: 1fr !important; }
+              .ssGrid{ grid-template-columns: 1fr !important; }
             }
           `}</style>
         </div>
