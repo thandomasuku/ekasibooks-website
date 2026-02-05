@@ -9,7 +9,7 @@ const DOWNLOADS = [
   {
     label: "💻 Download for Windows",
     sub: "Windows 10 / 11 · 64-bit",
-    href: "/downloads/desktop/eKasiBooks-Setup-latest.exe",
+    href: "/downloads/desktop/eKasiBooks-Setup.exe",
     tone: "primary",
   },
   {
