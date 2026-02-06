@@ -195,7 +195,7 @@ export default function DownloadClient() {
               marginInline: "auto",
             }}
           >
-            Install once. Work offline. Look professional.
+            Install once. Sign in. Work offline day-to-day.
           </p>
         </div>
       </section>
@@ -346,7 +346,7 @@ export default function DownloadClient() {
                   <div className="installBody">
                     <ol className="installList">
                       <li>
-                        Download <strong>eKasiBooks-Setup-latest.exe</strong> from{" "}
+                        Download <strong>eKasiBooks-Setup.exe</strong> from{" "}
                         <strong>ekasibooks.co.za</strong>.
                       </li>
                       <li>
@@ -394,8 +394,7 @@ export default function DownloadClient() {
 
               <div className="reveal" style={{ paddingLeft: 2 }}>
                 <p className="muted" style={{ margin: 0, fontSize: 14, lineHeight: 1.6 }}>
-                  Tip: After installing, you can work offline. Internet is only needed for updates, upgrades and sending
-                  emails.
+                  Tip: You’ll need internet to sign in. After that, you can work offline day-to-day. Internet is also needed for updates and upgrades.
                 </p>
               </div>
             </div>
@@ -433,7 +432,7 @@ export default function DownloadClient() {
                 </div>
 
                 <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 12 }}>
-                  {["Offline-first", "Fast search", "Branded PDFs"].map((t) => (
+                  {["Offline after sign-in", "Fast search", "Branded PDFs"].map((t) => (
                     <span
                       key={t}
                       style={{
@@ -465,9 +464,9 @@ export default function DownloadClient() {
             }}
           >
             <div className="thinCard">
-              <strong>Works offline</strong>
+              <strong>Works offline after sign-in</strong>
               <p className="muted" style={{ marginTop: 6 }}>
-                No internet required for daily use.
+                Sign in once, then quote and invoice without internet.
               </p>
             </div>
 
@@ -498,7 +497,7 @@ export default function DownloadClient() {
               <li>
                 <strong style={{ color: "var(--ink)" }}>macOS:</strong> Monterey (12) or later, 500 MB free space
               </li>
-              <li>Optional internet connection for updates</li>
+              <li>Internet connection required for sign-in, updates, and upgrades</li>
             </ul>
 
             <p className="muted" style={{ marginTop: 18, fontSize: 14 }}>

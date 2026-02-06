@@ -46,8 +46,9 @@ const topFeatures: FeatureCard[] = [
   },
   {
     icon: "🔌",
-    title: "Works Offline",
-    desc: "Create quotes and invoices without internet. Sync or update only when you want.",
+    title: "Offline after sign-in",
+    desc: "Sign in once, then create quotes and invoices even without internet. Updates happen when you're online.",
+
   },
 ];
 
@@ -305,7 +306,7 @@ export default function FeaturesClient() {
               fontSize: 14,
             }}
           >
-            <span>✅ Offline-first</span>
+            <span>✅ Works offline after sign-in</span>
             <span>✅ Branded PDFs</span>
             <span>✅ Backups included</span>
           </div>
@@ -398,7 +399,7 @@ export default function FeaturesClient() {
                       </p>
 
                       <div style={{ marginTop: 12, display: "flex", gap: 10, flexWrap: "wrap" }}>
-                        {["Fast & simple", "Built for SMBs", "Offline-first"].map((t) => (
+                        {["Fast & simple", "Built for SMBs", "Offline after sign-in"].map((t) => (
                           <span
                             key={t}
                             style={{
@@ -458,7 +459,7 @@ export default function FeaturesClient() {
                     Also included
                   </h2>
                   <p className="muted" style={{ margin: 0, lineHeight: 1.7 }}>
-                    Everything below is already part of the app — no “coming soon” surprises.
+                    These are the core tools you get in eKasiBooks today — designed to keep your billing simple and professional.
                   </p>
                 </div>
 

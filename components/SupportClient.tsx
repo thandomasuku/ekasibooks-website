@@ -131,7 +131,7 @@ export default function SupportClient() {
             }}
           >
             <span>✅ Mon–Fri 09:00–17:00 SAST</span>
-            <span>✅ Usually within 1 business day</span>
+            <span>✅ “We aim to reply within 1 business day”</span>
             <span>✅ Screenshots help faster</span>
           </div>
         </div>
@@ -275,7 +275,9 @@ export default function SupportClient() {
 
               <details>
                 <summary>Does eKasiBooks work offline?</summary>
-                <p>Yes. You can quote and invoice without internet.</p>
+                <p>
+                  Yes — once you’re signed in, you can quote and invoice without internet. You’ll need a connection to sign in again if you log out.
+                </p>
               </details>
 
               <details>
@@ -285,7 +287,7 @@ export default function SupportClient() {
 
               <details>
                 <summary>How do I backup?</summary>
-                <p>Use the built-in backup tool to export a safe copy.</p>
+                <p>Use the Export/Backup option in the app to save a copy of your data.</p>
               </details>
 
               <details>
@@ -315,9 +317,9 @@ export default function SupportClient() {
               />
 
               <div style={{ position: "relative" }}>
-                <h2 className="h3">Submit a ticket</h2>
+                <h2 className="h3">Send a support request</h2>
                 <p className="muted" style={{ marginTop: 10, marginBottom: 24 }}>
-                  Fill in the form and we’ll email you back.
+                  Fill in the form and we’ll get back to you by email.
                 </p>
 
                 <SupportTicketForm />

@@ -168,7 +168,7 @@ export default function HomeClient() {
           }}
         >
           <span className="announcement">
-            Now on Windows &amp; macOS <small>• Works offline • VAT-ready</small>
+            Now on Windows &amp; macOS <small>• Works offline after sign-in • VAT-ready</small>
           </span>
         </div>
 
@@ -234,7 +234,7 @@ export default function HomeClient() {
                 }}
               >
                 Create branded quotations, convert to invoices, track payments, and send statements in minutes —
-                offline-first and built for South African small businesses.
+                built for South African small businesses — and works offline after sign-in.
               </p>
 
               <div
@@ -369,7 +369,7 @@ export default function HomeClient() {
                   }}
                 >
                   <span style={{ color: "rgba(255,255,255,.9)", fontWeight: 900, fontSize: 12 }}>
-                    Desktop app • Offline-first
+                    Desktop app • Offline after sign-in
                   </span>
                   <a
                     href={links.features}
@@ -436,7 +436,7 @@ export default function HomeClient() {
           >
             {[
               { title: "Professional docs", icon: "🧾", desc: "Clean quotes & invoices with your logo and VAT details." },
-              { title: "Offline first", icon: "🔌", desc: "No internet? No problem. Sync/updates only when you want." },
+              { title: "Offline-ready", icon: "🔌", desc: "Sign in once, then quote and invoice even without internet." },
               { title: "Safe backups", icon: "💾", desc: "Export and restore anytime. CSV compatible." },
             ].map((b) => (
               <div
@@ -810,7 +810,9 @@ export default function HomeClient() {
             >
               <details>
                 <summary>Does it work offline?</summary>
-                <p>Yes — quoting &amp; invoicing works without internet.</p>
+                <p>
+                Yes — once you&#39;re signed in, you can quote and invoice without internet. You&#39;ll need a connection to sign in again if you log out.
+              </p>
               </details>
               <details>
                 <summary>Do you support VAT?</summary>

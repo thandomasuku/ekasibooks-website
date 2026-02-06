@@ -12,7 +12,7 @@ const compare: Feature[] = [
   { label: "Statements & Customers", trial: true, pro: true },
   { label: "PDF export", trial: true, pro: true },
   { label: "Unlimited documents", trial: false, pro: true },
-  { label: "Email from the app", trial: false, pro: true },
+  { label: "Email drafts (via your email client)", trial: false, pro: true },
   { label: "Priority support", trial: false, pro: true },
 ];
 
@@ -325,7 +325,7 @@ export default function PricingClient() {
           </div>
 
           <div className="reveal" style={{ display: "flex", justifyContent: "center", gap: 18, flexWrap: "wrap", marginTop: 18, color: "rgba(255,255,255,.85)", fontSize: 14 }}>
-            <span>✅ Offline-first</span>
+            <span>✅ Works offline after sign-in</span>
             <span>✅ Paystack subscription</span>
             <span>✅ Cancel anytime</span>
           </div>
@@ -353,7 +353,7 @@ export default function PricingClient() {
               items={[
                 "Quotes, Invoices, Statements",
                 "Customers & PDF export",
-                "Local data (offline-first)",
+                "Local data (offline-capable after sign-in)",
                 "Trial limit applies in the desktop app",
               ]}
               cta={
@@ -406,9 +406,9 @@ export default function PricingClient() {
               popular
               items={[
                 { strong: "Unlimited documents" },
-                "Email invoices & statements from the app",
+                "Email drafts for invoices & statements (via your email client)",
                 "Priority support",
-                "Instant activation via webhook",
+                "Activation updates automatically after payment",
               ]}
               cta={
                 <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
@@ -475,7 +475,7 @@ export default function PricingClient() {
                   </p>
 
                   <div style={{ marginTop: 12, display: "flex", gap: 10, flexWrap: "wrap" }}>
-                    {["Branded PDFs", "Unlimited docs", "Email from app"].map((t) => (
+                    {["Branded PDFs", "Unlimited docs", "Email drafts"].map((t) => (
                       <span
                         key={t}
                         style={{
@@ -607,7 +607,11 @@ export default function PricingClient() {
 
             <details>
               <summary>Do I need internet?</summary>
-              <p>The app works offline. Internet is only needed for login, upgrades, and emailing documents.</p>
+              <p>
+              You’ll need internet to sign in and manage upgrades. Once you’re signed in, you can work offline day-to-day.
+              When you choose to email a document, we open a draft in your email app so you can send it from your own account.
+            </p>
+
             </details>
 
             <details>
