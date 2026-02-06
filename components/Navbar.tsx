@@ -3,6 +3,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { links } from "@/lib/links";
 
 type NavItem = {
@@ -16,7 +17,7 @@ export default function Navbar() {
 
   const nav: NavItem[] = useMemo(
     () => [
-      { label: "HOME", href: "/" }, // correct + clean
+      { label: "HOME", href: "/" },
       { label: "FEATURES", href: links.features },
       { label: "PRICING", href: links.pricing },
       { label: "DOWNLOAD", href: links.download },
@@ -26,10 +27,7 @@ export default function Navbar() {
     []
   );
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
+  // Escape closes menu (allowed: event handler, not effect body calling setState unconditionally)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
@@ -38,7 +36,7 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // ✅ lock background scroll when mobile menu is open
+  // Lock background scroll when mobile menu is open (allowed: syncing external system)
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = open ? "hidden" : prev || "";
@@ -52,6 +50,9 @@ export default function Navbar() {
     return pathname?.startsWith(href);
   };
 
+  // Close menu only in direct user actions (avoids setState-in-effect lint rule)
+  const closeMenu = () => setOpen(false);
+
   return (
     <header
       style={{
@@ -62,7 +63,7 @@ export default function Navbar() {
         background: "rgba(255,255,255,.92)",
         backdropFilter: "blur(12px)",
         borderBottom: "1px solid rgba(0,0,0,.06)",
-        overflow: "hidden", // keep big logo without blowing up header height
+        overflow: "hidden",
       }}
     >
       {/* full-width bar */}
@@ -78,7 +79,7 @@ export default function Navbar() {
           minHeight: 84,
         }}
       >
-        {/* Mobile button (LEFT on mobile via CSS ordering) */}
+        {/* Mobile button */}
         <button
           className="navMobileBtn"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -117,15 +118,28 @@ export default function Navbar() {
           </span>
 
           {/* Screen-reader text fallback */}
-          <span style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>
+          <span
+            style={{
+              position: "absolute",
+              width: 1,
+              height: 1,
+              padding: 0,
+              margin: -1,
+              overflow: "hidden",
+              clip: "rect(0,0,0,0)",
+              whiteSpace: "nowrap",
+              border: 0,
+            }}
+          >
             {open ? "Close menu" : "Open menu"}
           </span>
         </button>
 
-        {/* Brand (always hard-left on desktop; sits after hamburger on mobile) */}
-        <a
+        {/* Brand */}
+        <Link
           href="/"
           className="navBrand"
+          onClick={closeMenu}
           style={{
             display: "flex",
             alignItems: "center",
@@ -149,12 +163,12 @@ export default function Navbar() {
               transform: "translateY(2px)",
             }}
           />
-        </a>
+        </Link>
 
         {/* Spacer pushes everything else to the right */}
         <div className="navSpacer" style={{ flex: 1 }} />
 
-        {/* Desktop nav (right side) */}
+        {/* Desktop nav */}
         <nav
           className="navDesktop"
           style={{
@@ -166,22 +180,40 @@ export default function Navbar() {
         >
           {nav.map((item) => {
             const active = isActive(item.href);
+            const commonStyle: React.CSSProperties = {
+              textDecoration: "none",
+              fontWeight: 950,
+              letterSpacing: ".08em",
+              fontSize: 12,
+              color: active ? "var(--brand-700)" : "rgba(13,32,48,.78)",
+              padding: "10px 10px",
+              borderRadius: 999,
+              background: active ? "rgba(33,93,99,.10)" : "transparent",
+              border: active ? "1px solid rgba(33,93,99,.18)" : "1px solid transparent",
+              transition: "transform .2s ease, background .2s ease, border .2s ease",
+            };
+
+            // Most of your nav items are internal routes; use Link for internal
+            if (item.href.startsWith("/")) {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  style={commonStyle}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "translateY(-1px)")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "translateY(0)")}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
+
+            // Fallback for any external hrefs
             return (
               <a
                 key={item.href}
                 href={item.href}
-                style={{
-                  textDecoration: "none",
-                  fontWeight: 950,
-                  letterSpacing: ".08em",
-                  fontSize: 12,
-                  color: active ? "var(--brand-700)" : "rgba(13,32,48,.78)",
-                  padding: "10px 10px",
-                  borderRadius: 999,
-                  background: active ? "rgba(33,93,99,.10)" : "transparent",
-                  border: active ? "1px solid rgba(33,93,99,.18)" : "1px solid transparent",
-                  transition: "transform .2s ease, background .2s ease, border .2s ease",
-                }}
+                style={commonStyle}
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-1px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
@@ -190,6 +222,7 @@ export default function Navbar() {
             );
           })}
 
+          {/* LOGIN (UNCHANGED SIZE/STYLES) */}
           <a
             href="https://portal.ekasibooks.co.za"
             target="_blank"
@@ -235,9 +268,10 @@ export default function Navbar() {
             {nav.map((item) => {
               const active = isActive(item.href);
               return (
-                <a
+                <Link
                   key={item.href}
                   href={item.href}
+                  onClick={closeMenu}
                   style={{
                     textDecoration: "none",
                     fontWeight: 950,
@@ -251,14 +285,16 @@ export default function Navbar() {
                   }}
                 >
                   {item.label}
-                </a>
+                </Link>
               );
             })}
 
+            {/* LOGIN (UNCHANGED SIZE/STYLES) */}
             <a
               href="https://portal.ekasibooks.co.za"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={closeMenu}
               style={{
                 textDecoration: "none",
                 fontWeight: 950,

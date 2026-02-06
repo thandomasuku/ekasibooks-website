@@ -6,6 +6,13 @@ import StickyCta from "@/components/StickyCta";
 
 type Status = "idle" | "success" | "error";
 
+type ContactApiResponse =
+  | { ok: true }
+  | {
+      ok?: false;
+      error?: string;
+    };
+
 export default function ContactClient() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
@@ -65,16 +72,18 @@ export default function ContactClient() {
         }),
       });
 
-      const data: any = await res.json().catch(() => ({}));
+      // ✅ No `any`: attempt JSON, otherwise fall back to {}
+      const data: ContactApiResponse = await res.json().catch(() => ({} as ContactApiResponse));
 
       if (!res.ok || data?.ok !== true) {
         console.error("Contact API error:", res.status, data);
-        throw new Error(data?.error || `Request failed (${res.status})`);
+        const apiError = "error" in data ? data.error : undefined;
+        throw new Error(apiError || `Request failed (${res.status})`);
       }
 
       setStatus("success");
       formEl.reset();
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(err);
       setStatus("error");
       setErrorMsg(err instanceof Error ? err.message : "Failed to send message.");
@@ -88,14 +97,14 @@ export default function ContactClient() {
       {/* HERO */}
       <section
         style={{
-          minHeight: 420,
+          minHeight: 340, // ↓ was 420
           display: "flex",
           alignItems: "center",
           background:
             "radial-gradient(1000px 600px at 10% 0%, rgba(255,255,255,.16), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
         }}
       >
-        <div className="container reveal" style={{ paddingTop: 72, paddingBottom: 72 }}>
+        <div className="container reveal" style={{ paddingTop: 56, paddingBottom: 56 }}>
           <h1 className="h1 center" style={{ color: "#fff" }}>
             Let’s talk
           </h1>
@@ -103,8 +112,9 @@ export default function ContactClient() {
             className="center"
             style={{
               color: "#e7f3f4",
-              marginTop: 16,
-              fontSize: 18,
+              marginTop: 12, // ↓ was 16
+              fontSize: 16, // ↓ was 18
+              lineHeight: 1.65,
               maxWidth: 720,
               marginInline: "auto",
             }}
@@ -115,9 +125,9 @@ export default function ContactClient() {
       </section>
 
       {/* CONTENT */}
-      <section className="section" style={{ paddingTop: 72, paddingBottom: 96 }}>
+      <section className="section" style={{ paddingTop: 56, paddingBottom: 72 }}>
         <div className="container" style={{ maxWidth: 1280 }}>
-          <p className="center muted reveal" style={{ marginBottom: 48 }}>
+          <p className="center muted reveal" style={{ marginBottom: 32 }}>
             We usually reply within one business day.
           </p>
 
@@ -198,7 +208,6 @@ export default function ContactClient() {
                 <h3>Prefer a quick walkthrough?</h3>
                 <p className="muted">Book a short demo and see how eKasiBooks fits your business.</p>
 
-                {/* ✅ was /contact (loop). Now jumps to the form */}
                 <a href="#contact-form" className="demoBtn">
                   Book a demo
                 </a>
@@ -211,22 +220,24 @@ export default function ContactClient() {
             .contactGrid {
               display: grid;
               grid-template-columns: 1.1fr 0.9fr;
-              gap: 64px;
+              gap: 40px; /* ↓ was 64px */
               align-items: start;
             }
 
             /* Scope form styling so it doesn't break navbar/back-to-top buttons */
             .contactForm {
               display: grid;
-              gap: 18px;
-              margin-top: 20px;
+              gap: 14px; /* ↓ was 18px */
+              margin-top: 16px; /* ↓ was 20px */
             }
 
             .contactForm input,
             .contactForm textarea {
-              padding: 16px 18px;
-              border-radius: 16px;
+              padding: 13px 16px; /* ↓ was 16px 18px */
+              border-radius: 14px; /* ↓ was 16px */
               border: 1px solid var(--ring);
+              font-size: 14px;
+              line-height: 1.5;
             }
 
             .contactForm input:focus,
@@ -237,10 +248,11 @@ export default function ContactClient() {
             }
 
             .contactForm button {
-              margin-top: 12px;
+              margin-top: 10px; /* ↓ was 12px */
               border-radius: 999px;
-              padding: 16px 22px;
+              padding: 12px 18px; /* ↓ was 16px 22px */
               font-weight: 900;
+              font-size: 14px;
               background: var(--brand);
               color: #fff;
               border: none;
@@ -260,12 +272,12 @@ export default function ContactClient() {
             .grid3 {
               display: grid;
               grid-template-columns: repeat(3, 1fr);
-              gap: 20px;
-              margin-top: 24px;
+              gap: 18px; /* ↓ was 20px */
+              margin-top: 18px; /* ↓ was 24px */
             }
 
             .thinCard {
-              padding: 24px;
+              padding: 20px; /* ↓ was 24px */
               border-radius: 16px;
               transition: transform .25s ease, box-shadow .25s ease;
               word-break: break-word;
@@ -274,7 +286,7 @@ export default function ContactClient() {
 
             .iconCard .icon {
               display: inline-block;
-              font-size: 22px;
+              font-size: 20px; /* ↓ was 22px */
               margin-bottom: 6px;
               transition: transform .3s ease;
             }
@@ -290,20 +302,24 @@ export default function ContactClient() {
             }
 
             .demoCta {
-              margin-top: 48px;
-              padding: 32px;
-              border-radius: 20px;
+              margin-top: 32px; /* ↓ was 48px */
+              padding: 22px; /* ↓ was 32px */
+              border-radius: 18px; /* ↓ was 20px */
               background: linear-gradient(135deg, rgba(33,93,99,.08), rgba(33,93,99,.04));
             }
 
+            .demoCta h3 { margin: 0 0 6px; }
+            .demoCta p { margin: 0; line-height: 1.6; }
+
             .demoBtn {
               display: inline-block;
-              margin-top: 12px;
-              padding: 14px 20px;
+              margin-top: 10px; /* ↓ was 12px */
+              padding: 12px 18px; /* ↓ was 14px 20px */
               border-radius: 999px;
               background: var(--brand);
               color: #fff;
               font-weight: 900;
+              font-size: 14px;
               text-decoration: none;
             }
 
@@ -320,7 +336,7 @@ export default function ContactClient() {
             }
 
             @media (max-width: 992px){
-              .contactGrid { grid-template-columns: 1fr; gap: 32px; }
+              .contactGrid { grid-template-columns: 1fr; gap: 28px; }
               .grid3 { grid-template-columns: 1fr; }
             }
           `}</style>

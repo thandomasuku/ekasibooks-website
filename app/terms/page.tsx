@@ -10,14 +10,14 @@ export default function TermsPage() {
       {/* HERO */}
       <section
         style={{
-          minHeight: 320,
+          minHeight: 280, // ↓ was 320
           display: "flex",
           alignItems: "center",
           background:
             "radial-gradient(900px 500px at 10% 0%, rgba(255,255,255,.14), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
         }}
       >
-        <div className="container" style={{ paddingTop: 72, paddingBottom: 72 }}>
+        <div className="container" style={{ paddingTop: 56, paddingBottom: 56 }}>
           <h1 className="h1 center" style={{ color: "#fff" }}>
             Terms &amp; Conditions
           </h1>
@@ -25,8 +25,9 @@ export default function TermsPage() {
             className="center"
             style={{
               color: "#e7f3f4",
-              marginTop: 14,
+              marginTop: 12, // ↓ was 14
               fontSize: 16,
+              lineHeight: 1.65,
               maxWidth: 860,
               marginInline: "auto",
             }}
@@ -34,16 +35,16 @@ export default function TermsPage() {
             These terms govern your use of eKasiBooks, including the website, desktop app, and subscription services.
           </p>
 
-          <p className="center" style={{ color: "rgba(255,255,255,.85)", marginTop: 12, fontWeight: 800 }}>
+          <p className="center" style={{ color: "rgba(255,255,255,.85)", marginTop: 10, fontWeight: 800 }}>
             Last updated: {updated}
           </p>
         </div>
       </section>
 
       {/* CONTENT */}
-      <section className="section" style={{ paddingTop: 72, paddingBottom: 96 }}>
+      <section className="section" style={{ paddingTop: 56, paddingBottom: 72 }}>
         <div className="container" style={{ maxWidth: 980 }}>
-          <div className="card" style={{ padding: 40 }}>
+          <div className="card" style={{ padding: 32 }}>
             <h2 className="h2" style={{ marginTop: 0 }}>
               1. About eKasiBooks
             </h2>
@@ -52,7 +53,7 @@ export default function TermsPage() {
               downloads, and access to subscription management.
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">2. Eligibility</h3>
             <p className="muted" style={{ marginTop: 10, lineHeight: 1.75 }}>
@@ -60,7 +61,7 @@ export default function TermsPage() {
               on behalf of a business, you confirm you have authority to bind that business to these terms.
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">3. Licence and acceptable use</h3>
             <ul style={{ marginTop: 10, paddingLeft: 18, lineHeight: 1.85 }}>
@@ -73,12 +74,12 @@ export default function TermsPage() {
                 permitted by law or with written permission.
               </li>
               <li>
-                <strong>Abuse:</strong> You may not misuse the service (e.g., attempt unauthorized access, interfere with
-                systems, or use it for unlawful activities).
+                <strong>Abuse:</strong> You may not misuse the service (e.g., attempt unauthorized access, interfere
+                with systems, or use it for unlawful activities).
               </li>
             </ul>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">4. Trial and Pro subscription</h3>
             <ul style={{ marginTop: 10, paddingLeft: 18, lineHeight: 1.85 }}>
@@ -99,7 +100,7 @@ export default function TermsPage() {
               </li>
             </ul>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">5. Your data &amp; backups</h3>
             <p className="muted" style={{ marginTop: 10, lineHeight: 1.75 }}>
@@ -108,7 +109,7 @@ export default function TermsPage() {
               copies in a safe place.
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">6. Support</h3>
             <p className="muted" style={{ marginTop: 10, lineHeight: 1.75 }}>
@@ -116,7 +117,7 @@ export default function TermsPage() {
               version and screenshots where possible.
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">7. Updates and changes</h3>
             <p className="muted" style={{ marginTop: 10, lineHeight: 1.75 }}>
@@ -125,7 +126,7 @@ export default function TermsPage() {
               terms.
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">8. Disclaimer</h3>
             <p className="muted" style={{ marginTop: 10, lineHeight: 1.75 }}>
@@ -134,7 +135,7 @@ export default function TermsPage() {
               outputs (including tax/VAT figures) before submission or use.
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">9. Limitation of liability</h3>
             <p className="muted" style={{ marginTop: 10, lineHeight: 1.75 }}>
@@ -143,7 +144,7 @@ export default function TermsPage() {
               goodwill arising from your use of the product.
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">10. Termination</h3>
             <p className="muted" style={{ marginTop: 10, lineHeight: 1.75 }}>
@@ -151,14 +152,14 @@ export default function TermsPage() {
               users. You may stop using eKasiBooks at any time.
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">11. Governing law</h3>
             <p className="muted" style={{ marginTop: 10, lineHeight: 1.75 }}>
               These terms are governed by the laws of South Africa (unless otherwise required by applicable law).
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">12. Contact</h3>
             <p className="muted" style={{ marginTop: 10, lineHeight: 1.75 }}>
@@ -173,12 +174,12 @@ export default function TermsPage() {
               page.
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <div
               className="thinCard"
               style={{
-                padding: 18,
+                padding: 16, // ↓ was 18
                 borderRadius: 16,
                 background: "var(--card)",
                 border: "1px solid var(--ring)",

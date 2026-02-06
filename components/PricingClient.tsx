@@ -58,12 +58,7 @@ function ZoomableImage({
           width: "100%",
         }}
       >
-        <img
-          src={src}
-          alt={alt}
-          loading="lazy"
-          style={{ width: "100%", height: "auto", display: "block" }}
-        />
+        <img src={src} alt={alt} loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
       </button>
 
       {open ? (
@@ -79,7 +74,7 @@ function ZoomableImage({
             background: "rgba(0,0,0,.72)",
             display: "grid",
             placeItems: "center",
-            padding: 16,
+            padding: 12, // ↓ was 16
             cursor: "zoom-out",
             animation: "zoomFade .14s ease-out",
           }}
@@ -87,11 +82,11 @@ function ZoomableImage({
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              maxWidth: 1200,
-              width: "min(1200px, 96vw)",
+              maxWidth: 1100, // ↓ was 1200
+              width: "min(1100px, 96vw)", // ↓ was 1200
               maxHeight: "92vh",
               background: "#fff",
-              borderRadius: 16,
+              borderRadius: 14, // ↓ was 16
               overflow: "hidden",
               boxShadow: "0 18px 70px rgba(0,0,0,.35)",
               border: "1px solid rgba(255,255,255,.10)",
@@ -105,14 +100,12 @@ function ZoomableImage({
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                padding: 10,
+                padding: 8, // ↓ was 10
                 borderBottom: "1px solid rgba(0,0,0,.06)",
                 background: "#fff",
               }}
             >
-              <span style={{ fontWeight: 900, fontSize: 13, color: "#0d2030", opacity: 0.85 }}>
-                {hint}
-              </span>
+              <span style={{ fontWeight: 900, fontSize: 12.5, color: "#0d2030", opacity: 0.85 }}>{hint}</span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -121,7 +114,7 @@ function ZoomableImage({
                   border: "1px solid rgba(0,0,0,.10)",
                   background: "#fff",
                   borderRadius: 10,
-                  padding: "8px 10px",
+                  padding: "7px 9px", // ↓ was 8px 10px
                   fontWeight: 900,
                   cursor: "pointer",
                 }}
@@ -167,7 +160,7 @@ function PricingCard({
         borderRadius: 16,
         border: "1px solid rgba(0,0,0,.06)",
         boxShadow: popular ? "0 16px 46px rgba(10,37,64,.14)" : "0 10px 32px rgba(10,37,64,.10)",
-        padding: 24,
+        padding: 20, // ↓ was 24
         display: "flex",
         flexDirection: "column",
         height: "100%",
@@ -175,7 +168,7 @@ function PricingCard({
         transition: "transform .25s ease, box-shadow .25s ease",
       }}
     >
-      <div style={{ minHeight: 34, display: "flex", alignItems: "center", marginBottom: 10 }}>
+      <div style={{ minHeight: 30, display: "flex", alignItems: "center", marginBottom: 8 }}>
         {badge ? (
           <span
             style={{
@@ -184,7 +177,7 @@ function PricingCard({
               gap: 8,
               background: popular ? "var(--brand-700)" : "var(--brand)",
               color: "#fff",
-              fontSize: 12,
+              fontSize: 11.5, // ↓ was 12
               fontWeight: 900,
               borderRadius: 999,
               padding: "6px 10px",
@@ -198,26 +191,28 @@ function PricingCard({
         )}
       </div>
 
-      <h3 className="h3" style={{ marginBottom: 10 }}>
+      <h3 className="h3" style={{ marginBottom: 8 }}>
         {title}
       </h3>
 
-      <p style={{ fontSize: 44, fontWeight: 950, color: "var(--brand)", margin: "0 0 2px" }}>{price}</p>
-      <p className="muted" style={{ fontSize: 14, margin: "0 0 10px" }}>
+      <p style={{ fontSize: 40, fontWeight: 950, color: "var(--brand)", margin: "0 0 2px" }}>{price}</p>
+      {/* ↓ was 44 */}
+
+      <p className="muted" style={{ fontSize: 13.5, margin: "0 0 10px" }}>
         {sub}
       </p>
 
-      <ul style={{ margin: "10px 0 0", paddingLeft: 18 }}>
+      <ul style={{ margin: "10px 0 0", paddingLeft: 18, lineHeight: 1.65 }}>
         {items.map((it, idx) => {
           if (typeof it === "string") {
             return (
-              <li key={idx} style={{ margin: ".25rem 0" }}>
+              <li key={idx} style={{ margin: ".22rem 0" }}>
                 {it}
               </li>
             );
           }
           return (
-            <li key={idx} style={{ margin: ".25rem 0" }}>
+            <li key={idx} style={{ margin: ".22rem 0" }}>
               <strong>{it.strong}</strong>
               {it.rest ? ` ${it.rest}` : ""}
             </li>
@@ -225,10 +220,11 @@ function PricingCard({
         })}
       </ul>
 
-      <div style={{ marginTop: "auto", paddingTop: 18 }}>{cta}</div>
+      <div style={{ marginTop: "auto", paddingTop: 14 }}>{cta}</div>
+      {/* ↓ was 18 */}
 
       {note ? (
-        <p className="muted" style={{ marginTop: 10, fontSize: 13, marginBottom: 0 }}>
+        <p className="muted" style={{ marginTop: 10, fontSize: 12.5, marginBottom: 0 }}>
           {note}
         </p>
       ) : null}
@@ -254,22 +250,22 @@ export default function PricingClient() {
       {/* ✅ HERO SECTION */}
       <section
         style={{
-          minHeight: 420,
+          minHeight: 360, // ↓ was 420
           display: "flex",
           alignItems: "center",
           background:
             "radial-gradient(1000px 600px at 10% 0%, rgba(255,255,255,.14), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
         }}
       >
-        <div className="container reveal" style={{ paddingTop: 72, paddingBottom: 72 }}>
+        <div className="container reveal" style={{ paddingTop: 56, paddingBottom: 56 }}>
           <h1
             className="h1 center"
             style={{
               color: "#fff",
-              fontSize: 56,
-              lineHeight: 1.05,
+              fontSize: 48, // ↓ was 56
+              lineHeight: 1.06,
               letterSpacing: "-0.02em",
-              marginBottom: 14,
+              marginBottom: 12, // ↓ was 14
             }}
           >
             Simple pricing that grows with your business
@@ -280,26 +276,36 @@ export default function PricingClient() {
             style={{
               color: "#e7f3f4",
               marginTop: 0,
-              fontSize: 18,
-              maxWidth: 780,
+              fontSize: 16, // ↓ was 18
+              maxWidth: 760, // ↓ was 780
               marginInline: "auto",
+              lineHeight: 1.65,
             }}
           >
             Start on Trial (document-limit based in the desktop app). Upgrade anytime to Pro for unlimited usage.
           </p>
 
-          <div className="reveal" style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap", marginTop: 26 }}>
+          <div
+            className="reveal"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 12, // ↓ was 14
+              flexWrap: "wrap",
+              marginTop: 20, // ↓ was 26
+            }}
+          >
             <a
               href={portalBilling}
               style={{
                 borderRadius: 999,
-                padding: "14px 20px",
+                padding: "11px 18px", // ↓ was 14px 20px
                 fontWeight: 950,
                 textDecoration: "none",
                 background: "#fff",
                 color: "var(--brand-700)",
                 border: "1px solid rgba(255,255,255,.25)",
-                boxShadow: "0 12px 28px rgba(0,0,0,.18)",
+                boxShadow: "0 10px 22px rgba(0,0,0,.18)", // slightly tighter
                 transition: "transform .2s ease, box-shadow .2s ease",
               }}
             >
@@ -310,7 +316,7 @@ export default function PricingClient() {
               href={links.download}
               style={{
                 borderRadius: 999,
-                padding: "14px 20px",
+                padding: "11px 18px", // ↓ was 14px 20px
                 fontWeight: 950,
                 textDecoration: "none",
                 background: "rgba(255,255,255,.12)",
@@ -324,7 +330,18 @@ export default function PricingClient() {
             </a>
           </div>
 
-          <div className="reveal" style={{ display: "flex", justifyContent: "center", gap: 18, flexWrap: "wrap", marginTop: 18, color: "rgba(255,255,255,.85)", fontSize: 14 }}>
+          <div
+            className="reveal"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 14, // ↓ was 18
+              flexWrap: "wrap",
+              marginTop: 14, // ↓ was 18
+              color: "rgba(255,255,255,.85)",
+              fontSize: 13, // ↓ was 14
+            }}
+          >
             <span>✅ Works offline after sign-in</span>
             <span>✅ Paystack subscription</span>
             <span>✅ Cancel anytime</span>
@@ -333,7 +350,7 @@ export default function PricingClient() {
       </section>
 
       {/* ✅ REST OF PAGE CONTENT */}
-      <section className="section" style={{ paddingTop: 72, paddingBottom: 72 }}>
+      <section className="section" style={{ paddingTop: 56, paddingBottom: 56 }}>
         <div className="container">
           {/* Cards */}
           <div
@@ -341,9 +358,9 @@ export default function PricingClient() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-              gap: 20,
+              gap: 16, // ↓ was 20
               alignItems: "stretch",
-              marginTop: 28,
+              marginTop: 22, // ↓ was 28
             }}
           >
             <PricingCard
@@ -357,7 +374,7 @@ export default function PricingClient() {
                 "Trial limit applies in the desktop app",
               ]}
               cta={
-                <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                   <a
                     href={portalRegister}
                     style={{
@@ -369,7 +386,7 @@ export default function PricingClient() {
                       borderRadius: 12,
                       background: "var(--brand)",
                       color: "#fff",
-                      padding: "12px 16px",
+                      padding: "10px 14px", // ↓ was 12px 16px
                       transition: "transform .2s ease, box-shadow .2s ease",
                     }}
                   >
@@ -388,7 +405,7 @@ export default function PricingClient() {
                       border: "1px solid #d9e4f2",
                       background: "#fff",
                       color: "#0d2030",
-                      padding: "12px 16px",
+                      padding: "10px 14px", // ↓ was 12px 16px
                       transition: "transform .2s ease, box-shadow .2s ease",
                     }}
                   >
@@ -411,7 +428,7 @@ export default function PricingClient() {
                 "Activation updates automatically after payment",
               ]}
               cta={
-                <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                   <a
                     href={portalBilling}
                     style={{
@@ -423,7 +440,7 @@ export default function PricingClient() {
                       borderRadius: 12,
                       background: "var(--brand)",
                       color: "#fff",
-                      padding: "12px 16px",
+                      padding: "10px 14px", // ↓ was 12px 16px
                       transition: "transform .2s ease, box-shadow .2s ease",
                     }}
                   >
@@ -441,7 +458,7 @@ export default function PricingClient() {
                       borderRadius: 12,
                       background: "var(--brand-700)",
                       color: "#fff",
-                      padding: "12px 16px",
+                      padding: "10px 14px", // ↓ was 12px 16px
                       transition: "transform .2s ease, box-shadow .2s ease",
                     }}
                   >
@@ -454,7 +471,7 @@ export default function PricingClient() {
           </div>
 
           {/* Proof / value screenshot (zoomable) */}
-          <div className="section reveal" style={{ paddingTop: 40, paddingBottom: 0 }}>
+          <div className="section reveal" style={{ paddingTop: 32, paddingBottom: 0 }}>
             <div
               className="proofCard"
               style={{
@@ -462,24 +479,32 @@ export default function PricingClient() {
                 borderRadius: 16,
                 border: "1px solid rgba(0,0,0,.06)",
                 boxShadow: "0 10px 32px rgba(10,37,64,.10)",
-                padding: 22,
+                padding: 18, // ↓ was 22
               }}
             >
-              <div className="proofGrid" style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 18, alignItems: "center" }}>
+              <div
+                className="proofGrid"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1.1fr",
+                  gap: 16, // ↓ was 18
+                  alignItems: "center",
+                }}
+              >
                 <div>
                   <h3 className="h3" style={{ marginBottom: 8 }}>
                     What you get with Pro
                   </h3>
-                  <p className="muted" style={{ margin: 0, lineHeight: 1.7 }}>
+                  <p className="muted" style={{ margin: 0, lineHeight: 1.6 }}>
                     Pro unlocks unlimited documents and premium tools — and your PDFs look professional from day one.
                   </p>
 
-                  <div style={{ marginTop: 12, display: "flex", gap: 10, flexWrap: "wrap" }}>
+                  <div style={{ marginTop: 10, display: "flex", gap: 10, flexWrap: "wrap" }}>
                     {["Branded PDFs", "Unlimited docs", "Email drafts"].map((t) => (
                       <span
                         key={t}
                         style={{
-                          fontSize: 12,
+                          fontSize: 11.5, // ↓ was 12
                           padding: "6px 10px",
                           borderRadius: 999,
                           border: "1px solid rgba(0,0,0,.08)",
@@ -494,33 +519,45 @@ export default function PricingClient() {
                   </div>
                 </div>
 
-                <div style={{ borderRadius: 14, overflow: "hidden", border: "1px solid rgba(0,0,0,.08)", background: "#fff" }}>
-                  <ZoomableImage src="/screenshots/invoice-preview.png" alt="Branded invoice PDF preview generated by eKasiBooks" hint="Click to zoom • Esc to close" />
+                <div
+                  style={{
+                    borderRadius: 14,
+                    overflow: "hidden",
+                    border: "1px solid rgba(0,0,0,.08)",
+                    background: "#fff",
+                  }}
+                >
+                  <ZoomableImage
+                    src="/screenshots/invoice-preview.png"
+                    alt="Branded invoice PDF preview generated by eKasiBooks"
+                    hint="Click to zoom • Esc to close"
+                  />
                 </div>
               </div>
             </div>
           </div>
 
           {/* How billing works */}
-          <div className="section reveal" style={{ paddingTop: 40, paddingBottom: 0 }}>
+          <div className="section reveal" style={{ paddingTop: 32, paddingBottom: 0 }}>
             <div
               className="billCard"
               style={{
                 background: "var(--card)",
                 borderRadius: 16,
-                padding: 24,
+                padding: 20, // ↓ was 24
                 border: "1px solid var(--ring)",
                 boxShadow: "0 8px 28px rgba(10,37,64,.08)",
                 transition: "transform .25s ease, box-shadow .25s ease",
               }}
             >
-              <div className="billingGrid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+              <div className="billingGrid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                 <div>
                   <h3 className="h3" style={{ marginBottom: 8 }}>
                     How billing works
                   </h3>
                   <p className="muted" style={{ margin: 0, lineHeight: 1.6 }}>
-                    Billing is managed in your account dashboard. Paystack subscription activates Pro automatically after payment.
+                    Billing is managed in your account dashboard. Paystack subscription activates Pro automatically after
+                    payment.
                   </p>
                 </div>
                 <div>
@@ -540,14 +577,14 @@ export default function PricingClient() {
           </div>
 
           {/* Compare plans */}
-          <div className="section reveal" style={{ paddingTop: 48 }}>
+          <div className="section reveal" style={{ paddingTop: 38 }}>
             <h2 className="h2">Compare plans</h2>
 
             <div
               role="region"
               aria-label="Plan comparison table"
               style={{
-                marginTop: 12,
+                marginTop: 10,
                 overflow: "auto",
                 borderRadius: 12,
                 border: "1px solid #e7eef7",
@@ -565,7 +602,7 @@ export default function PricingClient() {
                           textAlign: "left",
                           fontWeight: 950,
                           color: "var(--ink)",
-                          padding: "12px 14px",
+                          padding: "11px 13px", // ↓ was 12px 14px
                           borderBottom: "1px solid #e7eef7",
                         }}
                       >
@@ -577,12 +614,16 @@ export default function PricingClient() {
                 <tbody>
                   {compare.map((row) => (
                     <tr key={row.label}>
-                      <td style={{ padding: "12px 14px", borderBottom: "1px solid #e7eef7" }}>{row.label}</td>
-                      <td style={{ padding: "12px 14px", borderBottom: "1px solid #e7eef7" }}>
-                        <span style={{ fontWeight: 950, color: row.trial ? "#11a36d" : "#b02e2e" }}>{row.trial ? "✓" : "✕"}</span>
+                      <td style={{ padding: "11px 13px", borderBottom: "1px solid #e7eef7" }}>{row.label}</td>
+                      <td style={{ padding: "11px 13px", borderBottom: "1px solid #e7eef7" }}>
+                        <span style={{ fontWeight: 950, color: row.trial ? "#11a36d" : "#b02e2e" }}>
+                          {row.trial ? "✓" : "✕"}
+                        </span>
                       </td>
-                      <td style={{ padding: "12px 14px", borderBottom: "1px solid #e7eef7" }}>
-                        <span style={{ fontWeight: 950, color: row.pro ? "#11a36d" : "#b02e2e" }}>{row.pro ? "✓" : "✕"}</span>
+                      <td style={{ padding: "11px 13px", borderBottom: "1px solid #e7eef7" }}>
+                        <span style={{ fontWeight: 950, color: row.pro ? "#11a36d" : "#b02e2e" }}>
+                          {row.pro ? "✓" : "✕"}
+                        </span>
                       </td>
                     </tr>
                   ))}
@@ -592,7 +633,7 @@ export default function PricingClient() {
           </div>
 
           {/* FAQ */}
-          <div className="section reveal" style={{ paddingTop: 48 }}>
+          <div className="section reveal" style={{ paddingTop: 38 }}>
             <h2 className="h2">Pricing FAQ</h2>
 
             <details>
@@ -608,10 +649,9 @@ export default function PricingClient() {
             <details>
               <summary>Do I need internet?</summary>
               <p>
-              You’ll need internet to sign in and manage upgrades. Once you’re signed in, you can work offline day-to-day.
-              When you choose to email a document, we open a draft in your email app so you can send it from your own account.
-            </p>
-
+                You’ll need internet to sign in and manage upgrades. Once you’re signed in, you can work offline day-to-day.
+                When you choose to email a document, we open a draft in your email app so you can send it from your own account.
+              </p>
             </details>
 
             <details>
@@ -621,13 +661,13 @@ export default function PricingClient() {
           </div>
 
           {/* Final CTA */}
-          <div className="section reveal" style={{ paddingTop: 48 }}>
+          <div className="section reveal" style={{ paddingTop: 38 }}>
             <div
               className="billCard"
               style={{
                 background: "var(--card)",
                 borderRadius: 16,
-                padding: 24,
+                padding: 20, // ↓ was 24
                 border: "1px solid var(--ring)",
                 boxShadow: "0 8px 28px rgba(10,37,64,.08)",
                 textAlign: "center",
@@ -636,12 +676,12 @@ export default function PricingClient() {
             >
               <h3 className="h3">Ready to get started?</h3>
 
-              <div style={{ display: "flex", justifyContent: "center", gap: 12, marginTop: 12, flexWrap: "wrap" }}>
+              <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
                 <a
                   href={links.download}
                   style={{
                     borderRadius: 999,
-                    padding: "12px 22px",
+                    padding: "10px 18px", // ↓ was 12px 22px
                     border: "1px solid #d9e4f2",
                     background: "#fff",
                     color: "#0d2030",
@@ -656,7 +696,7 @@ export default function PricingClient() {
                   href={portalBilling}
                   style={{
                     borderRadius: 999,
-                    padding: "12px 22px",
+                    padding: "10px 18px", // ↓ was 12px 22px
                     border: "1px solid #d9e4f2",
                     background: "#fff",
                     color: "#0d2030",
@@ -682,7 +722,7 @@ export default function PricingClient() {
             .billCard:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(10,37,64,.12); }
 
             details {
-              margin-top: 14px;
+              margin-top: 12px; /* ↓ was 14 */
               border: 1px solid rgba(0,0,0,.06);
               border-radius: 12px;
               background: #fff;
@@ -690,7 +730,7 @@ export default function PricingClient() {
               box-shadow: 0 8px 22px rgba(10,37,64,.06);
             }
             details:first-of-type { margin-top: 0; }
-            details > summary { padding: 14px 16px; cursor: pointer; font-weight: 900; list-style: none; }
+            details > summary { padding: 12px 14px; cursor: pointer; font-weight: 900; list-style: none; } /* ↓ was 14px 16px */
             details > summary::-webkit-details-marker { display: none; }
             details > summary:before {
               content: "▸";
@@ -702,7 +742,7 @@ export default function PricingClient() {
               font-weight: 950;
             }
             details[open] > summary:before { transform: rotate(90deg) translateY(-1px); }
-            details p { margin: 0; padding: 0 16px 16px; }
+            details p { margin: 0; padding: 0 14px 14px; } /* ↓ was 0 16px 16px */
 
             @keyframes zoomFade { from { opacity: 0; } to { opacity: 1; } }
 
@@ -710,7 +750,11 @@ export default function PricingClient() {
               .pricingGrid{ grid-template-columns: 1fr !important; }
               .billingGrid{ grid-template-columns: 1fr !important; }
               .proofGrid{ grid-template-columns: 1fr !important; }
-              .container h1{ font-size: 40px !important; }
+              .container h1{ font-size: 34px !important; } /* ↓ was 40 */
+            }
+
+            @media (max-width: 600px){
+              .container h1{ font-size: 30px !important; }
             }
           `}</style>
         </div>

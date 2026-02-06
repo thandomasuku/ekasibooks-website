@@ -63,12 +63,7 @@ function ZoomableImage({
           width: "100%",
         }}
       >
-        <img
-          src={src}
-          alt={alt}
-          loading="lazy"
-          style={{ width: "100%", height: "auto", display: "block" }}
-        />
+        <img src={src} alt={alt} loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
       </button>
 
       {open ? (
@@ -83,7 +78,7 @@ function ZoomableImage({
             background: "rgba(0,0,0,.72)",
             display: "grid",
             placeItems: "center",
-            padding: 16,
+            padding: 12, // ↓ was 16
             cursor: "zoom-out",
             animation: "zoomFade .14s ease-out",
           }}
@@ -91,11 +86,11 @@ function ZoomableImage({
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              maxWidth: 1200,
-              width: "min(1200px, 96vw)",
+              maxWidth: 1100, // ↓ was 1200
+              width: "min(1100px, 96vw)", // ↓ was 1200
               maxHeight: "92vh",
               background: "#fff",
-              borderRadius: 16,
+              borderRadius: 14, // ↓ was 16
               overflow: "hidden",
               boxShadow: "0 18px 70px rgba(0,0,0,.35)",
               border: "1px solid rgba(255,255,255,.10)",
@@ -109,21 +104,12 @@ function ZoomableImage({
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                padding: 10,
+                padding: 8, // ↓ was 10
                 borderBottom: "1px solid rgba(0,0,0,.06)",
                 background: "#fff",
               }}
             >
-              <span
-                style={{
-                  fontWeight: 900,
-                  fontSize: 13,
-                  color: "#0d2030",
-                  opacity: 0.85,
-                }}
-              >
-                {hint}
-              </span>
+              <span style={{ fontWeight: 900, fontSize: 12.5, color: "#0d2030", opacity: 0.85 }}>{hint}</span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -132,7 +118,7 @@ function ZoomableImage({
                   border: "1px solid rgba(0,0,0,.10)",
                   background: "#fff",
                   borderRadius: 10,
-                  padding: "8px 10px",
+                  padding: "7px 9px", // ↓ was 8px 10px
                   fontWeight: 900,
                   cursor: "pointer",
                 }}
@@ -142,11 +128,7 @@ function ZoomableImage({
             </div>
 
             <div style={{ overflow: "auto", background: "#f7f9fc" }}>
-              <img
-                src={src}
-                alt={alt}
-                style={{ width: "100%", height: "auto", display: "block" }}
-              />
+              <img src={src} alt={alt} style={{ width: "100%", height: "auto", display: "block" }} />
             </div>
           </div>
         </div>
@@ -174,25 +156,27 @@ export default function DownloadClient() {
       {/* HERO */}
       <section
         style={{
-          minHeight: 380,
+          minHeight: 320, // ↓ was 380
           display: "flex",
           alignItems: "center",
           background:
             "radial-gradient(900px 500px at 10% 0%, rgba(255,255,255,.12), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
         }}
       >
-        <div className="container reveal" style={{ paddingTop: 56, paddingBottom: 56 }}>
-          <h1 className="h1 center" style={{ color: "#fff" }}>
+        <div className="container reveal" style={{ paddingTop: 48, paddingBottom: 48 }}>
+          <h1 className="h1 center" style={{ color: "#fff", fontSize: 48, lineHeight: 1.06 }}>
             Download eKasiBooks
           </h1>
+
           <p
             className="center"
             style={{
               color: "#e7f3f4",
-              marginTop: 14,
-              fontSize: 18,
-              maxWidth: 680,
+              marginTop: 10, // ↓ was 14
+              fontSize: 16, // ↓ was 18
+              maxWidth: 640, // ↓ was 680
               marginInline: "auto",
+              lineHeight: 1.65,
             }}
           >
             Install once. Sign in. Work offline day-to-day.
@@ -201,7 +185,7 @@ export default function DownloadClient() {
       </section>
 
       {/* CONTENT */}
-      <section className="section" style={{ paddingTop: 96, paddingBottom: 96 }}>
+      <section className="section" style={{ paddingTop: 56, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1100 }}>
           {/* DOWNLOAD + SCREENSHOT */}
           <div
@@ -209,13 +193,13 @@ export default function DownloadClient() {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: 28,
+              gap: 22, // ↓ was 28
               alignItems: "start",
-              marginBottom: 56,
+              marginBottom: 40, // ↓ was 56
             }}
           >
             {/* DOWNLOAD CARDS */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 18 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 14 }}>
               {DOWNLOADS.map((d, i) => {
                 const disabled = "disabled" in d && d.disabled;
 
@@ -240,7 +224,7 @@ export default function DownloadClient() {
                     <div
                       className="card"
                       style={{
-                        padding: 26,
+                        padding: 20, // ↓ was 26
                         height: "100%",
                         display: "flex",
                         flexDirection: "column",
@@ -251,14 +235,14 @@ export default function DownloadClient() {
                         <h3 className="h3" style={{ marginBottom: 6 }}>
                           {d.label}
                         </h3>
-                        <p className="muted" style={{ marginTop: 0 }}>
+                        <p className="muted" style={{ marginTop: 0, fontSize: 13.5 }}>
                           {d.sub}
                         </p>
                       </div>
 
                       <div
                         style={{
-                          marginTop: 18,
+                          marginTop: 14, // ↓ was 18
                           display: "inline-flex",
                           alignItems: "center",
                           gap: 10,
@@ -269,9 +253,10 @@ export default function DownloadClient() {
                             : d.tone === "primary"
                             ? "var(--brand)"
                             : "var(--brand-700)",
-                          padding: "12px 18px",
+                          padding: "10px 16px", // ↓ was 12px 18px
                           borderRadius: 999,
                           width: "fit-content",
+                          fontSize: 13.5,
                         }}
                       >
                         {disabled ? (
@@ -294,7 +279,7 @@ export default function DownloadClient() {
                   borderRadius: 16,
                   border: "1px solid rgba(0,0,0,.10)",
                   background: "rgba(13,32,48,.03)",
-                  padding: 16,
+                  padding: 14, // ↓ was 16
                   lineHeight: 1.6,
                 }}
               >
@@ -302,13 +287,13 @@ export default function DownloadClient() {
                   <div style={{ fontSize: 18, lineHeight: 1 }}>🛡️</div>
                   <div>
                     <strong style={{ color: "var(--ink)" }}>Windows SmartScreen notice</strong>
-                    <p className="muted" style={{ margin: "6px 0 0", fontSize: 14 }}>
+                    <p className="muted" style={{ margin: "6px 0 0", fontSize: 13.5, lineHeight: 1.6 }}>
                       Because eKasiBooks is a newer desktop app, Windows may show a “protected your PC” message on first
                       install. This is normal for new publishers.
                     </p>
 
                     <div style={{ marginTop: 10 }}>
-                      <div style={{ fontWeight: 900, fontSize: 13, color: "var(--ink)", opacity: 0.9 }}>
+                      <div style={{ fontWeight: 900, fontSize: 12.5, color: "var(--ink)", opacity: 0.9 }}>
                         If you see the warning:
                       </div>
                       <ol
@@ -316,7 +301,7 @@ export default function DownloadClient() {
                           margin: "6px 0 0",
                           paddingLeft: 18,
                           color: "var(--muted)",
-                          fontSize: 14,
+                          fontSize: 13.5,
                         }}
                       >
                         <li>
@@ -328,14 +313,14 @@ export default function DownloadClient() {
                       </ol>
                     </div>
 
-                    <p className="muted" style={{ margin: "10px 0 0", fontSize: 13 }}>
+                    <p className="muted" style={{ margin: "10px 0 0", fontSize: 12.5 }}>
                       Always download from <strong style={{ color: "var(--ink)" }}>ekasibooks.co.za</strong>.
                     </p>
                   </div>
                 </div>
 
                 {/* COLLAPSIBLE INSTALL GUIDE */}
-                <details className="installDetails" style={{ marginTop: 12 }}>
+                <details className="installDetails" style={{ marginTop: 10 }}>
                   <summary className="installSummary">
                     How to install safely (step-by-step)
                     <span className="chev" aria-hidden>
@@ -346,12 +331,10 @@ export default function DownloadClient() {
                   <div className="installBody">
                     <ol className="installList">
                       <li>
-                        Download <strong>eKasiBooks-Setup.exe</strong> from{" "}
-                        <strong>ekasibooks.co.za</strong>.
+                        Download <strong>eKasiBooks-Setup.exe</strong> from <strong>ekasibooks.co.za</strong>.
                       </li>
                       <li>
-                        If Windows shows <em>“Windows protected your PC”</em>, click{" "}
-                        <strong>More info</strong>.
+                        If Windows shows <em>“Windows protected your PC”</em>, click <strong>More info</strong>.
                       </li>
                       <li>
                         Click <strong>Run anyway</strong> to start the installer.
@@ -393,8 +376,9 @@ export default function DownloadClient() {
               </div>
 
               <div className="reveal" style={{ paddingLeft: 2 }}>
-                <p className="muted" style={{ margin: 0, fontSize: 14, lineHeight: 1.6 }}>
-                  Tip: You’ll need internet to sign in. After that, you can work offline day-to-day. Internet is also needed for updates and upgrades.
+                <p className="muted" style={{ margin: 0, fontSize: 13.5, lineHeight: 1.6 }}>
+                  Tip: You’ll need internet to sign in. After that, you can work offline day-to-day. Internet is also
+                  needed for updates and upgrades.
                 </p>
               </div>
             </div>
@@ -404,7 +388,7 @@ export default function DownloadClient() {
               <div
                 className="card"
                 style={{
-                  padding: 18,
+                  padding: 16, // ↓ was 18
                   borderRadius: 16,
                   border: "1px solid rgba(0,0,0,.06)",
                   background: "#fff",
@@ -415,7 +399,7 @@ export default function DownloadClient() {
                   <h3 className="h3" style={{ margin: "0 0 6px" }}>
                     What it looks like
                   </h3>
-                  <p className="muted" style={{ margin: 0, lineHeight: 1.7 }}>
+                  <p className="muted" style={{ margin: 0, lineHeight: 1.6, fontSize: 13.5 }}>
                     A clean dashboard and fast billing flow — click the screenshot to zoom.
                   </p>
                 </div>
@@ -436,7 +420,7 @@ export default function DownloadClient() {
                     <span
                       key={t}
                       style={{
-                        fontSize: 12,
+                        fontSize: 11.5, // ↓ was 12
                         padding: "6px 10px",
                         borderRadius: 999,
                         border: "1px solid rgba(0,0,0,.08)",
@@ -459,8 +443,8 @@ export default function DownloadClient() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, minmax(0,1fr))",
-              gap: 24,
-              marginBottom: 56,
+              gap: 18, // ↓ was 24
+              marginBottom: 40, // ↓ was 56
             }}
           >
             <div className="thinCard">
@@ -487,10 +471,10 @@ export default function DownloadClient() {
 
           {/* REQUIREMENTS */}
           <div className="reveal">
-            <h2 className="h3" style={{ marginBottom: 14 }}>
+            <h2 className="h3" style={{ marginBottom: 12 }}>
               System requirements
             </h2>
-            <ul style={{ paddingLeft: 18, color: "var(--muted)", lineHeight: 1.8, maxWidth: 640 }}>
+            <ul style={{ paddingLeft: 18, color: "var(--muted)", lineHeight: 1.75, maxWidth: 640, fontSize: 14 }}>
               <li>
                 <strong style={{ color: "var(--ink)" }}>Windows:</strong> 10 or 11 (64-bit), 500 MB free space
               </li>
@@ -500,7 +484,7 @@ export default function DownloadClient() {
               <li>Internet connection required for sign-in, updates, and upgrades</li>
             </ul>
 
-            <p className="muted" style={{ marginTop: 18, fontSize: 14 }}>
+            <p className="muted" style={{ marginTop: 14, fontSize: 13.5 }}>
               By downloading you agree to our{" "}
               <a href="/privacy" style={{ fontWeight: 900 }}>
                 Privacy Policy
@@ -519,13 +503,13 @@ export default function DownloadClient() {
 
             .downloadCard[aria-disabled="true"]:hover { transform: none; }
 
-            .thinCard { padding: 22px; border-radius: 16px; transition: transform .25s ease, box-shadow .25s ease; }
+            .thinCard { padding: 18px; border-radius: 16px; transition: transform .25s ease, box-shadow .25s ease; } /* ↓ was 22 */
             .thinCard:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,37,64,.10); }
 
             /* Collapsible install guide */
             .installDetails{
               border-top: 1px solid rgba(0,0,0,.08);
-              padding-top: 12px;
+              padding-top: 10px; /* ↓ was 12 */
             }
             .installSummary{
               list-style: none;
@@ -536,7 +520,7 @@ export default function DownloadClient() {
               cursor: pointer;
               font-weight: 900;
               color: var(--ink);
-              font-size: 14px;
+              font-size: 13.5px; /* ↓ was 14 */
               user-select: none;
             }
             .installSummary::-webkit-details-marker { display: none; }
@@ -548,18 +532,18 @@ export default function DownloadClient() {
               background: rgba(255,255,255,.7);
               border: 1px solid rgba(0,0,0,.08);
               border-radius: 14px;
-              padding: 14px;
+              padding: 12px; /* ↓ was 14 */
             }
             .installList{
               margin: 0;
               padding-left: 18px;
               color: var(--muted);
-              line-height: 1.75;
-              font-size: 14px;
+              line-height: 1.7;
+              font-size: 13.5px; /* ↓ was 14 */
             }
             .installNote{
               margin-top: 10px;
-              font-size: 13px;
+              font-size: 12.5px; /* ↓ was 13 */
               color: var(--muted);
               background: rgba(13,32,48,.03);
               border: 1px solid rgba(0,0,0,.08);
@@ -591,17 +575,13 @@ export default function DownloadClient() {
               .topGrid{ grid-template-columns: 1fr !important; }
               .trustGrid{ grid-template-columns: 1fr !important; }
               .ssGrid{ grid-template-columns: 1fr !important; }
+              .h1{ font-size: 34px !important; } /* tighter hero on mobile */
             }
           `}</style>
         </div>
       </section>
 
-      <StickyCta
-        primaryHref={links.download}
-        primaryLabel="Download eKasiBooks"
-        secondaryHref={links.pricing}
-        secondaryLabel="See Pricing"
-      />
+      <StickyCta primaryHref={links.download} primaryLabel="Download eKasiBooks" secondaryHref={links.pricing} secondaryLabel="See Pricing" />
     </main>
   );
 }

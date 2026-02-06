@@ -59,12 +59,7 @@ function ZoomableImage({
           width: "100%",
         }}
       >
-        <img
-          src={src}
-          alt={alt}
-          loading="lazy"
-          style={{ width: "100%", height: "auto", display: "block" }}
-        />
+        <img src={src} alt={alt} loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
       </button>
 
       {open ? (
@@ -79,7 +74,7 @@ function ZoomableImage({
             background: "rgba(0,0,0,.72)",
             display: "grid",
             placeItems: "center",
-            padding: 16,
+            padding: 12,
             cursor: "zoom-out",
             animation: "zoomFade .14s ease-out",
           }}
@@ -87,11 +82,11 @@ function ZoomableImage({
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              maxWidth: 1200,
-              width: "min(1200px, 96vw)",
+              maxWidth: 1100,
+              width: "min(1100px, 96vw)",
               maxHeight: "92vh",
               background: "#fff",
-              borderRadius: 16,
+              borderRadius: 14,
               overflow: "hidden",
               boxShadow: "0 18px 70px rgba(0,0,0,.35)",
               border: "1px solid rgba(255,255,255,.10)",
@@ -105,12 +100,12 @@ function ZoomableImage({
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                padding: 10,
+                padding: 8,
                 borderBottom: "1px solid rgba(0,0,0,.06)",
                 background: "#fff",
               }}
             >
-              <span style={{ fontWeight: 900, fontSize: 13, color: "#0d2030", opacity: 0.85 }}>
+              <span style={{ fontWeight: 900, fontSize: 12.5, color: "#0d2030", opacity: 0.85 }}>
                 {hint}
               </span>
               <button
@@ -121,7 +116,7 @@ function ZoomableImage({
                   border: "1px solid rgba(0,0,0,.10)",
                   background: "#fff",
                   borderRadius: 10,
-                  padding: "8px 10px",
+                  padding: "7px 9px",
                   fontWeight: 900,
                   cursor: "pointer",
                 }}
@@ -163,8 +158,8 @@ export default function HomeClient() {
           className="container"
           style={{
             textAlign: "center",
-            paddingTop: 14,
-            paddingBottom: 22, // gives room for the fade
+            paddingTop: 10,
+            paddingBottom: 18,
           }}
         >
           <span className="announcement">
@@ -180,7 +175,7 @@ export default function HomeClient() {
             left: 0,
             right: 0,
             bottom: -1,
-            height: 32,
+            height: 26,
             background: "linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0))",
             pointerEvents: "none",
           }}
@@ -191,8 +186,8 @@ export default function HomeClient() {
       <section
         className="homeHero"
         style={{
-          paddingTop: 64,
-          paddingBottom: 72,
+          paddingTop: 48,
+          paddingBottom: 56,
           background:
             "radial-gradient(1000px 600px at 10% 0%, rgba(255,255,255,.14), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
         }}
@@ -203,7 +198,7 @@ export default function HomeClient() {
             style={{
               display: "grid",
               gridTemplateColumns: "1.05fr .95fr",
-              gap: 52,
+              gap: 40,
               alignItems: "center",
             }}
           >
@@ -215,8 +210,8 @@ export default function HomeClient() {
                   color: "#fff",
                   fontWeight: 950,
                   letterSpacing: "-0.03em",
-                  lineHeight: 1.02,
-                  fontSize: 56, // desktop
+                  lineHeight: 1.04,
+                  fontSize: 46, // ↓ was 48 (down 2px)
                 }}
               >
                 Simple accounting &amp; invoicing software for small businesses
@@ -225,25 +220,25 @@ export default function HomeClient() {
               <p
                 className="reveal heroSubtitle"
                 style={{
-                  marginTop: 16,
+                  marginTop: 12,
                   marginBottom: 0,
                   color: "rgba(231,243,244,.95)",
-                  fontSize: 18, // desktop
-                  lineHeight: 1.65,
-                  maxWidth: 640,
+                  fontSize: 15.5, // ↓ was 16.5 (down 1px)
+                  lineHeight: 1.6,
+                  maxWidth: 620,
                 }}
               >
-                Create branded quotations, convert to invoices, track payments, and send statements in minutes —
-                built for South African small businesses — and works offline after sign-in.
+                Create branded quotations, convert to invoices, track payments, and send statements in minutes — built
+                for South African small businesses — and works offline after sign-in.
               </p>
 
               <div
                 className="reveal"
                 style={{
                   display: "flex",
-                  gap: 12,
+                  gap: 10,
                   flexWrap: "wrap",
-                  marginTop: 22,
+                  marginTop: 18,
                 }}
               >
                 <a
@@ -253,22 +248,22 @@ export default function HomeClient() {
                     alignItems: "center",
                     justifyContent: "center",
                     borderRadius: 999,
-                    padding: "14px 18px",
+                    padding: "11px 16px",
                     fontWeight: 950,
                     textDecoration: "none",
                     background: "#fff",
                     color: "var(--ink)",
                     border: "1px solid rgba(255,255,255,.22)",
-                    boxShadow: "0 16px 42px rgba(0,0,0,.20)",
+                    boxShadow: "0 14px 34px rgba(0,0,0,.20)",
                     transition: "transform .2s ease, box-shadow .2s ease",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow = "0 22px 60px rgba(0,0,0,.24)";
+                    e.currentTarget.style.boxShadow = "0 20px 52px rgba(0,0,0,.24)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "0 16px 42px rgba(0,0,0,.20)";
+                    e.currentTarget.style.boxShadow = "0 14px 34px rgba(0,0,0,.20)";
                   }}
                 >
                   Download
@@ -281,7 +276,7 @@ export default function HomeClient() {
                     alignItems: "center",
                     justifyContent: "center",
                     borderRadius: 999,
-                    padding: "14px 18px",
+                    padding: "11px 16px",
                     fontWeight: 950,
                     textDecoration: "none",
                     background: "rgba(255,255,255,.08)",
@@ -305,9 +300,9 @@ export default function HomeClient() {
               <div
                 className="reveal"
                 style={{
-                  marginTop: 18,
+                  marginTop: 14,
                   display: "flex",
-                  gap: 10,
+                  gap: 8,
                   flexWrap: "wrap",
                   alignItems: "center",
                 }}
@@ -318,13 +313,13 @@ export default function HomeClient() {
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
-                      padding: "8px 12px",
+                      padding: "7px 10px",
                       borderRadius: 999,
                       background: "rgba(255,255,255,.10)",
                       border: "1px solid rgba(255,255,255,.18)",
                       color: "rgba(255,255,255,.92)",
                       fontWeight: 900,
-                      fontSize: 12,
+                      fontSize: 11.5,
                       letterSpacing: ".02em",
                     }}
                   >
@@ -341,8 +336,8 @@ export default function HomeClient() {
                   borderRadius: 18,
                   border: "1px solid rgba(255,255,255,.16)",
                   background: "rgba(255,255,255,.08)",
-                  boxShadow: "0 26px 80px rgba(0,0,0,.28)",
-                  padding: 14,
+                  boxShadow: "0 22px 68px rgba(0,0,0,.28)",
+                  padding: 12,
                 }}
               >
                 <div
@@ -364,11 +359,11 @@ export default function HomeClient() {
                     display: "flex",
                     justifyContent: "space-between",
                     gap: 10,
-                    marginTop: 12,
+                    marginTop: 10,
                     flexWrap: "wrap",
                   }}
                 >
-                  <span style={{ color: "rgba(255,255,255,.9)", fontWeight: 900, fontSize: 12 }}>
+                  <span style={{ color: "rgba(255,255,255,.9)", fontWeight: 900, fontSize: 11.5 }}>
                     Desktop app • Offline after sign-in
                   </span>
                   <a
@@ -376,7 +371,7 @@ export default function HomeClient() {
                     style={{
                       color: "rgba(255,255,255,.95)",
                       fontWeight: 950,
-                      fontSize: 12,
+                      fontSize: 11.5,
                       textDecoration: "none",
                       borderBottom: "1px solid rgba(255,255,255,.35)",
                     }}
@@ -392,31 +387,31 @@ export default function HomeClient() {
             @media (max-width: 992px){
               .heroGrid{
                 grid-template-columns: 1fr !important;
-                gap: 28px !important;
+                gap: 22px !important;
               }
             }
 
             /* Mobile font sizing fix (targets hero only) */
             @media (max-width: 600px){
               .homeHero{
-                padding-top: 46px !important;
-                padding-bottom: 52px !important;
+                padding-top: 36px !important;
+                padding-bottom: 44px !important;
               }
               .heroTitle{
-                font-size: 34px !important;
-                line-height: 1.08 !important;
+                font-size: 31px !important; /* ↓ was 32 */
+                line-height: 1.1 !important;
                 letter-spacing: -0.02em !important;
               }
               .heroSubtitle{
-                font-size: 15px !important;
-                line-height: 1.65 !important;
+                font-size: 14px !important; /* ↓ was 14.5 */
+                line-height: 1.6 !important;
               }
             }
 
             /* Extra-small phones */
             @media (max-width: 380px){
               .heroTitle{
-                font-size: 30px !important;
+                font-size: 28px !important; /* ↓ was 29 */
               }
             }
           `}</style>
@@ -424,14 +419,14 @@ export default function HomeClient() {
       </section>
 
       {/* BENEFITS */}
-      <section className="section" style={{ paddingTop: 72, paddingBottom: 24 }}>
+      <section className="section" style={{ paddingTop: 52, paddingBottom: 18 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
             className="benefitsGrid reveal"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-              gap: 20,
+              gap: 16,
             }}
           >
             {[
@@ -446,7 +441,7 @@ export default function HomeClient() {
                   background: "#fff",
                   border: "1px solid var(--ring)",
                   borderRadius: 16,
-                  padding: 22,
+                  padding: 18,
                   boxShadow: "0 10px 28px rgba(10,37,64,.08)",
                 }}
               >
@@ -454,7 +449,7 @@ export default function HomeClient() {
                   <span style={{ marginRight: 8 }}>{b.icon}</span>
                   {b.title}
                 </div>
-                <p className="muted" style={{ marginTop: 10, marginBottom: 0, lineHeight: 1.65 }}>
+                <p className="muted" style={{ marginTop: 8, marginBottom: 0, lineHeight: 1.6 }}>
                   {b.desc}
                 </p>
               </div>
@@ -472,10 +467,10 @@ export default function HomeClient() {
       </section>
 
       {/* FEATURES */}
-      <section className="section" style={{ paddingTop: 48, paddingBottom: 72 }}>
+      <section className="section" style={{ paddingTop: 38, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <h2 className="h2 center reveal">Why teams choose eKasiBooks</h2>
-          <p className="center muted reveal" style={{ marginTop: 12, maxWidth: 820, marginInline: "auto" }}>
+          <p className="center muted reveal" style={{ marginTop: 10, maxWidth: 820, marginInline: "auto" }}>
             Built for small businesses that need speed, professionalism, and control — without cloud lock-in.
           </p>
 
@@ -484,8 +479,8 @@ export default function HomeClient() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, minmax(0,1fr))",
-              gap: 18,
-              marginTop: 28,
+              gap: 16,
+              marginTop: 22,
               alignItems: "stretch",
             }}
           >
@@ -504,23 +499,23 @@ export default function HomeClient() {
                   background: "#fff",
                   border: "1px solid var(--ring)",
                   borderRadius: 16,
-                  padding: 22,
+                  padding: 18,
                   boxShadow: "0 10px 28px rgba(10,37,64,.08)",
                   height: "100%",
                 }}
               >
-                <h3 className="h3" style={{ marginBottom: 10 }}>
+                <h3 className="h3" style={{ marginBottom: 8 }}>
                   <span style={{ marginRight: 8 }}>{f.i}</span>
                   {f.t}
                 </h3>
-                <p className="muted" style={{ margin: 0, lineHeight: 1.65 }}>
+                <p className="muted" style={{ margin: 0, lineHeight: 1.6 }}>
                   {f.d}
                 </p>
               </div>
             ))}
           </div>
 
-          <div className="reveal" style={{ textAlign: "center", marginTop: 22 }}>
+          <div className="reveal" style={{ textAlign: "center", marginTop: 18 }}>
             <a
               href={links.features}
               style={{
@@ -528,7 +523,7 @@ export default function HomeClient() {
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: 999,
-                padding: "12px 18px",
+                padding: "10px 16px",
                 fontWeight: 950,
                 textDecoration: "none",
                 background: "var(--card)",
@@ -561,33 +556,33 @@ export default function HomeClient() {
       </section>
 
       {/* LIVE PREVIEW */}
-      <section className="section" style={{ paddingTop: 56, paddingBottom: 72 }}>
+      <section className="section" style={{ paddingTop: 44, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <h2 className="h2 center reveal">Live Preview</h2>
-          <p className="center muted reveal" style={{ marginTop: 10 }}>
+          <p className="center muted reveal" style={{ marginTop: 8 }}>
             Swipe through a few screens from quoting to statements.
           </p>
 
-          <div className="reveal" style={{ marginTop: 18 }}>
+          <div className="reveal" style={{ marginTop: 14 }}>
             <ScreenshotSlider slides={slides} />
           </div>
         </div>
       </section>
 
       {/* STEPS */}
-      <section className="section" style={{ paddingTop: 56, paddingBottom: 56 }}>
+      <section className="section" style={{ paddingTop: 44, paddingBottom: 44 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
             className="reveal"
             style={{
               background: "var(--card)",
               borderRadius: 16,
-              padding: 28,
+              padding: 22,
               border: "1px solid var(--ring)",
               boxShadow: "0 10px 28px rgba(10,37,64,.08)",
             }}
           >
-            <h3 className="h3 center" style={{ marginBottom: 16 }}>
+            <h3 className="h3 center" style={{ marginBottom: 14 }}>
               Get started in 3 simple steps
             </h3>
 
@@ -596,7 +591,7 @@ export default function HomeClient() {
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(3, minmax(0,1fr))",
-                gap: 18,
+                gap: 14,
               }}
             >
               {[
@@ -611,15 +606,15 @@ export default function HomeClient() {
                     background: "#fff",
                     border: "1px solid var(--ring)",
                     borderRadius: 16,
-                    padding: 22,
+                    padding: 18,
                     boxShadow: "0 10px 28px rgba(10,37,64,.08)",
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <span
                       style={{
-                        width: 34,
-                        height: 34,
+                        width: 30,
+                        height: 30,
                         borderRadius: 999,
                         display: "inline-flex",
                         alignItems: "center",
@@ -633,7 +628,7 @@ export default function HomeClient() {
                     </span>
                     <strong style={{ color: "var(--ink)" }}>{s.t}</strong>
                   </div>
-                  <p className="muted" style={{ marginTop: 10, marginBottom: 0, lineHeight: 1.65 }}>
+                  <p className="muted" style={{ marginTop: 8, marginBottom: 0, lineHeight: 1.6 }}>
                     {s.d}
                   </p>
                 </div>
@@ -652,7 +647,7 @@ export default function HomeClient() {
       </section>
 
       {/* TESTIMONIAL */}
-      <section className="section" style={{ paddingTop: 28, paddingBottom: 56 }}>
+      <section className="section" style={{ paddingTop: 22, paddingBottom: 44 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
             className="reveal"
@@ -660,7 +655,7 @@ export default function HomeClient() {
               borderRadius: 16,
               border: "1px solid var(--ring)",
               background: "#fff",
-              padding: 28,
+              padding: 22,
               boxShadow: "0 10px 28px rgba(10,37,64,.08)",
               position: "relative",
               overflow: "hidden",
@@ -670,16 +665,16 @@ export default function HomeClient() {
               style={{
                 position: "absolute",
                 inset: "auto -140px -140px auto",
-                width: 260,
-                height: 260,
+                width: 240,
+                height: 240,
                 background: "radial-gradient(circle, rgba(33,93,99,.18), transparent 70%)",
                 borderRadius: 999,
               }}
             />
-            <p style={{ margin: 0, fontWeight: 900, color: "var(--ink)", lineHeight: 1.55, fontSize: 18 }}>
+            <p style={{ margin: 0, fontWeight: 900, color: "var(--ink)", lineHeight: 1.5, fontSize: 16.5 }}>
               “I used to struggle with Word templates. With eKasiBooks I send quotes in 2 minutes and look legit.”
             </p>
-            <p className="muted" style={{ marginTop: 10, marginBottom: 0 }}>
+            <p className="muted" style={{ marginTop: 8, marginBottom: 0 }}>
               – Small business owner, Pretoria
             </p>
           </div>
@@ -687,14 +682,14 @@ export default function HomeClient() {
       </section>
 
       {/* PRICING TEASER */}
-      <section className="section" style={{ paddingTop: 28, paddingBottom: 72 }}>
+      <section className="section" style={{ paddingTop: 22, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
             className="reveal billCard"
             style={{
               background: "var(--card)",
               borderRadius: 16,
-              padding: 26,
+              padding: 22,
               border: "1px solid var(--ring)",
               boxShadow: "0 10px 28px rgba(10,37,64,.08)",
               transition: "transform .25s ease, box-shadow .25s ease",
@@ -705,7 +700,7 @@ export default function HomeClient() {
               style={{
                 display: "grid",
                 gridTemplateColumns: "1.2fr .8fr",
-                gap: 18,
+                gap: 16,
                 alignItems: "center",
               }}
             >
@@ -713,12 +708,12 @@ export default function HomeClient() {
                 <h3 className="h3" style={{ marginBottom: 8 }}>
                   Simple pricing
                 </h3>
-                <p className="muted" style={{ margin: 0, lineHeight: 1.65 }}>
+                <p className="muted" style={{ margin: 0, lineHeight: 1.6 }}>
                   Start on Trial. Upgrade to Pro when you’re ready.
                 </p>
               </div>
 
-              <div style={{ display: "flex", gap: 12, justifyContent: "flex-end", flexWrap: "wrap" }}>
+              <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", flexWrap: "wrap" }}>
                 <a
                   href={links.pricing}
                   style={{
@@ -726,7 +721,7 @@ export default function HomeClient() {
                     alignItems: "center",
                     justifyContent: "center",
                     borderRadius: 999,
-                    padding: "12px 18px",
+                    padding: "10px 16px",
                     fontWeight: 950,
                     textDecoration: "none",
                     background: "var(--brand)",
@@ -752,7 +747,7 @@ export default function HomeClient() {
                     alignItems: "center",
                     justifyContent: "center",
                     borderRadius: 999,
-                    padding: "12px 18px",
+                    padding: "10px 16px",
                     fontWeight: 950,
                     textDecoration: "none",
                     background: "var(--brand-700)",
@@ -785,7 +780,7 @@ export default function HomeClient() {
       </section>
 
       {/* FAQ */}
-      <section className="section" style={{ paddingTop: 28, paddingBottom: 88 }}>
+      <section className="section" style={{ paddingTop: 22, paddingBottom: 72 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <h2 className="h2 center reveal">Questions, answered</h2>
 
@@ -794,8 +789,8 @@ export default function HomeClient() {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: 22,
-              marginTop: 16,
+              gap: 18,
+              marginTop: 14,
             }}
           >
             <div
@@ -804,15 +799,16 @@ export default function HomeClient() {
                 background: "#fff",
                 border: "1px solid var(--ring)",
                 borderRadius: 16,
-                padding: 20,
+                padding: 18,
                 boxShadow: "0 10px 28px rgba(10,37,64,.08)",
               }}
             >
               <details>
                 <summary>Does it work offline?</summary>
                 <p>
-                Yes — once you&#39;re signed in, you can quote and invoice without internet. You&#39;ll need a connection to sign in again if you log out.
-              </p>
+                  Yes — once you&#39;re signed in, you can quote and invoice without internet. You&#39;ll need a connection
+                  to sign in again if you log out.
+                </p>
               </details>
               <details>
                 <summary>Do you support VAT?</summary>
@@ -826,7 +822,7 @@ export default function HomeClient() {
                 background: "#fff",
                 border: "1px solid var(--ring)",
                 borderRadius: 16,
-                padding: 20,
+                padding: 18,
                 boxShadow: "0 10px 28px rgba(10,37,64,.08)",
               }}
             >
@@ -847,9 +843,9 @@ export default function HomeClient() {
                 grid-template-columns: 1fr !important;
               }
             }
-            details { margin-top: 12px; }
+            details { margin-top: 10px; }
             details:first-of-type { margin-top: 0; }
-            details > summary { padding: 14px 16px; cursor: pointer; font-weight: 900; list-style: none; }
+            details > summary { padding: 12px 14px; cursor: pointer; font-weight: 900; list-style: none; }
             details > summary::-webkit-details-marker { display: none; }
             details > summary:before {
               content: "▸";
@@ -861,13 +857,13 @@ export default function HomeClient() {
               font-weight: 950;
             }
             details[open] > summary:before { transform: rotate(90deg) translateY(-1px); }
-            details p { margin: 10px 0 0; padding: 0 16px 16px; color: var(--muted); line-height: 1.65; }
+            details p { margin: 10px 0 0; padding: 0 14px 14px; color: var(--muted); line-height: 1.6; }
           `}</style>
         </div>
       </section>
 
       {/* FINAL CTA */}
-      <section className="section" style={{ paddingTop: 0, paddingBottom: 72 }}>
+      <section className="section" style={{ paddingTop: 0, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
             className="reveal"
@@ -875,21 +871,21 @@ export default function HomeClient() {
               borderRadius: 16,
               border: "1px solid var(--ring)",
               background: "var(--card)",
-              padding: 28,
+              padding: 22,
               boxShadow: "0 10px 28px rgba(10,37,64,.08)",
               textAlign: "center",
             }}
           >
-            <h3 className="h3" style={{ marginBottom: 10 }}>
+            <h3 className="h3" style={{ marginBottom: 8 }}>
               Ready to look pro and get paid faster?
             </h3>
 
-            <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginTop: 12 }}>
+            <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap", marginTop: 10 }}>
               <a
                 href={links.download}
                 style={{
                   borderRadius: 999,
-                  padding: "12px 20px",
+                  padding: "10px 18px",
                   fontWeight: 950,
                   textDecoration: "none",
                   background: "var(--brand)",
@@ -912,7 +908,7 @@ export default function HomeClient() {
                 href={links.features}
                 style={{
                   borderRadius: 999,
-                  padding: "12px 20px",
+                  padding: "10px 18px",
                   fontWeight: 950,
                   textDecoration: "none",
                   background: "var(--brand-700)",

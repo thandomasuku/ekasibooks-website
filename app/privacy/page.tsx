@@ -10,14 +10,14 @@ export default function PrivacyPage() {
       {/* HERO */}
       <section
         style={{
-          minHeight: 320,
+          minHeight: 280, // ↓ was 320
           display: "flex",
           alignItems: "center",
           background:
             "radial-gradient(900px 500px at 10% 0%, rgba(255,255,255,.14), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
         }}
       >
-        <div className="container" style={{ paddingTop: 72, paddingBottom: 72 }}>
+        <div className="container" style={{ paddingTop: 56, paddingBottom: 56 }}>
           <h1 className="h1 center" style={{ color: "#fff" }}>
             Privacy Policy
           </h1>
@@ -25,26 +25,27 @@ export default function PrivacyPage() {
             className="center"
             style={{
               color: "#e7f3f4",
-              marginTop: 14,
+              marginTop: 12, // ↓ was 14
               fontSize: 16,
+              lineHeight: 1.65,
               maxWidth: 820,
               marginInline: "auto",
             }}
           >
-            We respect your privacy. This policy explains what we collect, why we collect it, and how you can
-            contact us about your data.
+            We respect your privacy. This policy explains what we collect, why we collect it, and how you can contact us
+            about your data.
           </p>
 
-          <p className="center" style={{ color: "rgba(255,255,255,.85)", marginTop: 12, fontWeight: 800 }}>
+          <p className="center" style={{ color: "rgba(255,255,255,.85)", marginTop: 10, fontWeight: 800 }}>
             Last updated: {updated}
           </p>
         </div>
       </section>
 
       {/* CONTENT */}
-      <section className="section" style={{ paddingTop: 72, paddingBottom: 96 }}>
+      <section className="section" style={{ paddingTop: 56, paddingBottom: 72 }}>
         <div className="container" style={{ maxWidth: 980 }}>
-          <div className="card" style={{ padding: 40 }}>
+          <div className="card" style={{ padding: 32 }}>
             <h2 className="h2" style={{ marginTop: 0 }}>
               Overview
             </h2>
@@ -53,7 +54,7 @@ export default function PrivacyPage() {
               (like account login, subscription billing, and email sending) may require online services.
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">What information we collect</h3>
             <ul style={{ marginTop: 10, paddingLeft: 18, lineHeight: 1.85 }}>
@@ -74,7 +75,7 @@ export default function PrivacyPage() {
               </li>
             </ul>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">What we don’t do</h3>
             <ul style={{ marginTop: 10, paddingLeft: 18, lineHeight: 1.85 }}>
@@ -83,7 +84,7 @@ export default function PrivacyPage() {
               <li>We don’t store your full payment card details.</li>
             </ul>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">How we use information</h3>
             <ul style={{ marginTop: 10, paddingLeft: 18, lineHeight: 1.85 }}>
@@ -93,16 +94,16 @@ export default function PrivacyPage() {
               <li>To prevent fraud and protect our systems.</li>
             </ul>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">Data storage and security</h3>
             <p className="muted" style={{ marginTop: 10, lineHeight: 1.75 }}>
-              Your operational data (quotes, invoices, statements, customers) is stored locally by the desktop app.
-              We recommend using the built-in backup feature and keeping backups in a safe location. For online services
+              Your operational data (quotes, invoices, statements, customers) is stored locally by the desktop app. We
+              recommend using the built-in backup feature and keeping backups in a safe location. For online services
               (login/billing), we use reputable providers and standard security practices.
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">Third-party services</h3>
             <p className="muted" style={{ marginTop: 10, lineHeight: 1.75 }}>
@@ -110,16 +111,18 @@ export default function PrivacyPage() {
               only to deliver their services (e.g., subscription activation).
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">Your choices</h3>
             <ul style={{ marginTop: 10, paddingLeft: 18, lineHeight: 1.85 }}>
               <li>You can request a copy of your account information.</li>
               <li>You can request correction of inaccurate information.</li>
-              <li>You can request deletion of your account data where applicable (legal/billing requirements may apply).</li>
+              <li>
+                You can request deletion of your account data where applicable (legal/billing requirements may apply).
+              </li>
             </ul>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <h3 className="h3">Contact us</h3>
             <p className="muted" style={{ marginTop: 10, lineHeight: 1.75 }}>
@@ -130,12 +133,12 @@ export default function PrivacyPage() {
               .
             </p>
 
-            <div style={{ height: 18 }} />
+            <div style={{ height: 14 }} />
 
             <div
               className="thinCard"
               style={{
-                padding: 18,
+                padding: 16, // ↓ was 18
                 borderRadius: 16,
                 background: "var(--card)",
                 border: "1px solid var(--ring)",
