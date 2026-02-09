@@ -105,9 +105,7 @@ function ZoomableImage({
                 background: "#fff",
               }}
             >
-              <span style={{ fontWeight: 900, fontSize: 12.5, color: "#0d2030", opacity: 0.85 }}>
-                {hint}
-              </span>
+              <span style={{ fontWeight: 900, fontSize: 12.5, color: "#0d2030", opacity: 0.85 }}>{hint}</span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -183,15 +181,16 @@ export default function HomeClient() {
       </div>
 
       {/* HERO */}
-      <section
-        className="homeHero"
-        style={{
-          paddingTop: 48,
-          paddingBottom: 56,
-          background:
-            "radial-gradient(1000px 600px at 10% 0%, rgba(255,255,255,.14), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
-        }}
-      >
+     <section
+  className="homeHero"
+  style={{
+    paddingTop: 64,
+    paddingBottom: 56,
+    background:
+      "radial-gradient(1000px 600px at 10% 0%, rgba(255,255,255,.14), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
+  }}
+>
+
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
             className="heroGrid"
@@ -202,6 +201,7 @@ export default function HomeClient() {
               alignItems: "center",
             }}
           >
+            
             <div>
               <h1
                 className="reveal heroTitle"
@@ -211,10 +211,10 @@ export default function HomeClient() {
                   fontWeight: 950,
                   letterSpacing: "-0.03em",
                   lineHeight: 1.04,
-                  fontSize: 46, // ↓ was 48 (down 2px)
+                  fontSize: 46,
                 }}
               >
-                Simple accounting &amp; invoicing software for small businesses
+                Simple accounting &amp; invoicing for South African small businesses
               </h1>
 
               <p
@@ -223,13 +223,13 @@ export default function HomeClient() {
                   marginTop: 12,
                   marginBottom: 0,
                   color: "rgba(231,243,244,.95)",
-                  fontSize: 15.5, // ↓ was 16.5 (down 1px)
+                  fontSize: 15.5,
                   lineHeight: 1.6,
                   maxWidth: 620,
                 }}
               >
-                Create branded quotations, convert to invoices, track payments, and send statements in minutes — built
-                for South African small businesses — and works offline after sign-in.
+                Create branded quotes, convert to invoices, track payments, and send statements in minutes — with VAT
+                support, local backups, and offline use after sign-in.
               </p>
 
               <div
@@ -307,7 +307,7 @@ export default function HomeClient() {
                   alignItems: "center",
                 }}
               >
-                {["Your logo & colours", "PDF export", "Local backups", "Customer statements"].map((t) => (
+                {["Built in South Africa", "Your logo & colours", "PDF export", "Local backups", "Customer statements"].map((t) => (
                   <span
                     key={t}
                     style={{
@@ -393,17 +393,17 @@ export default function HomeClient() {
 
             /* Mobile font sizing fix (targets hero only) */
             @media (max-width: 600px){
-              .homeHero{
-                padding-top: 36px !important;
-                padding-bottom: 44px !important;
-              }
+            .homeHero{
+              padding-top: 44px !important;
+              padding-bottom: 44px !important;
+            }
               .heroTitle{
-                font-size: 31px !important; /* ↓ was 32 */
+                font-size: 31px !important;
                 line-height: 1.1 !important;
                 letter-spacing: -0.02em !important;
               }
               .heroSubtitle{
-                font-size: 14px !important; /* ↓ was 14.5 */
+                font-size: 14px !important;
                 line-height: 1.6 !important;
               }
             }
@@ -411,7 +411,7 @@ export default function HomeClient() {
             /* Extra-small phones */
             @media (max-width: 380px){
               .heroTitle{
-                font-size: 28px !important; /* ↓ was 29 */
+                font-size: 28px !important;
               }
             }
           `}</style>
@@ -466,13 +466,92 @@ export default function HomeClient() {
         </div>
       </section>
 
+      {/* BUILT FOR SOUTH AFRICA */}
+      <section className="section" style={{ paddingTop: 18, paddingBottom: 22 }}>
+        <div className="container" style={{ maxWidth: 1200 }}>
+          <div
+            className="reveal"
+            style={{
+              background: "var(--card)",
+              borderRadius: 16,
+              padding: 22,
+              border: "1px solid var(--ring)",
+              boxShadow: "0 10px 28px rgba(10,37,64,.08)",
+              overflow: "hidden",
+              position: "relative",
+            }}
+          >
+            <div
+              aria-hidden
+              style={{
+                position: "absolute",
+                inset: "auto -180px -180px auto",
+                width: 320,
+                height: 320,
+                background: "radial-gradient(circle, rgba(33,93,99,.16), transparent 70%)",
+                borderRadius: 999,
+              }}
+            />
+
+            <h2 className="h2" style={{ margin: 0 }}>
+              Built for South Africa
+            </h2>
+            <p className="muted" style={{ marginTop: 10, marginBottom: 0, maxWidth: 860, lineHeight: 1.6 }}>
+              Most accounting tools are built overseas and adapted later. eKasiBooks is built locally, with South African
+              small businesses as the primary market — simple, practical, and VAT-ready.
+            </p>
+
+            <div
+              className="saGrid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, minmax(0,1fr))",
+                gap: 14,
+                marginTop: 16,
+              }}
+            >
+              {[
+                { t: "VAT-ready", d: "Enable VAT, set rates, and keep totals consistent." },
+                { t: "Offline-friendly", d: "Keep working even when the internet is down." },
+                { t: "No cloud lock-in", d: "Your data stays yours, with local backups and export." },
+              ].map((x) => (
+                <div
+                  key={x.t}
+                  style={{
+                    background: "#fff",
+                    border: "1px solid var(--ring)",
+                    borderRadius: 16,
+                    padding: 16,
+                    boxShadow: "0 10px 28px rgba(10,37,64,.06)",
+                  }}
+                >
+                  <div style={{ fontWeight: 950, color: "var(--ink)" }}>{x.t}</div>
+                  <p className="muted" style={{ marginTop: 6, marginBottom: 0, lineHeight: 1.6 }}>
+                    {x.d}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <style>{`
+              @media (max-width: 992px){
+                .saGrid{
+                  grid-template-columns: 1fr !important;
+                }
+              }
+            `}</style>
+          </div>
+        </div>
+      </section>
+
       {/* FEATURES */}
       <section className="section" style={{ paddingTop: 38, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
-          <h2 className="h2 center reveal">Why teams choose eKasiBooks</h2>
-          <p className="center muted reveal" style={{ marginTop: 10, maxWidth: 820, marginInline: "auto" }}>
-            Built for small businesses that need speed, professionalism, and control — without cloud lock-in.
-          </p>
+         <h2 className="h2 center reveal">Why small businesses choose eKasiBooks</h2>
+<p className="center muted reveal" style={{ marginTop: 10, maxWidth: 820, marginInline: "auto" }}>
+  Built for owners who want to invoice fast, look professional, and stay in control — without complexity.
+</p>
+
 
           <div
             className="featuresGrid"
