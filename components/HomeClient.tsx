@@ -184,7 +184,7 @@ export default function HomeClient() {
      <section
   className="homeHero"
   style={{
-    paddingTop: 64,
+    paddingTop: 61,
     paddingBottom: 56,
     background:
       "radial-gradient(1000px 600px at 10% 0%, rgba(255,255,255,.14), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
@@ -248,8 +248,9 @@ export default function HomeClient() {
                     alignItems: "center",
                     justifyContent: "center",
                     borderRadius: 999,
-                    padding: "11px 16px",
-                    fontWeight: 950,
+                    padding: "8px 12px",
+                    fontWeight: 900,
+                    fontSize: 14,
                     textDecoration: "none",
                     background: "#fff",
                     color: "var(--ink)",
@@ -276,8 +277,9 @@ export default function HomeClient() {
                     alignItems: "center",
                     justifyContent: "center",
                     borderRadius: 999,
-                    padding: "11px 16px",
-                    fontWeight: 950,
+                    padding: "8px 12px",
+                    fontWeight: 900,
+                    fontSize: 14,
                     textDecoration: "none",
                     background: "rgba(255,255,255,.08)",
                     color: "#fff",
