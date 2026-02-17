@@ -58,7 +58,12 @@ function ZoomableImage({
           width: "100%",
         }}
       >
-        <img src={src} alt={alt} loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          style={{ width: "100%", height: "auto", display: "block" }}
+        />
       </button>
 
       {open ? (
@@ -105,7 +110,16 @@ function ZoomableImage({
                 background: "#fff",
               }}
             >
-              <span style={{ fontWeight: 900, fontSize: 12.5, color: "#0d2030", opacity: 0.85 }}>{hint}</span>
+              <span
+                style={{
+                  fontWeight: 900,
+                  fontSize: 12.5,
+                  color: "#0d2030",
+                  opacity: 0.85,
+                }}
+              >
+                {hint}
+              </span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -196,7 +210,6 @@ function PricingCard({
       </h3>
 
       <p style={{ fontSize: 40, fontWeight: 950, color: "var(--brand)", margin: "0 0 2px" }}>{price}</p>
-      {/* ↓ was 44 */}
 
       <p className="muted" style={{ fontSize: 13.5, margin: "0 0 10px" }}>
         {sub}
@@ -221,7 +234,6 @@ function PricingCard({
       </ul>
 
       <div style={{ marginTop: "auto", paddingTop: 14 }}>{cta}</div>
-      {/* ↓ was 18 */}
 
       {note ? (
         <p className="muted" style={{ marginTop: 10, fontSize: 12.5, marginBottom: 0 }}>
@@ -237,6 +249,13 @@ export default function PricingClient() {
   // so CTAs must point to real portal destinations that handle auth gating.
   const portalRegister = "https://portal.ekasibooks.co.za/register";
   const portalBilling = "https://portal.ekasibooks.co.za/billing";
+
+  // Pricing display (website)
+  const MONTHLY_PRICE = 199;
+  const ANNUAL_PRICE = 2149; // ✅ 10% discount vs R199 x 12
+  const annualSave = MONTHLY_PRICE * 12 - ANNUAL_PRICE; // 2388 - 2149 = 239
+
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
 
   useEffect(() => {
     const items = document.querySelectorAll(".reveal");
@@ -352,6 +371,84 @@ export default function PricingClient() {
       {/* ✅ REST OF PAGE CONTENT */}
       <section className="section" style={{ paddingTop: 56, paddingBottom: 56 }}>
         <div className="container">
+          {/* Billing cycle toggle */}
+          <div
+            className="reveal"
+            style={{
+              marginTop: 18,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-flex",
+                gap: 6,
+                padding: 6,
+                borderRadius: 999,
+                border: "1px solid rgba(0,0,0,.08)",
+                background: "rgba(255,255,255,.7)",
+                boxShadow: "0 10px 26px rgba(10,37,64,.08)",
+              }}
+            >
+              <button
+                type="button"
+                onClick={() => setBillingCycle("monthly")}
+                style={{
+                  border: "none",
+                  cursor: "pointer",
+                  borderRadius: 999,
+                  padding: "9px 12px",
+                  fontWeight: 950,
+                  fontSize: 12.5,
+                  background: billingCycle === "monthly" ? "var(--brand)" : "transparent",
+                  color: billingCycle === "monthly" ? "#fff" : "#0d2030",
+                }}
+                aria-pressed={billingCycle === "monthly"}
+              >
+                Monthly
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setBillingCycle("annual")}
+                style={{
+                  border: "none",
+                  cursor: "pointer",
+                  borderRadius: 999,
+                  padding: "9px 12px",
+                  fontWeight: 950,
+                  fontSize: 12.5,
+                  background: billingCycle === "annual" ? "var(--brand)" : "transparent",
+                  color: billingCycle === "annual" ? "#fff" : "#0d2030",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+                aria-pressed={billingCycle === "annual"}
+              >
+                Annual
+                <span
+  style={{
+    fontSize: 11,
+    fontWeight: 950,
+    padding: "4px 8px",
+    borderRadius: 999,
+    background: "#36454F",           // strong amber
+    border: "1px solid white",
+    color: "rgba(255,255,255,0.95)",
+    whiteSpace: "nowrap",
+    boxShadow: "0 2px 6px rgba(0,0,0,.12)",
+  }}
+  title="Annual plan discount"
+>
+  Save 10%
+</span>
+
+              </button>
+            </div>
+          </div>
+
           {/* Cards */}
           <div
             className="pricingGrid"
@@ -417,9 +514,13 @@ export default function PricingClient() {
 
             <PricingCard
               title="Pro"
-              price="R199"
-              sub="per month • Paystack subscription"
-              badge="Most popular"
+              price={billingCycle === "annual" ? "R2149" : "R199"}
+              sub={
+                billingCycle === "annual"
+                  ? `per year • Save R${annualSave} annually`
+                  : "per month • Paystack subscription"
+              }
+              badge={billingCycle === "annual" ? "Best value" : "Most popular"}
               popular
               items={[
                 { strong: "Unlimited documents" },
@@ -444,7 +545,7 @@ export default function PricingClient() {
                       transition: "transform .2s ease, box-shadow .2s ease",
                     }}
                   >
-                    Subscribe to Pro
+                    {billingCycle === "annual" ? "Subscribe annually" : "Subscribe to Pro"}
                   </a>
 
                   <a
@@ -466,7 +567,11 @@ export default function PricingClient() {
                   </a>
                 </div>
               }
-              note="You’ll be asked to log in first if you’re not signed in."
+              note={
+                billingCycle === "annual"
+                  ? "Annual billing will be available soon — this page is updated first. Checkout will follow once Paystack annual is added."
+                  : "You’ll be asked to log in first if you’re not signed in."
+              }
             />
           </div>
 
@@ -638,7 +743,10 @@ export default function PricingClient() {
 
             <details>
               <summary>Is it a subscription?</summary>
-              <p>Yes. Pro is R199/month billed via Paystack. You can manage billing in your dashboard.</p>
+              <p>
+                Yes. Pro is billed via Paystack. Monthly is R199, and an annual option (R2149/year) is being added next.
+                You can manage billing in your dashboard.
+              </p>
             </details>
 
             <details>
@@ -649,8 +757,9 @@ export default function PricingClient() {
             <details>
               <summary>Do I need internet?</summary>
               <p>
-                You’ll need internet to sign in and manage upgrades. Once you’re signed in, you can work offline day-to-day.
-                When you choose to email a document, we open a draft in your email app so you can send it from your own account.
+                You’ll need internet to sign in and manage upgrades. Once you’re signed in, you can work offline
+                day-to-day. When you choose to email a document, we open a draft in your email app so you can send it
+                from your own account.
               </p>
             </details>
 
