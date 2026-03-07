@@ -195,7 +195,7 @@ function PricingCard({
         height: "100%",
         outline: popular ? "2px solid rgba(33,93,99,.14)" : "none",
         transition: "transform .25s ease, box-shadow .25s ease",
-        transform: popular ? "translateY(-4px)" : "none", // subtle lift for popular
+        transform: popular ? "translateY(-4px)" : "none",
       }}
     >
       <div style={{ minHeight: 30, display: "flex", alignItems: "center", marginBottom: 8 }}>
@@ -261,8 +261,9 @@ function PricingCard({
 }
 
 export default function PricingClient() {
-  const portalRegister = "https://portal.ekasibooks.co.za/register";
-  const portalBilling = "https://portal.ekasibooks.co.za/billing";
+  const portalBase = "https://portal.ekasibooks.co.za";
+  const portalRegister = `${portalBase}/register`;
+  const portalBilling = `${portalBase}/billing`;
 
   const [billingCycle, setBillingCycle] = useState<BillingCycle>("monthly");
 
@@ -348,11 +349,15 @@ export default function PricingClient() {
     return "Choose Pro";
   };
 
-  const hrefFor = (k: PlanKey) => (k === "trial" ? portalRegister : portalBilling);
+  const billingHrefFor = (k: Exclude<PlanKey, "trial">) => `${portalBilling}?plan=${k}`;
+
+  const registerHrefFor = (k: PlanKey) =>
+    `${portalRegister}?plan=${k}&next=${encodeURIComponent(`/billing?plan=${k}`)}`;
+
+  const hrefFor = (k: PlanKey) => (k === "trial" ? registerHrefFor(k) : billingHrefFor(k));
 
   return (
     <main>
-      {/* ✅ HERO SECTION */}
       <section
         style={{
           minHeight: 360,
@@ -454,11 +459,8 @@ export default function PricingClient() {
         </div>
       </section>
 
-      {/* ✅ REST OF PAGE CONTENT */}
       <section className="section" style={{ paddingTop: 56, paddingBottom: 56 }}>
-        {/* Wider container so 4-up cards look good */}
         <div className="containerWide">
-          {/* Billing cycle toggle */}
           <div className="reveal" style={{ marginTop: 18, display: "flex", justifyContent: "center" }}>
             <div
               style={{
@@ -528,12 +530,10 @@ export default function PricingClient() {
             </div>
           </div>
 
-          {/* Confident reinforcement (no “coming soon” vibes) */}
           <p className="muted reveal" style={{ textAlign: "center", marginTop: 10, fontSize: 12.5 }}>
             Annual plans save 10% and are VAT inclusive.
           </p>
 
-          {/* Cards: 4-up inline */}
           <div
             className="pricingGrid"
             style={{
@@ -560,7 +560,7 @@ export default function PricingClient() {
                 : `per month • VAT incl. • Paystack subscription`;
 
               const note = isTrial
-                ? "Trial limits are enforced in the desktop app (not time-based)."
+                ? "You’ll create your account first, then continue to billing."
                 : "You’ll be asked to log in first if you’re not signed in.";
 
               return (
@@ -593,7 +593,7 @@ export default function PricingClient() {
                       </a>
 
                       <a
-                        href={isTrial ? links.download : portalBilling}
+                        href={isTrial ? links.download : hrefFor(p.key)}
                         style={{
                           display: "inline-flex",
                           alignItems: "center",
@@ -608,7 +608,7 @@ export default function PricingClient() {
                           transition: "transform .2s ease, box-shadow .2s ease",
                         }}
                       >
-                        {isTrial ? "Download the app" : "Manage billing"}
+                        {isTrial ? "Download the app" : "View billing"}
                       </a>
                     </div>
                   }
@@ -618,7 +618,6 @@ export default function PricingClient() {
             })}
           </div>
 
-          {/* Proof / value screenshot (zoomable) */}
           <div className="section reveal" style={{ paddingTop: 32, paddingBottom: 0 }}>
             <div
               className="proofCard"
@@ -685,7 +684,6 @@ export default function PricingClient() {
             </div>
           </div>
 
-          {/* Compare plans */}
           <div className="section reveal" style={{ paddingTop: 38 }}>
             <h2 className="h2">Compare plans</h2>
 
@@ -743,7 +741,6 @@ export default function PricingClient() {
             </div>
           </div>
 
-          {/* FAQ */}
           <div className="section reveal" style={{ paddingTop: 38 }}>
             <h2 className="h2">Pricing FAQ</h2>
 
@@ -780,12 +777,11 @@ export default function PricingClient() {
             <details>
               <summary>What happens if I downgrade?</summary>
               <p>
-                You keep access to your existing companies and data. You just won’t be able to create new companies beyond your plan limit.
+                If your new plan supports fewer companies, you’ll be asked to choose which companies remain accessible under that plan.
               </p>
             </details>
           </div>
 
-          {/* Final CTA */}
           <div className="section reveal" style={{ paddingTop: 38 }}>
             <div
               className="billCard"
@@ -836,7 +832,6 @@ export default function PricingClient() {
             </div>
           </div>
 
-          {/* Interactions + responsive */}
           <style>{`
             .reveal { opacity: 0; transform: translateY(20px); transition: all .6s ease; }
             .reveal.show { opacity: 1; transform: translateY(0); }
@@ -871,7 +866,6 @@ export default function PricingClient() {
 
             @keyframes zoomFade { from { opacity: 0; } to { opacity: 1; } }
 
-            /* ✅ 4-up desktop → 2-up laptop/tablet → 1-up mobile */
             @media (max-width: 1200px){
               .pricingGrid{ grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
             }
