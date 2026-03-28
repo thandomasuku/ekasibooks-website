@@ -287,6 +287,9 @@ export default function PricingClient() {
           "5 invoices, 5 quotes, 5 purchase orders",
           "Customers, statements & PDF export",
           "Local data (offline-capable after sign-in)",
+          "Manual local backup & restore",
+          "1 active session",
+          "No cloud sync",
           "Limits apply in the desktop app (not time-based)",
         ],
       },
@@ -301,7 +304,10 @@ export default function PricingClient() {
           { strong: "Unlimited documents" },
           "Quotes, invoices, statements & purchase orders",
           "Email drafts (via your email client)",
-          "Backup & restore",
+          "Manual local backup & restore",
+          "1 active session",
+          "No cloud sync",
+          "Perfect for single-session use",
         ],
       },
       {
@@ -312,7 +318,16 @@ export default function PricingClient() {
         monthly: 399,
         annual: 4309,
         companies: 3,
-        items: [{ strong: "Up to 3 companies" }, { strong: "Unlimited documents" }, "Everything in Starter", "Priority support"],
+        items: [
+          { strong: "Up to 3 companies" },
+          { strong: "Unlimited documents" },
+          "Automatic cloud sync for customers, quotes, invoices, and company settings",
+          "Manual local backup & restore",
+          "Up to 2 active sessions",
+          "Work across locations",
+          "Everything in Starter",
+          "Priority support",
+        ],
       },
       {
         key: "pro",
@@ -320,7 +335,15 @@ export default function PricingClient() {
         monthly: 599,
         annual: 6469,
         companies: 5,
-        items: [{ strong: "Up to 5 companies" }, { strong: "Unlimited documents" }, "Everything in Growth", "Priority support"],
+        items: [
+          { strong: "Up to 5 companies" },
+          { strong: "Unlimited documents" },
+          "Automatic cloud sync for customers, quotes, invoices, and company settings",
+          "Manual local backup & restore",
+          "Up to 4 active sessions",
+          "Everything in Growth",
+          "Priority support",
+        ],
       },
     ],
     []
@@ -334,7 +357,10 @@ export default function PricingClient() {
       { label: "Purchase Orders", trial: "5", starter: "Unlimited", growth: "Unlimited", pro: "Unlimited" },
       { label: "Statements & Customers", trial: "✓", starter: "✓", growth: "✓", pro: "✓" },
       { label: "PDF export", trial: "✓", starter: "✓", growth: "✓", pro: "✓" },
-      { label: "Backup & restore", trial: "✓", starter: "✓", growth: "✓", pro: "✓" },
+      { label: "Manual local backup & restore", trial: "✓", starter: "✓", growth: "✓", pro: "✓" },
+      { label: "Cloud sync (automatic)", trial: "—", starter: "—", growth: "✓", pro: "✓" },
+      { label: "Multi-device access", trial: "—", starter: "—", growth: "✓", pro: "✓" },
+      { label: "Active sessions", trial: "1", starter: "1", growth: "2", pro: "4" },
       { label: "Email drafts (via your email client)", trial: "✓", starter: "✓", growth: "✓", pro: "✓" },
       { label: "Priority support", trial: "—", starter: "—", growth: "✓", pro: "✓" },
       { label: "VAT included", trial: "✓", starter: "✓", growth: "✓", pro: "✓" },
@@ -387,12 +413,12 @@ export default function PricingClient() {
               color: "#e7f3f4",
               marginTop: 0,
               fontSize: 16,
-              maxWidth: 760,
+              maxWidth: 820,
               marginInline: "auto",
               lineHeight: 1.65,
             }}
           >
-            All prices include VAT. Start on Trial (document-limit based in the desktop app). Upgrade anytime when you’re ready.
+            All prices include VAT. Start on Trial, work offline after sign-in, and upgrade when you need more companies, cloud sync, and multi-device access.
           </p>
 
           <div
@@ -453,7 +479,7 @@ export default function PricingClient() {
             }}
           >
             <span>✅ Works offline after sign-in</span>
-            <span>✅ Paystack subscription</span>
+            <span>✅ Manual local backup available</span>
             <span>✅ Cancel anytime</span>
           </div>
         </div>
@@ -643,11 +669,11 @@ export default function PricingClient() {
                     What you get when you upgrade
                   </h3>
                   <p className="muted" style={{ margin: 0, lineHeight: 1.6 }}>
-                    Paid plans unlock unlimited documents and premium tools — and your PDFs look professional from day one.
+                    Paid plans unlock unlimited documents, more companies, and a smoother workflow. Growth and Pro also add automatic cloud sync for customers, quotes, invoices, and company settings, while all paid plans keep manual local backup available.
                   </p>
 
                   <div style={{ marginTop: 10, display: "flex", gap: 10, flexWrap: "wrap" }}>
-                    {["Branded PDFs", "Unlimited docs", "Multi-company"].map((t) => (
+                    {["Branded PDFs", "Unlimited docs", "Cloud sync", "Multi-company"].map((t) => (
                       <span
                         key={t}
                         style={{
@@ -698,7 +724,7 @@ export default function PricingClient() {
                 background: "#fff",
               }}
             >
-              <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: 0, minWidth: 900 }}>
+              <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: 0, minWidth: 980 }}>
                 <thead>
                   <tr>
                     {["Feature", "Trial", "Starter", "Growth", "Pro"].map((h) => (
@@ -762,10 +788,16 @@ export default function PricingClient() {
             </details>
 
             <details>
+              <summary>What’s the difference between backup and sync?</summary>
+              <p>
+                Manual local backup lets you create and restore your own backup files. Cloud sync automatically keeps your customers, quotes, invoices, and company settings in sync across supported devices and is available on Growth and Pro.
+              </p>
+            </details>
+
+            <details>
               <summary>Do I need internet?</summary>
               <p>
-                You’ll need internet to sign in and manage upgrades. Once you’re signed in, you can work offline day-to-day.
-                When you choose to email a document, we open a draft in your email app so you can send it from your own account.
+                You’ll need internet to sign in and manage upgrades. Once you’re signed in, you can work offline day-to-day. Cloud sync features require internet when syncing. When you choose to email a document, we open a draft in your email app so you can send it from your own account.
               </p>
             </details>
 
@@ -777,7 +809,7 @@ export default function PricingClient() {
             <details>
               <summary>What happens if I downgrade?</summary>
               <p>
-                If your new plan supports fewer companies, you’ll be asked to choose which companies remain accessible under that plan.
+                If your new plan supports fewer companies, you’ll be asked to choose which companies remain accessible under that plan. Cloud sync and active session limits will also follow your new plan.
               </p>
             </details>
           </div>
@@ -847,7 +879,7 @@ export default function PricingClient() {
               border-radius: 12px;
               background: #fff;
               overflow: hidden;
-              box-shadow: 0 8px 22px rgba(10,37,64,.06);
+              boxShadow: 0 8px 22px rgba(10,37,64,.06);
             }
             details:first-of-type { margin-top: 0; }
             details > summary { padding: 12px 14px; cursor: pointer; font-weight: 900; list-style: none; }

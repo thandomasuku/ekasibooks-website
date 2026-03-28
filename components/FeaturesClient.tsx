@@ -22,7 +22,17 @@ const topFeatures: FeatureCard[] = [
   {
     icon: "🧾",
     title: "Quotes → Invoices",
-    desc: "Create professional quotes and convert to invoices in one click. VAT / no-VAT friendly.",
+    desc: "Create professional quotes and convert them to invoices in one click. VAT / no-VAT friendly.",
+  },
+  {
+    icon: "☁️",
+    title: "Cloud Sync",
+    desc: "Growth and Pro plans sync customers, quotes, invoices, company details, and settings across devices.",
+  },
+  {
+    icon: "🏢",
+    title: "Multi-Company",
+    desc: "Manage multiple businesses from one account, with company access based on your plan.",
   },
   {
     icon: "👥",
@@ -30,24 +40,14 @@ const topFeatures: FeatureCard[] = [
     desc: "Store customer details, view full history, and keep records organised.",
   },
   {
-    icon: "🎨",
-    title: "Templates & Branding",
-    desc: "Add your logo and colours. Use professional document templates that make you look pro.",
-  },
-  {
     icon: "💸",
     title: "Payments & Statements",
     desc: "Record payments and generate customer statements instantly — stay on top of who owes you.",
   },
   {
-    icon: "💾",
-    title: "Backups & Export",
-    desc: "Local backups plus CSV export so you’re always in control of your data.",
-  },
-  {
     icon: "🔌",
-    title: "Offline after sign-in",
-    desc: "Sign in once, then create quotes and invoices even without internet. Updates happen when you're online.",
+    title: "Offline + Multi-Device",
+    desc: "Work offline after sign-in, then sync supported data when you're back online. Growth supports up to 2 active sessions, Pro up to 4.",
   },
 ];
 
@@ -71,8 +71,8 @@ const showcase: ShowcaseItem[] = [
     alt: "Invoice preview screen",
   },
   {
-    title: "Quotes, statements and more",
-    desc: "Quotes, statements, delivery notes and purchase orders — everything you need is already included.",
+    title: "Quotes, statements, sync and more",
+    desc: "Quotes, statements, delivery notes, purchase orders, and cloud sync on supported plans — everything you need is built in.",
     src: "/screenshots/reports-dashboard.png",
     alt: "Reports dashboard screen",
   },
@@ -84,6 +84,9 @@ const moreIncluded: string[] = [
   "Multiple invoice & document templates",
   "Professional PDF export (print & email ready)",
   "Fast search and tidy customer history",
+  "Manual local backup & restore",
+  "Cloud sync for supported plans",
+  "Company details & settings sync on Growth and Pro",
 ];
 
 function ZoomableImage({
@@ -143,7 +146,7 @@ function ZoomableImage({
             background: "rgba(0,0,0,.72)",
             display: "grid",
             placeItems: "center",
-            padding: 12, // ↓ was 16
+            padding: 12,
             cursor: "zoom-out",
             animation: "zoomFade .14s ease-out",
           }}
@@ -151,11 +154,11 @@ function ZoomableImage({
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              maxWidth: 1100, // ↓ was 1200
-              width: "min(1100px, 96vw)", // ↓ was 1200
+              maxWidth: 1100,
+              width: "min(1100px, 96vw)",
               maxHeight: "92vh",
               background: "#fff",
-              borderRadius: 14, // ↓ was 16
+              borderRadius: 14,
               overflow: "hidden",
               boxShadow: "0 18px 70px rgba(0,0,0,.35)",
               border: "1px solid rgba(255,255,255,.10)",
@@ -169,7 +172,7 @@ function ZoomableImage({
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                padding: 8, // ↓ was 10
+                padding: 8,
                 borderBottom: "1px solid rgba(0,0,0,.06)",
                 background: "#fff",
               }}
@@ -183,7 +186,7 @@ function ZoomableImage({
                   border: "1px solid rgba(0,0,0,.10)",
                   background: "#fff",
                   borderRadius: 10,
-                  padding: "7px 9px", // ↓ was 8px 10px
+                  padding: "7px 9px",
                   fontWeight: 900,
                   cursor: "pointer",
                 }}
@@ -213,7 +216,7 @@ export default function FeaturesClient() {
       {/* HERO */}
       <section
         style={{
-          minHeight: 360, // ↓ was 420
+          minHeight: 360,
           display: "flex",
           alignItems: "center",
           background:
@@ -225,10 +228,10 @@ export default function FeaturesClient() {
             className="h1 center reveal"
             style={{
               color: "#fff",
-              fontSize: 48, // ↓ was 56
+              fontSize: 48,
               lineHeight: 1.06,
               letterSpacing: "-0.02em",
-              marginBottom: 12, // ↓ was 14
+              marginBottom: 12,
             }}
           >
             Everything you need to run your small business billing
@@ -238,15 +241,14 @@ export default function FeaturesClient() {
             className="center reveal"
             style={{
               color: "#e7f3f4",
-              fontSize: 16, // ↓ was 18
-              maxWidth: 820, // ↓ was 840
+              fontSize: 16,
+              maxWidth: 820,
               marginInline: "auto",
               marginTop: 0,
               lineHeight: 1.65,
             }}
           >
-            Quotes, invoices, statements — fast, branded and backed up. Built for real-world businesses that need to get
-            paid.
+            Quotes, invoices, statements, cloud sync, and company setup that travels with you. Built for real-world businesses that need to work faster and get paid.
           </p>
 
           <div
@@ -254,22 +256,22 @@ export default function FeaturesClient() {
             style={{
               display: "flex",
               justifyContent: "center",
-              gap: 12, // ↓ was 14
+              gap: 12,
               flexWrap: "wrap",
-              marginTop: 20, // ↓ was 26
+              marginTop: 20,
             }}
           >
             <a
               href={links.download}
               style={{
                 borderRadius: 999,
-                padding: "11px 18px", // ↓ was 14px 20px
+                padding: "11px 18px",
                 fontWeight: 950,
                 textDecoration: "none",
                 background: "#fff",
                 color: "var(--brand-700)",
                 border: "1px solid rgba(255,255,255,.25)",
-                boxShadow: "0 10px 22px rgba(0,0,0,.18)", // slightly tighter
+                boxShadow: "0 10px 22px rgba(0,0,0,.18)",
                 transition: "transform .2s ease, box-shadow .2s ease",
               }}
             >
@@ -280,7 +282,7 @@ export default function FeaturesClient() {
               href={links.pricing}
               style={{
                 borderRadius: 999,
-                padding: "11px 18px", // ↓ was 14px 20px
+                padding: "11px 18px",
                 fontWeight: 950,
                 textDecoration: "none",
                 background: "rgba(255,255,255,.12)",
@@ -299,16 +301,16 @@ export default function FeaturesClient() {
             style={{
               display: "flex",
               justifyContent: "center",
-              gap: 14, // ↓ was 18
+              gap: 14,
               flexWrap: "wrap",
-              marginTop: 14, // ↓ was 18
+              marginTop: 14,
               color: "rgba(255,255,255,.85)",
-              fontSize: 13, // ↓ was 14
+              fontSize: 13,
             }}
           >
             <span>✅ Works offline after sign-in</span>
-            <span>✅ Branded PDFs</span>
-            <span>✅ Backups included</span>
+            <span>✅ Cloud sync on Growth & Pro</span>
+            <span>✅ Company settings sync included</span>
           </div>
         </div>
       </section>
@@ -322,7 +324,7 @@ export default function FeaturesClient() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-              gap: 16, // ↓ was 20
+              gap: 16,
             }}
           >
             {topFeatures.map((f) => (
@@ -330,13 +332,13 @@ export default function FeaturesClient() {
                 key={f.title}
                 className="card reveal"
                 style={{
-                  padding: 18, // ↓ was 22
+                  padding: 18,
                   height: "100%",
                   transition: "transform .25s ease, box-shadow .25s ease",
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-                  <span style={{ fontSize: 20 }}>{f.icon}</span> {/* ↓ was 22 */}
+                  <span style={{ fontSize: 20 }}>{f.icon}</span>
                   <h3 className="h3" style={{ margin: 0 }}>
                     {f.title}
                   </h3>
@@ -367,13 +369,13 @@ export default function FeaturesClient() {
                     key={s.title}
                     className="showcaseRow card reveal"
                     style={{
-                      padding: 16, // ↓ was 18
+                      padding: 16,
                       borderRadius: 16,
                       border: "1px solid var(--ring)",
                       boxShadow: "0 10px 32px rgba(10,37,64,.08)",
                       display: "grid",
                       gridTemplateColumns: "1.05fr .95fr",
-                      gap: 16, // ↓ was 18
+                      gap: 16,
                       alignItems: "center",
                     }}
                   >
@@ -403,7 +405,7 @@ export default function FeaturesClient() {
                           <span
                             key={t}
                             style={{
-                              fontSize: 11.5, // ↓ was 12
+                              fontSize: 11.5,
                               padding: "6px 10px",
                               borderRadius: 999,
                               border: "1px solid rgba(0,0,0,.08)",
@@ -428,7 +430,7 @@ export default function FeaturesClient() {
                 style={{
                   display: "inline-block",
                   borderRadius: 999,
-                  padding: "10px 18px", // ↓ was 12px 22px
+                  padding: "10px 18px",
                   background: "var(--brand)",
                   color: "#fff",
                   fontWeight: 950,
@@ -448,7 +450,7 @@ export default function FeaturesClient() {
               style={{
                 background: "var(--card)",
                 borderRadius: 16,
-                padding: 20, // ↓ was 24
+                padding: 20,
                 border: "1px solid var(--ring)",
                 boxShadow: "0 8px 28px rgba(10,37,64,.08)",
               }}
@@ -458,7 +460,7 @@ export default function FeaturesClient() {
                 style={{
                   display: "grid",
                   gridTemplateColumns: "1fr 1fr",
-                  gap: 16, // ↓ was 18
+                  gap: 16,
                   alignItems: "start",
                 }}
               >
@@ -467,8 +469,7 @@ export default function FeaturesClient() {
                     Also included
                   </h2>
                   <p className="muted" style={{ margin: 0, lineHeight: 1.6 }}>
-                    These are the core tools you get in eKasiBooks today — designed to keep your billing simple and
-                    professional.
+                    These are the core tools available in eKasiBooks today — from everyday billing to cloud sync and multi-company workflows on supported plans.
                   </p>
                 </div>
 
@@ -489,7 +490,7 @@ export default function FeaturesClient() {
                 borderRadius: 16,
                 border: "1px solid rgba(0,0,0,.06)",
                 boxShadow: "0 10px 32px rgba(10,37,64,.10)",
-                padding: 20, // ↓ was 24
+                padding: 20,
                 textAlign: "center",
               }}
             >
@@ -505,7 +506,7 @@ export default function FeaturesClient() {
                   href={links.download}
                   style={{
                     borderRadius: 999,
-                    padding: "10px 18px", // ↓ was 12px 22px
+                    padding: "10px 18px",
                     background: "var(--brand)",
                     color: "#fff",
                     fontWeight: 950,
@@ -518,7 +519,7 @@ export default function FeaturesClient() {
                   href={links.pricing}
                   style={{
                     borderRadius: 999,
-                    padding: "10px 18px", // ↓ was 12px 22px
+                    padding: "10px 18px",
                     border: "1px solid #d9e4f2",
                     background: "#fff",
                     color: "#0d2030",
@@ -554,12 +555,12 @@ export default function FeaturesClient() {
             @media (max-width: 992px){
               .featuresGrid{ grid-template-columns: 1fr !important; }
               .alsoGrid{ grid-template-columns: 1fr !important; }
-              .h1{ font-size: 34px !important; } /* ↓ was 40 */
+              .h1{ font-size: 34px !important; }
               .showcaseRow{ grid-template-columns: 1fr !important; }
             }
 
             @media (max-width: 600px){
-              .h1{ font-size: 30px !important; } /* extra shrink on small phones */
+              .h1{ font-size: 30px !important; }
             }
           `}</style>
         </div>
