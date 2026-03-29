@@ -1,10 +1,10 @@
-// components/HomeClient.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
 import ScreenshotSlider from "@/components/ScreenshotSlider";
 import StickyCta from "@/components/StickyCta";
 import { links } from "@/lib/links";
+import { trackEvent } from "@/lib/analytics";
 
 const slides = [
   { src: "/screenshots/app-dashboard.png", alt: "eKasiBooks dashboard overview" },
@@ -181,16 +181,15 @@ export default function HomeClient() {
       </div>
 
       {/* HERO */}
-     <section
-  className="homeHero"
-  style={{
-    paddingTop: 61,
-    paddingBottom: 56,
-    background:
-      "radial-gradient(1000px 600px at 10% 0%, rgba(255,255,255,.14), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
-  }}
->
-
+      <section
+        className="homeHero"
+        style={{
+          paddingTop: 61,
+          paddingBottom: 56,
+          background:
+            "radial-gradient(1000px 600px at 10% 0%, rgba(255,255,255,.14), transparent 60%), linear-gradient(135deg, var(--brand-700) 0%, var(--brand) 100%)",
+        }}
+      >
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
             className="heroGrid"
@@ -201,7 +200,6 @@ export default function HomeClient() {
               alignItems: "center",
             }}
           >
-            
             <div>
               <h1
                 className="reveal heroTitle"
@@ -243,6 +241,12 @@ export default function HomeClient() {
               >
                 <a
                   href={links.download}
+                  onClick={() => {
+                    trackEvent("cta_click", {
+                      label: "download",
+                      location: "hero",
+                    });
+                  }}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -272,6 +276,12 @@ export default function HomeClient() {
 
                 <a
                   href={links.pricing}
+                  onClick={() => {
+                    trackEvent("cta_click", {
+                      label: "pricing",
+                      location: "hero",
+                    });
+                  }}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -370,6 +380,12 @@ export default function HomeClient() {
                   </span>
                   <a
                     href={links.features}
+                    onClick={() => {
+                      trackEvent("cta_click", {
+                        label: "features",
+                        location: "hero_secondary",
+                      });
+                    }}
                     style={{
                       color: "rgba(255,255,255,.95)",
                       fontWeight: 950,
@@ -393,12 +409,11 @@ export default function HomeClient() {
               }
             }
 
-            /* Mobile font sizing fix (targets hero only) */
             @media (max-width: 600px){
-            .homeHero{
-              padding-top: 44px !important;
-              padding-bottom: 44px !important;
-            }
+              .homeHero{
+                padding-top: 44px !important;
+                padding-bottom: 44px !important;
+              }
               .heroTitle{
                 font-size: 31px !important;
                 line-height: 1.1 !important;
@@ -410,7 +425,6 @@ export default function HomeClient() {
               }
             }
 
-            /* Extra-small phones */
             @media (max-width: 380px){
               .heroTitle{
                 font-size: 28px !important;
@@ -549,11 +563,10 @@ export default function HomeClient() {
       {/* FEATURES */}
       <section className="section" style={{ paddingTop: 38, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
-         <h2 className="h2 center reveal">Why small businesses choose eKasiBooks</h2>
-<p className="center muted reveal" style={{ marginTop: 10, maxWidth: 820, marginInline: "auto" }}>
-  Built for owners who want to invoice fast, look professional, and stay in control — without complexity.
-</p>
-
+          <h2 className="h2 center reveal">Why small businesses choose eKasiBooks</h2>
+          <p className="center muted reveal" style={{ marginTop: 10, maxWidth: 820, marginInline: "auto" }}>
+            Built for owners who want to invoice fast, look professional, and stay in control — without complexity.
+          </p>
 
           <div
             className="featuresGrid"
@@ -599,6 +612,12 @@ export default function HomeClient() {
           <div className="reveal" style={{ textAlign: "center", marginTop: 18 }}>
             <a
               href={links.features}
+              onClick={() => {
+                trackEvent("cta_click", {
+                  label: "features",
+                  location: "features_section",
+                });
+              }}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -797,6 +816,12 @@ export default function HomeClient() {
               <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", flexWrap: "wrap" }}>
                 <a
                   href={links.pricing}
+                  onClick={() => {
+                    trackEvent("cta_click", {
+                      label: "pricing",
+                      location: "pricing_section",
+                    });
+                  }}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -823,6 +848,12 @@ export default function HomeClient() {
 
                 <a
                   href={links.download}
+                  onClick={() => {
+                    trackEvent("cta_click", {
+                      label: "download",
+                      location: "pricing_section",
+                    });
+                  }}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -964,6 +995,12 @@ export default function HomeClient() {
             <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap", marginTop: 10 }}>
               <a
                 href={links.download}
+                onClick={() => {
+                  trackEvent("cta_click", {
+                    label: "download",
+                    location: "final_cta",
+                  });
+                }}
                 style={{
                   borderRadius: 999,
                   padding: "10px 18px",
@@ -987,6 +1024,12 @@ export default function HomeClient() {
 
               <a
                 href={links.features}
+                onClick={() => {
+                  trackEvent("cta_click", {
+                    label: "features",
+                    location: "final_cta",
+                  });
+                }}
                 style={{
                   borderRadius: 999,
                   padding: "10px 18px",

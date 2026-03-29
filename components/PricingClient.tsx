@@ -1,9 +1,9 @@
-// components/PricingClient.tsx
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
 import { links } from "@/lib/links";
 import StickyCta from "@/components/StickyCta";
+import { trackEvent } from "@/lib/analytics";
 
 type BillingCycle = "monthly" | "annual";
 
@@ -13,8 +13,8 @@ type Plan = {
   title: string;
   badge?: string;
   popular?: boolean;
-  monthly: number; // VAT inclusive
-  annual: number; // VAT inclusive (rounded to whole Rand)
+  monthly: number;
+  annual: number;
   companies: number;
   items: Array<string | { strong: string; rest?: string }>;
 };
@@ -418,7 +418,8 @@ export default function PricingClient() {
               lineHeight: 1.65,
             }}
           >
-            All prices include VAT. Start on Trial, work offline after sign-in, and upgrade when you need more companies, cloud sync, and multi-device access.
+            All prices include VAT. Start on Trial, work offline after sign-in, and upgrade when you need more
+            companies, cloud sync, and multi-device access.
           </p>
 
           <div
@@ -433,6 +434,12 @@ export default function PricingClient() {
           >
             <a
               href={portalBilling}
+              onClick={() => {
+                trackEvent("pricing_cta_click", {
+                  label: "view_plans",
+                  location: "hero",
+                });
+              }}
               style={{
                 borderRadius: 999,
                 padding: "11px 18px",
@@ -450,6 +457,12 @@ export default function PricingClient() {
 
             <a
               href={links.download}
+              onClick={() => {
+                trackEvent("pricing_cta_click", {
+                  label: "download",
+                  location: "hero",
+                });
+              }}
               style={{
                 borderRadius: 999,
                 padding: "11px 18px",
@@ -501,7 +514,10 @@ export default function PricingClient() {
             >
               <button
                 type="button"
-                onClick={() => setBillingCycle("monthly")}
+                onClick={() => {
+                  trackEvent("billing_toggle", { selected: "monthly" });
+                  setBillingCycle("monthly");
+                }}
                 style={{
                   border: "none",
                   cursor: "pointer",
@@ -519,7 +535,10 @@ export default function PricingClient() {
 
               <button
                 type="button"
-                onClick={() => setBillingCycle("annual")}
+                onClick={() => {
+                  trackEvent("billing_toggle", { selected: "annual" });
+                  setBillingCycle("annual");
+                }}
                 style={{
                   border: "none",
                   cursor: "pointer",
@@ -579,11 +598,11 @@ export default function PricingClient() {
               const sub = isTrial
                 ? "document-limit based • no card required"
                 : isAnnual
-                ? `R${effectiveMonthly(p.annual)}/month • billed annually (${formatRand(p.annual)}) • Save R${annualSave(
-                    p.monthly,
-                    p.annual
-                  )}`
-                : `per month • VAT incl. • Paystack subscription`;
+                  ? `R${effectiveMonthly(p.annual)}/month • billed annually (${formatRand(p.annual)}) • Save R${annualSave(
+                      p.monthly,
+                      p.annual
+                    )}`
+                  : `per month • VAT incl. • Paystack subscription`;
 
               const note = isTrial
                 ? "You’ll create your account first, then continue to billing."
@@ -602,6 +621,12 @@ export default function PricingClient() {
                     <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                       <a
                         href={hrefFor(p.key)}
+                        onClick={() => {
+                          trackEvent("plan_selected", {
+                            plan: p.key,
+                            billing: billingCycle,
+                          });
+                        }}
                         style={{
                           display: "inline-flex",
                           alignItems: "center",
@@ -620,6 +645,13 @@ export default function PricingClient() {
 
                       <a
                         href={isTrial ? links.download : hrefFor(p.key)}
+                        onClick={() => {
+                          trackEvent("plan_secondary_click", {
+                            plan: p.key,
+                            billing: billingCycle,
+                            action: isTrial ? "download_app" : "view_billing",
+                          });
+                        }}
                         style={{
                           display: "inline-flex",
                           alignItems: "center",
@@ -669,7 +701,9 @@ export default function PricingClient() {
                     What you get when you upgrade
                   </h3>
                   <p className="muted" style={{ margin: 0, lineHeight: 1.6 }}>
-                    Paid plans unlock unlimited documents, more companies, and a smoother workflow. Growth and Pro also add automatic cloud sync for customers, quotes, invoices, and company settings, while all paid plans keep manual local backup available.
+                    Paid plans unlock unlimited documents, more companies, and a smoother workflow. Growth and Pro also
+                    add automatic cloud sync for customers, quotes, invoices, and company settings, while all paid plans
+                    keep manual local backup available.
                   </p>
 
                   <div style={{ marginTop: 10, display: "flex", gap: 10, flexWrap: "wrap" }}>
@@ -778,7 +812,8 @@ export default function PricingClient() {
             <details>
               <summary>Is it a subscription?</summary>
               <p>
-                Yes. Paid plans are billed via Paystack. Choose monthly or annual (annual saves 10%). You can manage billing in your dashboard.
+                Yes. Paid plans are billed via Paystack. Choose monthly or annual (annual saves 10%). You can manage
+                billing in your dashboard.
               </p>
             </details>
 
@@ -790,14 +825,18 @@ export default function PricingClient() {
             <details>
               <summary>What’s the difference between backup and sync?</summary>
               <p>
-                Manual local backup lets you create and restore your own backup files. Cloud sync automatically keeps your customers, quotes, invoices, and company settings in sync across supported devices and is available on Growth and Pro.
+                Manual local backup lets you create and restore your own backup files. Cloud sync automatically keeps
+                your customers, quotes, invoices, and company settings in sync across supported devices and is available
+                on Growth and Pro.
               </p>
             </details>
 
             <details>
               <summary>Do I need internet?</summary>
               <p>
-                You’ll need internet to sign in and manage upgrades. Once you’re signed in, you can work offline day-to-day. Cloud sync features require internet when syncing. When you choose to email a document, we open a draft in your email app so you can send it from your own account.
+                You’ll need internet to sign in and manage upgrades. Once you’re signed in, you can work offline
+                day-to-day. Cloud sync features require internet when syncing. When you choose to email a document, we
+                open a draft in your email app so you can send it from your own account.
               </p>
             </details>
 
@@ -809,7 +848,8 @@ export default function PricingClient() {
             <details>
               <summary>What happens if I downgrade?</summary>
               <p>
-                If your new plan supports fewer companies, you’ll be asked to choose which companies remain accessible under that plan. Cloud sync and active session limits will also follow your new plan.
+                If your new plan supports fewer companies, you’ll be asked to choose which companies remain accessible
+                under that plan. Cloud sync and active session limits will also follow your new plan.
               </p>
             </details>
           </div>
@@ -832,6 +872,12 @@ export default function PricingClient() {
               <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
                 <a
                   href={links.download}
+                  onClick={() => {
+                    trackEvent("pricing_cta_click", {
+                      label: "download",
+                      location: "bottom",
+                    });
+                  }}
                   style={{
                     borderRadius: 999,
                     padding: "10px 18px",
@@ -847,6 +893,12 @@ export default function PricingClient() {
                 </a>
                 <a
                   href={portalBilling}
+                  onClick={() => {
+                    trackEvent("pricing_cta_click", {
+                      label: "view_billing",
+                      location: "bottom",
+                    });
+                  }}
                   style={{
                     borderRadius: 999,
                     padding: "10px 18px",
@@ -879,7 +931,7 @@ export default function PricingClient() {
               border-radius: 12px;
               background: #fff;
               overflow: hidden;
-              boxShadow: 0 8px 22px rgba(10,37,64,.06);
+              box-shadow: 0 8px 22px rgba(10,37,64,.06);
             }
             details:first-of-type { margin-top: 0; }
             details > summary { padding: 12px 14px; cursor: pointer; font-weight: 900; list-style: none; }

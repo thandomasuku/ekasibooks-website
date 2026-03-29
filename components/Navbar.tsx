@@ -1,10 +1,10 @@
-// components/Navbar.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { links } from "@/lib/links";
+import { trackEvent } from "@/lib/analytics";
 
 type NavItem = {
   label: "HOME" | "FEATURES" | "PRICING" | "DOWNLOAD" | "SUPPORT" | "CONTACT" | string;
@@ -27,7 +27,6 @@ export default function Navbar() {
     []
   );
 
-  // Escape closes menu (allowed: event handler, not effect body calling setState unconditionally)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
@@ -36,7 +35,6 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Lock background scroll when mobile menu is open (allowed: syncing external system)
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = open ? "hidden" : prev || "";
@@ -50,7 +48,6 @@ export default function Navbar() {
     return pathname?.startsWith(href);
   };
 
-  // Close menu only in direct user actions (avoids setState-in-effect lint rule)
   const closeMenu = () => setOpen(false);
 
   return (
@@ -66,7 +63,6 @@ export default function Navbar() {
         overflow: "hidden",
       }}
     >
-      {/* full-width bar */}
       <div
         className="navBarInner"
         style={{
@@ -79,7 +75,6 @@ export default function Navbar() {
           minHeight: 84,
         }}
       >
-        {/* Mobile button */}
         <button
           className="navMobileBtn"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -100,7 +95,6 @@ export default function Navbar() {
             flex: "0 0 auto",
           }}
         >
-          {/* Custom hamburger so we can control thickness/size */}
           <span
             aria-hidden="true"
             className={open ? "hamburger isOpen" : "hamburger"}
@@ -117,7 +111,6 @@ export default function Navbar() {
             <span className="hamburgerLine" />
           </span>
 
-          {/* Screen-reader text fallback */}
           <span
             style={{
               position: "absolute",
@@ -135,11 +128,17 @@ export default function Navbar() {
           </span>
         </button>
 
-        {/* Brand */}
         <Link
           href="/"
           className="navBrand"
-          onClick={closeMenu}
+          onClick={() => {
+            trackEvent("nav_click", {
+              label: "HOME",
+              href: "/",
+              location: "brand",
+            });
+            closeMenu();
+          }}
           style={{
             display: "flex",
             alignItems: "center",
@@ -165,10 +164,8 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Spacer pushes everything else to the right */}
         <div className="navSpacer" style={{ flex: 1 }} />
 
-        {/* Desktop nav */}
         <nav
           className="navDesktop"
           style={{
@@ -193,13 +190,19 @@ export default function Navbar() {
               transition: "transform .2s ease, background .2s ease, border .2s ease",
             };
 
-            // Most of your nav items are internal routes; use Link for internal
             if (item.href.startsWith("/")) {
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   style={commonStyle}
+                  onClick={() => {
+                    trackEvent("nav_click", {
+                      label: item.label,
+                      href: item.href,
+                      location: "desktop",
+                    });
+                  }}
                   onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "translateY(-1px)")}
                   onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "translateY(0)")}
                 >
@@ -208,12 +211,18 @@ export default function Navbar() {
               );
             }
 
-            // Fallback for any external hrefs
             return (
               <a
                 key={item.href}
                 href={item.href}
                 style={commonStyle}
+                onClick={() => {
+                  trackEvent("nav_click", {
+                    label: item.label,
+                    href: item.href,
+                    location: "desktop",
+                  });
+                }}
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-1px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
@@ -222,7 +231,6 @@ export default function Navbar() {
             );
           })}
 
-          {/* LOGIN (UNCHANGED SIZE/STYLES) */}
           <a
             href="https://portal.ekasibooks.co.za"
             target="_blank"
@@ -240,6 +248,12 @@ export default function Navbar() {
               transition: "transform .2s ease, box-shadow .2s ease",
               boxShadow: "0 8px 20px rgba(10,37,64,.06)",
             }}
+            onClick={() => {
+              trackEvent("login_click", {
+                location: "desktop",
+                href: "https://portal.ekasibooks.co.za",
+              });
+            }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-2px)";
               e.currentTarget.style.boxShadow = "0 14px 26px rgba(10,37,64,.10)";
@@ -254,7 +268,6 @@ export default function Navbar() {
         </nav>
       </div>
 
-      {/* Mobile panel */}
       {open ? (
         <div
           className="navMobilePanel"
@@ -271,7 +284,14 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={closeMenu}
+                  onClick={() => {
+                    trackEvent("nav_click", {
+                      label: item.label,
+                      href: item.href,
+                      location: "mobile",
+                    });
+                    closeMenu();
+                  }}
                   style={{
                     textDecoration: "none",
                     fontWeight: 950,
@@ -289,12 +309,17 @@ export default function Navbar() {
               );
             })}
 
-            {/* LOGIN (UNCHANGED SIZE/STYLES) */}
             <a
               href="https://portal.ekasibooks.co.za"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={closeMenu}
+              onClick={() => {
+                trackEvent("login_click", {
+                  location: "mobile",
+                  href: "https://portal.ekasibooks.co.za",
+                });
+                closeMenu();
+              }}
               style={{
                 textDecoration: "none",
                 fontWeight: 950,
@@ -314,7 +339,6 @@ export default function Navbar() {
         </div>
       ) : null}
 
-      {/* Responsive switches + hamburger styling */}
       <style>{`
         .hamburgerLine{
           height: 3px;
@@ -325,7 +349,6 @@ export default function Navbar() {
           transition: transform .18s ease, opacity .18s ease;
         }
 
-        /* Animate into an X when open */
         .hamburger.isOpen .hamburgerLine:nth-child(1){
           transform: translateY(8px) rotate(45deg);
         }
@@ -342,14 +365,12 @@ export default function Navbar() {
           .navBrand{ order: 1; }
           .navSpacer{ order: 2; }
 
-          /* Pull content closer to edges on mobile */
           .navBarInner{
             padding-left: 10px !important;
             padding-right: 10px !important;
             gap: 12px !important;
           }
 
-          /* Make the button even more tappable on small screens */
           .navMobileBtn{
             width: 54px !important;
             height: 54px !important;

@@ -1,9 +1,9 @@
-// components/DownloadClient.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
 import { links } from "@/lib/links";
 import StickyCta from "@/components/StickyCta";
+import { trackEvent } from "@/lib/analytics";
 
 const DOWNLOADS = [
   {
@@ -78,7 +78,7 @@ function ZoomableImage({
             background: "rgba(0,0,0,.72)",
             display: "grid",
             placeItems: "center",
-            padding: 12, // ↓ was 16
+            padding: 12,
             cursor: "zoom-out",
             animation: "zoomFade .14s ease-out",
           }}
@@ -86,11 +86,11 @@ function ZoomableImage({
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              maxWidth: 1100, // ↓ was 1200
-              width: "min(1100px, 96vw)", // ↓ was 1200
+              maxWidth: 1100,
+              width: "min(1100px, 96vw)",
               maxHeight: "92vh",
               background: "#fff",
-              borderRadius: 14, // ↓ was 16
+              borderRadius: 14,
               overflow: "hidden",
               boxShadow: "0 18px 70px rgba(0,0,0,.35)",
               border: "1px solid rgba(255,255,255,.10)",
@@ -104,7 +104,7 @@ function ZoomableImage({
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                padding: 8, // ↓ was 10
+                padding: 8,
                 borderBottom: "1px solid rgba(0,0,0,.06)",
                 background: "#fff",
               }}
@@ -118,7 +118,7 @@ function ZoomableImage({
                   border: "1px solid rgba(0,0,0,.10)",
                   background: "#fff",
                   borderRadius: 10,
-                  padding: "7px 9px", // ↓ was 8px 10px
+                  padding: "7px 9px",
                   fontWeight: 900,
                   cursor: "pointer",
                 }}
@@ -145,10 +145,6 @@ export default function DownloadClient() {
     });
   }, []);
 
-  // If you later add screenshots for SmartScreen steps, flip this to true.
-  // Expected paths:
-  // /public/screenshots/smartscreen-more-info.png
-  // /public/screenshots/smartscreen-run-anyway.png
   const SHOW_SMARTSCREEN_SCREENSHOTS = false;
 
   return (
@@ -156,7 +152,7 @@ export default function DownloadClient() {
       {/* HERO */}
       <section
         style={{
-          minHeight: 320, // ↓ was 380
+          minHeight: 320,
           display: "flex",
           alignItems: "center",
           background:
@@ -172,9 +168,9 @@ export default function DownloadClient() {
             className="center"
             style={{
               color: "#e7f3f4",
-              marginTop: 10, // ↓ was 14
-              fontSize: 16, // ↓ was 18
-              maxWidth: 640, // ↓ was 680
+              marginTop: 10,
+              fontSize: 16,
+              maxWidth: 640,
               marginInline: "auto",
               lineHeight: 1.65,
             }}
@@ -193,9 +189,9 @@ export default function DownloadClient() {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: 22, // ↓ was 28
+              gap: 22,
               alignItems: "start",
-              marginBottom: 40, // ↓ was 56
+              marginBottom: 40,
             }}
           >
             {/* DOWNLOAD CARDS */}
@@ -210,7 +206,21 @@ export default function DownloadClient() {
                     aria-disabled={disabled ? true : undefined}
                     className="downloadCard reveal"
                     onClick={(e) => {
-                      if (disabled) e.preventDefault();
+                      if (disabled) {
+                        e.preventDefault();
+                        trackEvent("download_option_click", {
+                          platform: d.label,
+                          status: "disabled",
+                          location: "download_cards",
+                        });
+                        return;
+                      }
+
+                      trackEvent("download_click", {
+                        platform: d.label,
+                        href: d.href,
+                        location: "download_cards",
+                      });
                     }}
                     style={{
                       textDecoration: "none",
@@ -224,7 +234,7 @@ export default function DownloadClient() {
                     <div
                       className="card"
                       style={{
-                        padding: 20, // ↓ was 26
+                        padding: 20,
                         height: "100%",
                         display: "flex",
                         flexDirection: "column",
@@ -242,7 +252,7 @@ export default function DownloadClient() {
 
                       <div
                         style={{
-                          marginTop: 14, // ↓ was 18
+                          marginTop: 14,
                           display: "inline-flex",
                           alignItems: "center",
                           gap: 10,
@@ -251,9 +261,9 @@ export default function DownloadClient() {
                           background: disabled
                             ? "rgba(13,32,48,.35)"
                             : d.tone === "primary"
-                            ? "var(--brand)"
-                            : "var(--brand-700)",
-                          padding: "10px 16px", // ↓ was 12px 18px
+                              ? "var(--brand)"
+                              : "var(--brand-700)",
+                          padding: "10px 16px",
                           borderRadius: 999,
                           width: "fit-content",
                           fontSize: 13.5,
@@ -279,7 +289,7 @@ export default function DownloadClient() {
                   borderRadius: 16,
                   border: "1px solid rgba(0,0,0,.10)",
                   background: "rgba(13,32,48,.03)",
-                  padding: 14, // ↓ was 16
+                  padding: 14,
                   lineHeight: 1.6,
                 }}
               >
@@ -388,7 +398,7 @@ export default function DownloadClient() {
               <div
                 className="card"
                 style={{
-                  padding: 16, // ↓ was 18
+                  padding: 16,
                   borderRadius: 16,
                   border: "1px solid rgba(0,0,0,.06)",
                   background: "#fff",
@@ -420,7 +430,7 @@ export default function DownloadClient() {
                     <span
                       key={t}
                       style={{
-                        fontSize: 11.5, // ↓ was 12
+                        fontSize: 11.5,
                         padding: "6px 10px",
                         borderRadius: 999,
                         border: "1px solid rgba(0,0,0,.08)",
@@ -443,8 +453,8 @@ export default function DownloadClient() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, minmax(0,1fr))",
-              gap: 18, // ↓ was 24
-              marginBottom: 40, // ↓ was 56
+              gap: 18,
+              marginBottom: 40,
             }}
           >
             <div className="thinCard">
@@ -486,7 +496,16 @@ export default function DownloadClient() {
 
             <p className="muted" style={{ marginTop: 14, fontSize: 13.5 }}>
               By downloading you agree to our{" "}
-              <a href="/privacy" style={{ fontWeight: 900 }}>
+              <a
+                href="/privacy"
+                style={{ fontWeight: 900 }}
+                onClick={() => {
+                  trackEvent("download_page_link_click", {
+                    label: "privacy_policy",
+                    location: "requirements",
+                  });
+                }}
+              >
                 Privacy Policy
               </a>
               .
@@ -503,13 +522,12 @@ export default function DownloadClient() {
 
             .downloadCard[aria-disabled="true"]:hover { transform: none; }
 
-            .thinCard { padding: 18px; border-radius: 16px; transition: transform .25s ease, box-shadow .25s ease; } /* ↓ was 22 */
+            .thinCard { padding: 18px; border-radius: 16px; transition: transform .25s ease, box-shadow .25s ease; }
             .thinCard:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(10,37,64,.10); }
 
-            /* Collapsible install guide */
             .installDetails{
               border-top: 1px solid rgba(0,0,0,.08);
-              padding-top: 10px; /* ↓ was 12 */
+              padding-top: 10px;
             }
             .installSummary{
               list-style: none;
@@ -520,7 +538,7 @@ export default function DownloadClient() {
               cursor: pointer;
               font-weight: 900;
               color: var(--ink);
-              font-size: 13.5px; /* ↓ was 14 */
+              font-size: 13.5px;
               user-select: none;
             }
             .installSummary::-webkit-details-marker { display: none; }
@@ -532,18 +550,18 @@ export default function DownloadClient() {
               background: rgba(255,255,255,.7);
               border: 1px solid rgba(0,0,0,.08);
               border-radius: 14px;
-              padding: 12px; /* ↓ was 14 */
+              padding: 12px;
             }
             .installList{
               margin: 0;
               padding-left: 18px;
               color: var(--muted);
               line-height: 1.7;
-              font-size: 13.5px; /* ↓ was 14 */
+              font-size: 13.5px;
             }
             .installNote{
               margin-top: 10px;
-              font-size: 12.5px; /* ↓ was 13 */
+              font-size: 12.5px;
               color: var(--muted);
               background: rgba(13,32,48,.03);
               border: 1px solid rgba(0,0,0,.08);
@@ -575,13 +593,18 @@ export default function DownloadClient() {
               .topGrid{ grid-template-columns: 1fr !important; }
               .trustGrid{ grid-template-columns: 1fr !important; }
               .ssGrid{ grid-template-columns: 1fr !important; }
-              .h1{ font-size: 34px !important; } /* tighter hero on mobile */
+              .h1{ font-size: 34px !important; }
             }
           `}</style>
         </div>
       </section>
 
-      <StickyCta primaryHref={links.download} primaryLabel="Download eKasiBooks" secondaryHref={links.pricing} secondaryLabel="See Pricing" />
+      <StickyCta
+        primaryHref={links.download}
+        primaryLabel="Download eKasiBooks"
+        secondaryHref={links.pricing}
+        secondaryLabel="See Pricing"
+      />
     </main>
   );
 }

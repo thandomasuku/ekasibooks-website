@@ -1,5 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 import Navbar from "@/components/Navbar";
@@ -7,6 +8,7 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 
 const SITE = "https://ekasibooks.co.za";
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
@@ -18,9 +20,6 @@ export const metadata: Metadata = {
 
   description:
     "Create branded quotes and invoices, track payments, and send statements in minutes. eKasiBooks is offline-first accounting software built for small businesses in South Africa.",
-
-  // ✅ IMPORTANT: do NOT set a global canonical to "/"
-  // Each page should have its own canonical (or rely on defaults if you don’t set one).
 
   applicationName: "eKasiBooks",
   referrer: "origin-when-cross-origin",
@@ -52,46 +51,47 @@ export const metadata: Metadata = {
     },
   },
 
-  // ✅ Add these files in /public when ready:
-  // /public/og-image.png  (1200x630)
-  // /public/favicon.ico
-  // /public/apple-touch-icon.png (180x180)
-  // /public/site.webmanifest
-icons: {
-  icon: "/icon.png",
-  apple: "/apple-icon.png", // optional
-},
- manifest: "/site.webmanifest", // enable only when the file exists
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
 
- openGraph: {
-  type: "website",
-  url: "/",
-  siteName: "eKasiBooks",
-  title: "eKasiBooks – Simple Accounting & Invoicing Software",
-  description:
-    "Offline-first accounting & invoicing for small businesses in South Africa. Look professional, bill faster, get paid.",
-  locale: "en_ZA",
-  images: [
-    {
-      url: "/og-image.png",
-      width: 1200,
-      height: 630,
-      alt: "eKasiBooks – Simple Accounting & Invoicing Software",
-    },
-  ],
-},
-twitter: {
-  card: "summary_large_image",
-  title: "eKasiBooks – Simple Accounting & Invoicing Software",
-  description:
-    "Create invoices, track payments, and send statements fast. Offline-first and built for small businesses.",
-  images: ["/og-image.png"],
-},
+  manifest: "/site.webmanifest",
+
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "eKasiBooks",
+    title: "eKasiBooks – Simple Accounting & Invoicing Software",
+    description:
+      "Offline-first accounting & invoicing for small businesses in South Africa. Look professional, bill faster, get paid.",
+    locale: "en_ZA",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "eKasiBooks – Simple Accounting & Invoicing Software",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "eKasiBooks – Simple Accounting & Invoicing Software",
+    description:
+      "Create invoices, track payments, and send statements fast. Offline-first and built for small businesses.",
+    images: ["/og-image.png"],
+  },
 
   category: "Business Software",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -131,6 +131,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
+
+        {GA_ID ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}', {
+                  page_path: window.location.pathname,
+                });
+              `}
+            </Script>
+          </>
+        ) : null}
       </head>
       <body>
         <Navbar />

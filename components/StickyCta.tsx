@@ -1,7 +1,7 @@
-// components/StickyCta.tsx
 "use client";
 
 import { useEffect, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 export default function StickyCta({
   primaryHref,
@@ -68,6 +68,13 @@ export default function StickyCta({
       >
         <a
           href={primaryHref}
+          onClick={() => {
+            trackEvent("sticky_cta_click", {
+              label: primaryLabel,
+              href: primaryHref,
+              button_type: "primary",
+            });
+          }}
           style={{
             borderRadius: 999,
             padding: "12px 18px",
@@ -86,6 +93,13 @@ export default function StickyCta({
 
         <a
           href={secondaryHref}
+          onClick={() => {
+            trackEvent("sticky_cta_click", {
+              label: secondaryLabel,
+              href: secondaryHref,
+              button_type: "secondary",
+            });
+          }}
           style={{
             borderRadius: 999,
             padding: "12px 18px",
