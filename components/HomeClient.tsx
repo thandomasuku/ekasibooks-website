@@ -206,19 +206,19 @@ export default function HomeClient() {
                 style={{
                   margin: 0,
                   color: "#fff",
-                  fontWeight: 950,
+                  fontWeight: 900,
                   letterSpacing: "-0.03em",
-                  lineHeight: 1.04,
-                  fontSize: 46,
+                  lineHeight: 1.12,
+                  fontSize: 40,
                 }}
               >
-                Simple accounting &amp; invoicing for South African small businesses
+                Create invoices, track customers, and get paid faster. All in one simple app.
               </h1>
 
               <p
                 className="reveal heroSubtitle"
                 style={{
-                  marginTop: 12,
+                  marginTop: 16,
                   marginBottom: 0,
                   color: "rgba(231,243,244,.95)",
                   fontSize: 15.5,
@@ -226,7 +226,7 @@ export default function HomeClient() {
                   maxWidth: 620,
                 }}
               >
-                Create branded quotes, convert to invoices, track payments, and send statements in minutes — with VAT
+                Create branded quotes, convert them to invoices, track payments, and send statements in minutes — with VAT
                 support, local backups, and offline use after sign-in.
               </p>
 
@@ -271,7 +271,7 @@ export default function HomeClient() {
                     e.currentTarget.style.boxShadow = "0 14px 34px rgba(0,0,0,.20)";
                   }}
                 >
-                  Download
+                  Start Free
                 </a>
 
                 <a
@@ -307,6 +307,19 @@ export default function HomeClient() {
                 >
                   See Pricing
                 </a>
+              </div>
+
+              <div
+                className="reveal"
+                style={{
+                  marginTop: 10,
+                  color: "rgba(255,255,255,.88)",
+                  fontSize: 12.5,
+                  fontWeight: 800,
+                  letterSpacing: ".01em",
+                }}
+              >
+                No complicated setup • No contracts • Get started in under 2 minutes
               </div>
 
               <div
@@ -809,7 +822,7 @@ export default function HomeClient() {
                   Simple pricing
                 </h3>
                 <p className="muted" style={{ margin: 0, lineHeight: 1.6 }}>
-                  Start on Trial. Upgrade to Pro when you’re ready.
+                  Start your free trial today. Upgrade when you’re ready to grow.
                 </p>
               </div>
 
@@ -875,7 +888,7 @@ export default function HomeClient() {
                     e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  Download
+                  Start Free
                 </a>
               </div>
             </div>
@@ -989,7 +1002,7 @@ export default function HomeClient() {
             }}
           >
             <h3 className="h3" style={{ marginBottom: 8 }}>
-              Ready to look pro and get paid faster?
+              Ready to look professional and get paid faster?
             </h3>
 
             <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap", marginTop: 10 }}>
@@ -1019,7 +1032,7 @@ export default function HomeClient() {
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                Download eKasiBooks
+                Start Free
               </a>
 
               <a
@@ -1086,7 +1099,7 @@ export default function HomeClient() {
       {/* Sticky CTA */}
       <StickyCta
         primaryHref={links.download}
-        primaryLabel="Download eKasiBooks"
+        primaryLabel="Start Free"
         secondaryHref={links.pricing}
         secondaryLabel="See Pricing"
       />

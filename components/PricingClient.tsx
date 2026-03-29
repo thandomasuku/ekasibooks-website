@@ -370,9 +370,9 @@ export default function PricingClient() {
 
   const primaryCtaLabel = (k: PlanKey) => {
     if (k === "trial") return "Create free account";
-    if (k === "starter") return "Choose Starter";
-    if (k === "growth") return "Choose Growth";
-    return "Choose Pro";
+    if (k === "starter") return "Get Starter";
+    if (k === "growth") return "Get Growth";
+    return "Get Pro";
   };
 
   const billingHrefFor = (k: Exclude<PlanKey, "trial">) => `${portalBilling}?plan=${k}`;
@@ -404,7 +404,7 @@ export default function PricingClient() {
               marginBottom: 12,
             }}
           >
-            Simple pricing that grows with your business
+            Start free. Upgrade when you’re ready to grow your business
           </h1>
 
           <p
@@ -418,8 +418,8 @@ export default function PricingClient() {
               lineHeight: 1.65,
             }}
           >
-            All prices include VAT. Start on Trial, work offline after sign-in, and upgrade when you need more
-            companies, cloud sync, and multi-device access.
+            Start for free, work offline after sign-in, and upgrade only when you need more companies, cloud sync,
+            and multi-device access. All prices include VAT.
           </p>
 
           <div
@@ -433,10 +433,10 @@ export default function PricingClient() {
             }}
           >
             <a
-              href={portalBilling}
+              href={portalRegister}
               onClick={() => {
                 trackEvent("pricing_cta_click", {
-                  label: "view_plans",
+                  label: "start_free_no_card",
                   location: "hero",
                 });
               }}
@@ -452,7 +452,7 @@ export default function PricingClient() {
                 transition: "transform .2s ease, box-shadow .2s ease",
               }}
             >
-              View plans & subscribe
+              Start free — no card required
             </a>
 
             <a
@@ -491,9 +491,9 @@ export default function PricingClient() {
               fontSize: 13,
             }}
           >
-            <span>✅ Works offline after sign-in</span>
-            <span>✅ Manual local backup available</span>
+            <span>✅ No card required to start</span>
             <span>✅ Cancel anytime</span>
+            <span>✅ Instant access after payment</span>
           </div>
         </div>
       </section>
@@ -596,7 +596,7 @@ export default function PricingClient() {
               const price = isTrial ? "Free" : isAnnual ? formatRand(p.annual) : formatRand(p.monthly);
 
               const sub = isTrial
-                ? "document-limit based • no card required"
+                ? "start free • no card required"
                 : isAnnual
                   ? `R${effectiveMonthly(p.annual)}/month • billed annually (${formatRand(p.annual)}) • Save R${annualSave(
                       p.monthly,
@@ -605,7 +605,7 @@ export default function PricingClient() {
                   : `per month • VAT incl. • Paystack subscription`;
 
               const note = isTrial
-                ? "You’ll create your account first, then continue to billing."
+                ? "Start free instantly. Upgrade anytime when you need more."
                 : "You’ll be asked to log in first if you’re not signed in.";
 
               return (
@@ -867,7 +867,7 @@ export default function PricingClient() {
                 transition: "transform .25s ease, box-shadow .25s ease",
               }}
             >
-              <h3 className="h3">Ready to get started?</h3>
+              <h3 className="h3">Start free today and upgrade when your business grows</h3>
 
               <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
                 <a
