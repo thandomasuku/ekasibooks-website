@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { links } from "@/lib/links";
 import StickyCta from "@/components/StickyCta";
@@ -63,7 +64,15 @@ function ZoomableImage({
           width: "100%",
         }}
       >
-        <img src={src} alt={alt} loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
+        <Image
+          src={src}
+          alt={alt}
+          width={1400}
+          height={900}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+          style={{ width: "100%", height: "auto", display: "block" }}
+          priority={src === "/screenshots/app-dashboard.png"}
+        />
       </button>
 
       {open ? (
@@ -128,7 +137,14 @@ function ZoomableImage({
             </div>
 
             <div style={{ overflow: "auto", background: "#f7f9fc" }}>
-              <img src={src} alt={alt} style={{ width: "100%", height: "auto", display: "block" }} />
+              <Image
+                src={src}
+                alt={alt}
+                width={1400}
+                height={900}
+                sizes="100vw"
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
             </div>
           </div>
         </div>
@@ -149,7 +165,6 @@ export default function DownloadClient() {
 
   return (
     <main>
-      {/* HERO */}
       <section
         style={{
           minHeight: 320,
@@ -180,10 +195,8 @@ export default function DownloadClient() {
         </div>
       </section>
 
-      {/* CONTENT */}
       <section className="section" style={{ paddingTop: 56, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1100 }}>
-          {/* DOWNLOAD + SCREENSHOT */}
           <div
             className="topGrid"
             style={{
@@ -194,7 +207,6 @@ export default function DownloadClient() {
               marginBottom: 40,
             }}
           >
-            {/* DOWNLOAD CARDS */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 14 }}>
               {DOWNLOADS.map((d, i) => {
                 const disabled = "disabled" in d && d.disabled;
@@ -282,7 +294,6 @@ export default function DownloadClient() {
                 );
               })}
 
-              {/* SMARTSCREEN NOTICE */}
               <div
                 className="reveal"
                 style={{
@@ -329,7 +340,6 @@ export default function DownloadClient() {
                   </div>
                 </div>
 
-                {/* COLLAPSIBLE INSTALL GUIDE */}
                 <details className="installDetails" style={{ marginTop: 10 }}>
                   <summary className="installSummary">
                     How to install safely (step-by-step)
@@ -363,20 +373,24 @@ export default function DownloadClient() {
                       <div className="ssGrid">
                         <div className="ssCard">
                           <div className="ssTitle">Step 1: Click “More info”</div>
-                          <img
+                          <Image
                             src="/screenshots/smartscreen-more-info.png"
                             alt='Windows SmartScreen: click "More info"'
+                            width={1200}
+                            height={800}
+                            sizes="(max-width: 900px) 100vw, 50vw"
                             style={{ width: "100%", height: "auto", display: "block", borderRadius: 12 }}
-                            loading="lazy"
                           />
                         </div>
                         <div className="ssCard">
                           <div className="ssTitle">Step 2: Click “Run anyway”</div>
-                          <img
+                          <Image
                             src="/screenshots/smartscreen-run-anyway.png"
                             alt='Windows SmartScreen: click "Run anyway"'
+                            width={1200}
+                            height={800}
+                            sizes="(max-width: 900px) 100vw, 50vw"
                             style={{ width: "100%", height: "auto", display: "block", borderRadius: 12 }}
-                            loading="lazy"
                           />
                         </div>
                       </div>
@@ -393,7 +407,6 @@ export default function DownloadClient() {
               </div>
             </div>
 
-            {/* SCREENSHOT PROOF */}
             <div className="reveal">
               <div
                 className="card"
@@ -447,7 +460,6 @@ export default function DownloadClient() {
             </div>
           </div>
 
-          {/* TRUST STRIP */}
           <div
             className="reveal trustGrid"
             style={{
@@ -479,7 +491,6 @@ export default function DownloadClient() {
             </div>
           </div>
 
-          {/* REQUIREMENTS */}
           <div className="reveal">
             <h2 className="h3" style={{ marginBottom: 12 }}>
               System requirements
@@ -512,7 +523,6 @@ export default function DownloadClient() {
             </p>
           </div>
 
-          {/* INTERACTIONS */}
           <style>{`
             .reveal { opacity: 0; transform: translateY(20px); transition: all .6s ease; }
             .reveal.show { opacity: 1; transform: translateY(0); }

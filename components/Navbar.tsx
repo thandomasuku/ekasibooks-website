@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { usePathname } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { links } from "@/lib/links";
 import { trackEvent } from "@/lib/analytics";
 
@@ -151,9 +152,12 @@ export default function Navbar() {
           }}
           aria-label="eKasiBooks Home"
         >
-          <img
+          <Image
             src="/ekasibooks-logo.png"
             alt="eKasiBooks"
+            width={420}
+            height={135}
+            priority
             style={{
               height: 135,
               width: "auto",
@@ -177,7 +181,7 @@ export default function Navbar() {
         >
           {nav.map((item) => {
             const active = isActive(item.href);
-            const commonStyle: React.CSSProperties = {
+            const commonStyle: CSSProperties = {
               textDecoration: "none",
               fontWeight: 950,
               letterSpacing: ".08em",

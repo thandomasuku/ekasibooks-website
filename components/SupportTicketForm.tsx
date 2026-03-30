@@ -1,4 +1,3 @@
-// components/SupportTicketForm.tsx
 "use client";
 
 import { useState } from "react";
@@ -27,15 +26,22 @@ export default function SupportTicketForm() {
     const message = String(form.get("message") || "").trim();
     const company = String(form.get("company") || "").trim(); // honeypot
 
-    // Basic client validation
+    // ✅ stronger validation
     if (!email || !subject || !message) {
       setLoading(false);
       setStatus("error");
-      setErrorMsg("Please fill in email, subject, and message.");
+      setErrorMsg("Please fill in all required fields.");
       return;
     }
 
-    // If honeypot is filled, silently pretend success (avoid helping spambots)
+    if (!email.includes("@")) {
+      setLoading(false);
+      setStatus("error");
+      setErrorMsg("Please enter a valid email address.");
+      return;
+    }
+
+    // ✅ anti-spam honeypot
     if (company) {
       setLoading(false);
       setStatus("success");
@@ -44,16 +50,24 @@ export default function SupportTicketForm() {
     }
 
     try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000); // 15s timeout
+
       const res = await fetch("/api/ticket", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
+        signal: controller.signal,
         body: JSON.stringify({
           email,
           subject,
           message,
-          company: "", // keep honeypot empty
+          company: "",
         }),
       });
+
+      clearTimeout(timeout);
 
       const data = await res.json().catch(() => ({}));
 
@@ -65,15 +79,25 @@ export default function SupportTicketForm() {
       formEl.reset();
     } catch (err) {
       console.error(err);
+
+      if (err instanceof DOMException && err.name === "AbortError") {
+        setErrorMsg("Request timed out. Please try again.");
+      } else {
+        setErrorMsg(err instanceof Error ? err.message : "Failed to submit ticket.");
+      }
+
       setStatus("error");
-      setErrorMsg(err instanceof Error ? err.message : "Failed to submit ticket.");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <form style={{ display: "grid", gap: 12, marginTop: 12 }} onSubmit={handleSubmit}>
+    <form
+      style={{ display: "grid", gap: 12, marginTop: 12 }}
+      onSubmit={handleSubmit}
+      noValidate
+    >
       {/* Honeypot (spam protection) */}
       <input
         type="text"
@@ -91,6 +115,8 @@ export default function SupportTicketForm() {
           name="email"
           type="email"
           placeholder="you@company.com"
+          autoComplete="email"
+          disabled={loading}
           style={{
             borderRadius: 12,
             border: "1px solid var(--ring)",
@@ -107,6 +133,7 @@ export default function SupportTicketForm() {
           name="subject"
           type="text"
           placeholder="What can we help you with?"
+          disabled={loading}
           style={{
             borderRadius: 12,
             border: "1px solid var(--ring)",
@@ -123,6 +150,7 @@ export default function SupportTicketForm() {
           name="message"
           rows={5}
           placeholder="Describe the issue. Include version, steps, and any error messages."
+          disabled={loading}
           style={{
             borderRadius: 12,
             border: "1px solid var(--ring)",
@@ -171,13 +199,13 @@ export default function SupportTicketForm() {
       </div>
 
       {status === "success" && (
-        <p className="muted" style={{ marginTop: 6, fontSize: 13, color: "#0f766e" }}>
+        <p style={{ marginTop: 6, fontSize: 13, color: "#0f766e", fontWeight: 700 }}>
           Ticket submitted — we’ll email you back soon.
         </p>
       )}
 
       {status === "error" && (
-        <p className="muted" style={{ marginTop: 6, fontSize: 13, color: "#b91c1c" }}>
+        <p style={{ marginTop: 6, fontSize: 13, color: "#b91c1c", fontWeight: 700 }}>
           {errorMsg || "Failed to submit ticket. Please try again."}
         </p>
       )}

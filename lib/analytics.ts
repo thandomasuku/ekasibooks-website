@@ -7,24 +7,37 @@ declare global {
   }
 }
 
-export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID?.trim() ?? "";
 
 type EventParams = Record<string, string | number | boolean | null | undefined>;
 
-export function trackEvent(eventName: string, params: EventParams = {}): void {
-  if (typeof window === "undefined") return;
-  if (!GA_ID) return;
-  if (typeof window.gtag !== "function") return;
-
-  window.gtag("event", eventName, params);
+function canTrack(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    Boolean(GA_ID) &&
+    typeof window.gtag === "function"
+  );
 }
 
-export function trackPageView(url: string): void {
-  if (typeof window === "undefined") return;
-  if (!GA_ID) return;
-  if (typeof window.gtag !== "function") return;
+/**
+ * Sends a custom GA4 event.
+ */
+export function trackEvent(eventName: string, params: EventParams = {}): void {
+  if (!canTrack()) return;
+  window.gtag!("event", eventName, params);
+}
 
-  window.gtag("config", GA_ID, {
+/**
+ * Sends a manual page view for App Router navigation.
+ * We use `send_page_view: false` on the base config in layout,
+ * then call this on route changes.
+ */
+export function trackPageView(url: string): void {
+  if (!canTrack()) return;
+
+  window.gtag!("event", "page_view", {
+    page_location: window.location.href,
     page_path: url,
+    page_title: document.title,
   });
 }

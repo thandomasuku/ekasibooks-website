@@ -1,6 +1,6 @@
-// components/FeaturesClient.tsx
 "use client";
 
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import StickyCta from "@/components/StickyCta";
 import { links } from "@/lib/links";
@@ -131,7 +131,15 @@ function ZoomableImage({
           width: "100%",
         }}
       >
-        <img src={src} alt={alt} loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
+        <Image
+          src={src}
+          alt={alt}
+          width={1400}
+          height={900}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+          style={{ width: "100%", height: "auto", display: "block" }}
+          priority={src === "/screenshots/app-dashboard.png"}
+        />
       </button>
 
       {open ? (
@@ -196,7 +204,14 @@ function ZoomableImage({
             </div>
 
             <div style={{ overflow: "auto", background: "#f7f9fc" }}>
-              <img src={src} alt={alt} style={{ width: "100%", height: "auto", display: "block" }} />
+              <Image
+                src={src}
+                alt={alt}
+                width={1400}
+                height={900}
+                sizes="100vw"
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
             </div>
           </div>
         </div>
@@ -213,7 +228,6 @@ export default function FeaturesClient() {
 
   return (
     <main>
-      {/* HERO */}
       <section
         style={{
           minHeight: 360,
@@ -248,7 +262,8 @@ export default function FeaturesClient() {
               lineHeight: 1.65,
             }}
           >
-            Quotes, invoices, statements, cloud sync, and company setup that travels with you. Built for real-world businesses that need to work faster and get paid.
+            Quotes, invoices, statements, cloud sync, and company setup that travels with you. Built for real-world
+            businesses that need to work faster and get paid.
           </p>
 
           <div
@@ -315,10 +330,8 @@ export default function FeaturesClient() {
         </div>
       </section>
 
-      {/* CONTENT */}
       <section className="section" style={{ paddingTop: 56, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1280 }}>
-          {/* Feature grid */}
           <div
             className="featuresGrid"
             style={{
@@ -350,7 +363,6 @@ export default function FeaturesClient() {
             ))}
           </div>
 
-          {/* Screenshot showcase */}
           <div className="section" style={{ paddingTop: 44, paddingBottom: 0 }}>
             <div className="reveal" style={{ textAlign: "center", marginBottom: 14 }}>
               <h2 className="h2" style={{ marginBottom: 6 }}>
@@ -443,7 +455,6 @@ export default function FeaturesClient() {
             </div>
           </div>
 
-          {/* Also included */}
           <div className="section reveal" style={{ paddingTop: 26, paddingBottom: 0 }}>
             <div
               className="billCard"
@@ -469,7 +480,8 @@ export default function FeaturesClient() {
                     Also included
                   </h2>
                   <p className="muted" style={{ margin: 0, lineHeight: 1.6 }}>
-                    These are the core tools available in eKasiBooks today — from everyday billing to cloud sync and multi-company workflows on supported plans.
+                    These are the core tools available in eKasiBooks today — from everyday billing to cloud sync and
+                    multi-company workflows on supported plans.
                   </p>
                 </div>
 
@@ -482,7 +494,6 @@ export default function FeaturesClient() {
             </div>
           </div>
 
-          {/* Bottom CTA */}
           <div className="section reveal" style={{ paddingTop: 38 }}>
             <div
               style={{

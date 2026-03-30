@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
 import { links } from "@/lib/links";
 import StickyCta from "@/components/StickyCta";
@@ -17,6 +18,14 @@ type Plan = {
   annual: number;
   companies: number;
   items: Array<string | { strong: string; rest?: string }>;
+};
+
+type CompareRow = {
+  label: string;
+  trial: string;
+  starter: string;
+  growth: string;
+  pro: string;
 };
 
 function formatRand(n: number) {
@@ -73,10 +82,12 @@ function ZoomableImage({
           width: "100%",
         }}
       >
-        <img
+        <Image
           src={src}
           alt={alt}
-          loading="lazy"
+          width={1200}
+          height={800}
+          sizes="(max-width: 768px) 100vw, 1200px"
           style={{ width: "100%", height: "auto", display: "block" }}
         />
       </button>
@@ -153,7 +164,14 @@ function ZoomableImage({
             </div>
 
             <div style={{ overflow: "auto", background: "#f7f9fc" }}>
-              <img src={src} alt={alt} style={{ width: "100%", height: "auto", display: "block" }} />
+              <Image
+                src={src}
+                alt={alt}
+                width={1200}
+                height={800}
+                sizes="100vw"
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
             </div>
           </div>
         </div>
@@ -349,7 +367,7 @@ export default function PricingClient() {
     []
   );
 
-  const compareRows = useMemo(
+  const compareRows: CompareRow[] = useMemo(
     () => [
       { label: "Companies", trial: "1", starter: "1", growth: "3", pro: "5" },
       { label: "Invoices", trial: "5", starter: "Unlimited", growth: "Unlimited", pro: "Unlimited" },
@@ -404,7 +422,7 @@ export default function PricingClient() {
               marginBottom: 12,
             }}
           >
-            Start free. Upgrade when you’re ready to grow your business
+            Start free invoicing software for your business. Upgrade when you’re ready to grow
           </h1>
 
           <p
@@ -783,16 +801,16 @@ export default function PricingClient() {
                     <tr key={row.label}>
                       <td style={{ padding: "11px 13px", borderBottom: "1px solid #e7eef7" }}>{row.label}</td>
                       <td style={{ padding: "11px 13px", borderBottom: "1px solid #e7eef7", fontWeight: 900 }}>
-                        {(row as any).trial}
+                        {row.trial}
                       </td>
                       <td style={{ padding: "11px 13px", borderBottom: "1px solid #e7eef7", fontWeight: 900 }}>
-                        {(row as any).starter}
+                        {row.starter}
                       </td>
                       <td style={{ padding: "11px 13px", borderBottom: "1px solid #e7eef7", fontWeight: 900 }}>
-                        {(row as any).growth}
+                        {row.growth}
                       </td>
                       <td style={{ padding: "11px 13px", borderBottom: "1px solid #e7eef7", fontWeight: 900 }}>
-                        {(row as any).pro}
+                        {row.pro}
                       </td>
                     </tr>
                   ))}

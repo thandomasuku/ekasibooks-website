@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
@@ -6,6 +5,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
+import { Suspense } from "react";
+
+import AnalyticsPageTracker from "@/components/AnalyticsPageTracker";
 
 const SITE = "https://ekasibooks.co.za";
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -128,7 +130,6 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
 
@@ -144,16 +145,22 @@ export default function RootLayout({
                 function gtag(){dataLayer.push(arguments);}
                 window.gtag = gtag;
                 gtag('js', new Date());
+
+                // ✅ IMPORTANT: disable automatic page views
                 gtag('config', '${GA_ID}', {
-                  page_path: window.location.pathname,
+                  send_page_view: false,
                 });
               `}
             </Script>
           </>
         ) : null}
       </head>
+
       <body>
         <Navbar />
+        <Suspense fallback={null}>
+        <AnalyticsPageTracker />
+      </Suspense>
         {children}
         <Footer />
         <BackToTop />

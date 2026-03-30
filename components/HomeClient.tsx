@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import ScreenshotSlider from "@/components/ScreenshotSlider";
 import StickyCta from "@/components/StickyCta";
@@ -59,7 +60,15 @@ function ZoomableImage({
           width: "100%",
         }}
       >
-        <img src={src} alt={alt} loading="lazy" style={{ width: "100%", height: "auto", display: "block" }} />
+        <Image
+          src={src}
+          alt={alt}
+          width={1400}
+          height={900}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+          style={{ width: "100%", height: "auto", display: "block" }}
+          priority={src === "/screenshots/app-dashboard.png"}
+        />
       </button>
 
       {open ? (
@@ -124,7 +133,14 @@ function ZoomableImage({
             </div>
 
             <div style={{ overflow: "auto", background: "#f7f9fc" }}>
-              <img src={src} alt={alt} style={{ width: "100%", height: "auto", display: "block" }} />
+              <Image
+                src={src}
+                alt={alt}
+                width={1400}
+                height={900}
+                sizes="100vw"
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
             </div>
           </div>
         </div>
@@ -143,7 +159,6 @@ export default function HomeClient() {
 
   return (
     <main>
-      {/* Announcement */}
       <div
         className="sectionTight"
         style={{
@@ -165,7 +180,6 @@ export default function HomeClient() {
           </span>
         </div>
 
-        {/* Soft fade into hero */}
         <div
           aria-hidden
           style={{
@@ -180,7 +194,6 @@ export default function HomeClient() {
         />
       </div>
 
-      {/* HERO */}
       <section
         className="homeHero"
         style={{
@@ -226,8 +239,8 @@ export default function HomeClient() {
                   maxWidth: 620,
                 }}
               >
-                Create branded quotes, convert them to invoices, track payments, and send statements in minutes — with VAT
-                support, local backups, and offline use after sign-in.
+                Create branded quotes, convert them to invoices, track payments, and send statements in minutes — with
+                VAT support, local backups, and offline use after sign-in.
               </p>
 
               <div
@@ -332,29 +345,30 @@ export default function HomeClient() {
                   alignItems: "center",
                 }}
               >
-                {["Built in South Africa", "Your logo & colours", "PDF export", "Local backups", "Customer statements"].map((t) => (
-                  <span
-                    key={t}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      padding: "7px 10px",
-                      borderRadius: 999,
-                      background: "rgba(255,255,255,.10)",
-                      border: "1px solid rgba(255,255,255,.18)",
-                      color: "rgba(255,255,255,.92)",
-                      fontWeight: 900,
-                      fontSize: 11.5,
-                      letterSpacing: ".02em",
-                    }}
-                  >
-                    {t}
-                  </span>
-                ))}
+                {["Built in South Africa", "Your logo & colours", "PDF export", "Local backups", "Customer statements"].map(
+                  (t) => (
+                    <span
+                      key={t}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        padding: "7px 10px",
+                        borderRadius: 999,
+                        background: "rgba(255,255,255,.10)",
+                        border: "1px solid rgba(255,255,255,.18)",
+                        color: "rgba(255,255,255,.92)",
+                        fontWeight: 900,
+                        fontSize: 11.5,
+                        letterSpacing: ".02em",
+                      }}
+                    >
+                      {t}
+                    </span>
+                  )
+                )}
               </div>
             </div>
 
-            {/* Device */}
             <div className="reveal" aria-label="eKasiBooks App UI preview">
               <div
                 style={{
@@ -447,7 +461,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* BENEFITS */}
       <section className="section" style={{ paddingTop: 52, paddingBottom: 18 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
@@ -495,7 +508,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* BUILT FOR SOUTH AFRICA */}
       <section className="section" style={{ paddingTop: 18, paddingBottom: 22 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
@@ -573,7 +585,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* FEATURES */}
       <section className="section" style={{ paddingTop: 38, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <h2 className="h2 center reveal">Why small businesses choose eKasiBooks</h2>
@@ -668,7 +679,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* LIVE PREVIEW */}
       <section className="section" style={{ paddingTop: 44, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <h2 className="h2 center reveal">Live Preview</h2>
@@ -682,7 +692,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* STEPS */}
       <section className="section" style={{ paddingTop: 44, paddingBottom: 44 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
@@ -759,7 +768,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* TESTIMONIAL */}
       <section className="section" style={{ paddingTop: 22, paddingBottom: 44 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
@@ -794,7 +802,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* PRICING TEASER */}
       <section className="section" style={{ paddingTop: 22, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
@@ -904,7 +911,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="section" style={{ paddingTop: 22, paddingBottom: 72 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <h2 className="h2 center reveal">Questions, answered</h2>
@@ -987,7 +993,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
       <section className="section" style={{ paddingTop: 0, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <div
@@ -1068,7 +1073,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* Interactions */}
       <style>{`
         .reveal{
           opacity: 0;
@@ -1096,7 +1100,6 @@ export default function HomeClient() {
         }
       `}</style>
 
-      {/* Sticky CTA */}
       <StickyCta
         primaryHref={links.download}
         primaryLabel="Start Free"
