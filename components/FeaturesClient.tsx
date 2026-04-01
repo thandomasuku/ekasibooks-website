@@ -25,6 +25,11 @@ const topFeatures: FeatureCard[] = [
     desc: "Create professional quotes and convert them to invoices in one click. VAT / no-VAT friendly.",
   },
   {
+    icon: "🛒",
+    title: "WooCommerce Integration",
+    desc: "Sync your products directly from WooCommerce. Choose specific categories, avoid manual setup, and use your store as your working catalog.",
+  },
+  {
     icon: "☁️",
     title: "Cloud Sync",
     desc: "Growth and Pro plans sync customers, quotes, invoices, company details, and settings across devices.",
@@ -53,6 +58,12 @@ const topFeatures: FeatureCard[] = [
 
 const showcase: ShowcaseItem[] = [
   {
+    title: "Connect your WooCommerce store",
+    desc: "Sync products directly from your WooCommerce store and choose exactly what to import. No more copying products manually.",
+    src: "/screenshots/store-sync.png",
+    alt: "WooCommerce store sync with category selection",
+  },
+  {
     title: "See everything at a glance",
     desc: "A simple dashboard that shows your activity, totals and quick actions — so you can work faster.",
     src: "/screenshots/app-dashboard.png",
@@ -79,6 +90,7 @@ const showcase: ShowcaseItem[] = [
 ];
 
 const moreIncluded: string[] = [
+  "WooCommerce product sync (category-based import)",
   "Delivery notes & purchase orders",
   "Reporting & exports",
   "Multiple invoice & document templates",
@@ -138,7 +150,7 @@ function ZoomableImage({
           height={900}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
           style={{ width: "100%", height: "auto", display: "block" }}
-          priority={src === "/screenshots/app-dashboard.png"}
+          priority={src === "/screenshots/app-dashboard.png" || src === "/screenshots/store-sync.png"}
         />
       </button>
 
@@ -325,7 +337,7 @@ export default function FeaturesClient() {
           >
             <span>✅ Works offline after sign-in</span>
             <span>✅ Cloud sync on Growth & Pro</span>
-            <span>✅ Company settings sync included</span>
+            <span>✅ WooCommerce product sync available</span>
           </div>
         </div>
       </section>

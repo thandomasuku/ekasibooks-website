@@ -176,7 +176,7 @@ export default function HomeClient() {
           }}
         >
           <span className="announcement">
-            Now on Windows &amp; macOS <small>• Works offline after sign-in • VAT-ready</small>
+            Now on Windows &amp; macOS <small>• Works offline after sign-in • VAT-ready • WooCommerce sync</small>
           </span>
         </div>
 
@@ -225,7 +225,7 @@ export default function HomeClient() {
                   fontSize: 40,
                 }}
               >
-                Create invoices, track customers, and get paid faster. All in one simple app.
+                Create invoices, manage customers, and sync WooCommerce orders in one simple app.
               </h1>
 
               <p
@@ -239,8 +239,9 @@ export default function HomeClient() {
                   maxWidth: 620,
                 }}
               >
-                Create branded quotes, convert them to invoices, track payments, and send statements in minutes — with
-                VAT support, local backups, and offline use after sign-in.
+                Create branded quotes, convert them to invoices, track payments, and keep your business data organised —
+                with VAT support, local backups, offline use after sign-in, and WooCommerce integration for stores that
+                need accounting and sales in one flow.
               </p>
 
               <div
@@ -345,27 +346,32 @@ export default function HomeClient() {
                   alignItems: "center",
                 }}
               >
-                {["Built in South Africa", "Your logo & colours", "PDF export", "Local backups", "Customer statements"].map(
-                  (t) => (
-                    <span
-                      key={t}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        padding: "7px 10px",
-                        borderRadius: 999,
-                        background: "rgba(255,255,255,.10)",
-                        border: "1px solid rgba(255,255,255,.18)",
-                        color: "rgba(255,255,255,.92)",
-                        fontWeight: 900,
-                        fontSize: 11.5,
-                        letterSpacing: ".02em",
-                      }}
-                    >
-                      {t}
-                    </span>
-                  )
-                )}
+                {[
+                  "Built in South Africa",
+                  "Your logo & colours",
+                  "PDF export",
+                  "Local backups",
+                  "Customer statements",
+                  "WooCommerce sync",
+                ].map((t) => (
+                  <span
+                    key={t}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      padding: "7px 10px",
+                      borderRadius: 999,
+                      background: "rgba(255,255,255,.10)",
+                      border: "1px solid rgba(255,255,255,.18)",
+                      color: "rgba(255,255,255,.92)",
+                      fontWeight: 900,
+                      fontSize: 11.5,
+                      letterSpacing: ".02em",
+                    }}
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -403,7 +409,7 @@ export default function HomeClient() {
                   }}
                 >
                   <span style={{ color: "rgba(255,255,255,.9)", fontWeight: 900, fontSize: 11.5 }}>
-                    Desktop app • Offline after sign-in
+                    Desktop app • Offline after sign-in • WooCommerce-ready
                   </span>
                   <a
                     href={links.features}
@@ -474,7 +480,7 @@ export default function HomeClient() {
             {[
               { title: "Professional docs", icon: "🧾", desc: "Clean quotes & invoices with your logo and VAT details." },
               { title: "Offline-ready", icon: "🔌", desc: "Sign in once, then quote and invoice even without internet." },
-              { title: "Safe backups", icon: "💾", desc: "Export and restore anytime. CSV compatible." },
+              { title: "WooCommerce sync", icon: "🛒", desc: "Connect your store and bring WooCommerce sales into your workflow." },
             ].map((b) => (
               <div
                 key={b.title}
@@ -539,7 +545,8 @@ export default function HomeClient() {
             </h2>
             <p className="muted" style={{ marginTop: 10, marginBottom: 0, maxWidth: 860, lineHeight: 1.6 }}>
               Most accounting tools are built overseas and adapted later. eKasiBooks is built locally, with South African
-              small businesses as the primary market — simple, practical, and VAT-ready.
+              small businesses as the primary market — simple, practical, VAT-ready, and flexible enough for modern
+              businesses selling both offline and online.
             </p>
 
             <div
@@ -585,11 +592,125 @@ export default function HomeClient() {
         </div>
       </section>
 
+      <section className="section" style={{ paddingTop: 18, paddingBottom: 38 }}>
+        <div className="container" style={{ maxWidth: 1200 }}>
+          <div
+            className="reveal"
+            style={{
+              borderRadius: 16,
+              border: "1px solid var(--ring)",
+              background: "#fff",
+              padding: 22,
+              boxShadow: "0 10px 28px rgba(10,37,64,.08)",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              aria-hidden
+              style={{
+                position: "absolute",
+                inset: "-40px auto auto -40px",
+                width: 180,
+                height: 180,
+                background: "radial-gradient(circle, rgba(33,93,99,.12), transparent 70%)",
+                borderRadius: 999,
+              }}
+            />
+
+            <div
+              className="wooGrid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1.05fr .95fr",
+                gap: 18,
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    borderRadius: 999,
+                    padding: "7px 11px",
+                    background: "rgba(33,93,99,.08)",
+                    border: "1px solid rgba(33,93,99,.12)",
+                    color: "var(--brand-700)",
+                    fontWeight: 950,
+                    fontSize: 11.5,
+                    letterSpacing: ".03em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  WooCommerce Integration
+                </span>
+
+                <h2 className="h2" style={{ marginTop: 12, marginBottom: 0 }}>
+                  For businesses that sell on WooCommerce too
+                </h2>
+
+                <p className="muted" style={{ marginTop: 10, marginBottom: 0, lineHeight: 1.7, maxWidth: 680 }}>
+                  eKasiBooks is not just for manual invoicing. If you run a WooCommerce store, you can use eKasiBooks to
+                  keep your business operations tighter by syncing store data into the app and managing the accounting side
+                  with the same simplicity you already get for quotes, invoices, customers, and reporting.
+                </p>
+              </div>
+
+              <div
+                style={{
+                  background: "var(--card)",
+                  border: "1px solid var(--ring)",
+                  borderRadius: 16,
+                  padding: 16,
+                  boxShadow: "0 10px 28px rgba(10,37,64,.06)",
+                }}
+              >
+                <div style={{ fontWeight: 950, color: "var(--ink)", marginBottom: 10 }}>Why it matters</div>
+
+                <div style={{ display: "grid", gap: 10 }}>
+                  {[
+                    "Great for businesses already selling through WooCommerce",
+                    "Brings store activity closer to your invoicing and admin flow",
+                    "Helps reduce double work between your website and desktop app",
+                    "Ideal for growing businesses that want one practical system",
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      style={{
+                        display: "flex",
+                        gap: 10,
+                        alignItems: "flex-start",
+                        color: "var(--ink)",
+                        lineHeight: 1.55,
+                        fontWeight: 700,
+                      }}
+                    >
+                      <span style={{ color: "var(--brand)", fontWeight: 950 }}>•</span>
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <style>{`
+              @media (max-width: 992px){
+                .wooGrid{
+                  grid-template-columns: 1fr !important;
+                }
+              }
+            `}</style>
+          </div>
+        </div>
+      </section>
+
       <section className="section" style={{ paddingTop: 38, paddingBottom: 56 }}>
         <div className="container" style={{ maxWidth: 1200 }}>
           <h2 className="h2 center reveal">Why small businesses choose eKasiBooks</h2>
           <p className="center muted reveal" style={{ marginTop: 10, maxWidth: 820, marginInline: "auto" }}>
-            Built for owners who want to invoice fast, look professional, and stay in control — without complexity.
+            Built for owners who want to invoice fast, look professional, stay in control, and connect their store
+            workflows without complexity.
           </p>
 
           <div
@@ -607,7 +728,7 @@ export default function HomeClient() {
               { t: "Customers & Statements", d: "Keep customer records tidy and generate statements instantly.", i: "👥" },
               { t: "Branding & Templates", d: "Your logo, colours and templates that make you look pro.", i: "🎨" },
               { t: "Payment Tracking", d: "Record payments, see who owes you, and follow up faster.", i: "💸" },
-              { t: "Backups & Export", d: "Local backups and CSV export for peace of mind.", i: "💾" },
+              { t: "WooCommerce Sync", d: "Connect your WooCommerce store and keep your business workflow more connected.", i: "🛒" },
               { t: "Your data stays yours", d: "Desktop app. No forced cloud lock-in.", i: "🔒" },
             ].map((f) => (
               <div
@@ -829,7 +950,8 @@ export default function HomeClient() {
                   Simple pricing
                 </h3>
                 <p className="muted" style={{ margin: 0, lineHeight: 1.6 }}>
-                  Start your free trial today. Upgrade when you’re ready to grow.
+                  Start your free trial today. Upgrade when you’re ready to grow — including if you need WooCommerce
+                  integration for your store workflow.
                 </p>
               </div>
 
@@ -945,6 +1067,13 @@ export default function HomeClient() {
                 <summary>Do you support VAT?</summary>
                 <p>Enable VAT, pick your rate, and totals are calculated automatically.</p>
               </details>
+              <details>
+                <summary>Do you support WooCommerce?</summary>
+                <p>
+                  Yes — eKasiBooks includes WooCommerce integration for businesses that want their online store workflow
+                  connected to the app.
+                </p>
+              </details>
             </div>
 
             <div
@@ -964,6 +1093,13 @@ export default function HomeClient() {
               <details>
                 <summary>How do I backup?</summary>
                 <p>Use the built-in backup to export a safe copy of your data anytime.</p>
+              </details>
+              <details>
+                <summary>Is it only for offline businesses?</summary>
+                <p>
+                  No. eKasiBooks works well for service businesses, traders, and businesses that also sell through a
+                  WooCommerce website.
+                </p>
               </details>
             </div>
           </div>

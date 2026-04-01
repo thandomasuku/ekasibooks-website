@@ -308,6 +308,7 @@ export default function PricingClient() {
           "Manual local backup & restore",
           "1 active session",
           "No cloud sync",
+          "No WooCommerce integration",
           "Limits apply in the desktop app (not time-based)",
         ],
       },
@@ -325,6 +326,7 @@ export default function PricingClient() {
           "Manual local backup & restore",
           "1 active session",
           "No cloud sync",
+          "No WooCommerce integration",
           "Perfect for single-session use",
         ],
       },
@@ -340,6 +342,7 @@ export default function PricingClient() {
           { strong: "Up to 3 companies" },
           { strong: "Unlimited documents" },
           "Automatic cloud sync for customers, quotes, invoices, and company settings",
+          "WooCommerce integration (store sync)",
           "Manual local backup & restore",
           "Up to 2 active sessions",
           "Work across locations",
@@ -357,6 +360,7 @@ export default function PricingClient() {
           { strong: "Up to 5 companies" },
           { strong: "Unlimited documents" },
           "Automatic cloud sync for customers, quotes, invoices, and company settings",
+          "WooCommerce integration (store sync)",
           "Manual local backup & restore",
           "Up to 4 active sessions",
           "Everything in Growth",
@@ -377,6 +381,7 @@ export default function PricingClient() {
       { label: "PDF export", trial: "✓", starter: "✓", growth: "✓", pro: "✓" },
       { label: "Manual local backup & restore", trial: "✓", starter: "✓", growth: "✓", pro: "✓" },
       { label: "Cloud sync (automatic)", trial: "—", starter: "—", growth: "✓", pro: "✓" },
+      { label: "WooCommerce integration", trial: "—", starter: "—", growth: "✓", pro: "✓" },
       { label: "Multi-device access", trial: "—", starter: "—", growth: "✓", pro: "✓" },
       { label: "Active sessions", trial: "1", starter: "1", growth: "2", pro: "4" },
       { label: "Email drafts (via your email client)", trial: "✓", starter: "✓", growth: "✓", pro: "✓" },
@@ -436,8 +441,8 @@ export default function PricingClient() {
               lineHeight: 1.65,
             }}
           >
-            Start for free, work offline after sign-in, and upgrade only when you need more companies, cloud sync,
-            and multi-device access. All prices include VAT.
+            Start for free, work offline after sign-in, and upgrade when you need more companies, cloud sync,
+            WooCommerce integration, and multi-device access. All prices include VAT.
           </p>
 
           <div
@@ -719,13 +724,14 @@ export default function PricingClient() {
                     What you get when you upgrade
                   </h3>
                   <p className="muted" style={{ margin: 0, lineHeight: 1.6 }}>
-                    Paid plans unlock unlimited documents, more companies, and a smoother workflow. Growth and Pro also
-                    add automatic cloud sync for customers, quotes, invoices, and company settings, while all paid plans
-                    keep manual local backup available.
+                    Paid plans unlock unlimited documents, more companies, cloud sync, and WooCommerce integration for
+                    businesses that want their online store and operations working together. Growth and Pro also add
+                    automatic cloud sync for customers, quotes, invoices, and company settings, while all paid plans keep
+                    manual local backup available.
                   </p>
 
                   <div style={{ marginTop: 10, display: "flex", gap: 10, flexWrap: "wrap" }}>
-                    {["Branded PDFs", "Unlimited docs", "Cloud sync", "Multi-company"].map((t) => (
+                    {["Branded PDFs", "Unlimited docs", "Cloud sync", "WooCommerce", "Multi-company"].map((t) => (
                       <span
                         key={t}
                         style={{
@@ -850,6 +856,14 @@ export default function PricingClient() {
             </details>
 
             <details>
+              <summary>Do you support WooCommerce?</summary>
+              <p>
+                Yes — WooCommerce integration is available on Growth and Pro plans for businesses that want their online
+                store and business workflow connected.
+              </p>
+            </details>
+
+            <details>
               <summary>Do I need internet?</summary>
               <p>
                 You’ll need internet to sign in and manage upgrades. Once you’re signed in, you can work offline
@@ -867,7 +881,8 @@ export default function PricingClient() {
               <summary>What happens if I downgrade?</summary>
               <p>
                 If your new plan supports fewer companies, you’ll be asked to choose which companies remain accessible
-                under that plan. Cloud sync and active session limits will also follow your new plan.
+                under that plan. Cloud sync, WooCommerce availability, and active session limits will also follow your
+                new plan.
               </p>
             </details>
           </div>
