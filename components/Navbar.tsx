@@ -235,40 +235,80 @@ export default function Navbar() {
             );
           })}
 
-          <a
-            href="https://portal.ekasibooks.co.za"
-            target="_blank"
-            rel="noopener noreferrer"
+          <div
             style={{
-              border: "1px solid rgba(33,93,99,.22)",
-              borderRadius: 999,
-              padding: "10px 14px",
-              fontWeight: 950,
-              letterSpacing: ".08em",
-              fontSize: 12,
-              textDecoration: "none",
-              background: "#fff",
-              color: "var(--ink)",
-              transition: "transform .2s ease, box-shadow .2s ease",
-              boxShadow: "0 8px 20px rgba(10,37,64,.06)",
-            }}
-            onClick={() => {
-              trackEvent("login_click", {
-                location: "desktop",
-                href: "https://portal.ekasibooks.co.za",
-              });
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 14px 26px rgba(10,37,64,.10)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 8px 20px rgba(10,37,64,.06)";
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              marginLeft: 4,
             }}
           >
-            LOGIN
-          </a>
+            <a
+              href={links.portalRegister}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                border: "1px solid rgba(33,93,99,.22)",
+                borderRadius: 999,
+                padding: "10px 14px",
+                fontWeight: 950,
+                letterSpacing: ".08em",
+                fontSize: 12,
+                textDecoration: "none",
+                background: "#fff",
+                color: "var(--ink)",
+                transition: "transform .2s ease, box-shadow .2s ease",
+                boxShadow: "0 8px 20px rgba(10,37,64,.06)",
+              }}
+              onClick={() => {
+                trackEvent("register_click", {
+                  location: "desktop",
+                  href: links.portalRegister,
+                });
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow = "0 14px 26px rgba(10,37,64,.10)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 8px 20px rgba(10,37,64,.06)";
+              }}
+            >
+              REGISTER
+            </a>
+
+            <a
+              href={links.portalLogin}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "none",
+                fontWeight: 900,
+                letterSpacing: ".04em",
+                fontSize: 12,
+                color: "rgba(13,32,48,.78)",
+                padding: "8px 2px",
+                transition: "color .2s ease, transform .2s ease",
+              }}
+              onClick={() => {
+                trackEvent("login_click", {
+                  location: "desktop",
+                  href: links.portalLogin,
+                });
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "var(--brand-700)";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "rgba(13,32,48,.78)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              Login
+            </a>
+          </div>
         </nav>
       </div>
 
@@ -314,13 +354,13 @@ export default function Navbar() {
             })}
 
             <a
-              href="https://portal.ekasibooks.co.za"
+              href={links.portalRegister}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {
-                trackEvent("login_click", {
+                trackEvent("register_click", {
                   location: "mobile",
-                  href: "https://portal.ekasibooks.co.za",
+                  href: links.portalRegister,
                 });
                 closeMenu();
               }}
@@ -337,7 +377,31 @@ export default function Navbar() {
                 textAlign: "center",
               }}
             >
-              LOGIN
+              REGISTER
+            </a>
+
+            <a
+              href={links.portalLogin}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                trackEvent("login_click", {
+                  location: "mobile",
+                  href: links.portalLogin,
+                });
+                closeMenu();
+              }}
+              style={{
+                textDecoration: "none",
+                fontWeight: 900,
+                letterSpacing: ".04em",
+                fontSize: 12,
+                color: "rgba(13,32,48,.78)",
+                padding: "10px 12px 2px",
+                textAlign: "center",
+              }}
+            >
+              Login
             </a>
           </div>
         </div>

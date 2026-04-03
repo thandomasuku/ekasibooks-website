@@ -225,7 +225,7 @@ export default function HomeClient() {
                   fontSize: 40,
                 }}
               >
-                Create invoices, manage customers, and sync WooCommerce orders in one simple app.
+                Create invoices, manage customers, and sync WooCommerce products in one simple app.
               </h1>
 
               <p
@@ -254,11 +254,12 @@ export default function HomeClient() {
                 }}
               >
                 <a
-                  href={links.download}
+                  href={links.portalRegister}
                   onClick={() => {
                     trackEvent("cta_click", {
-                      label: "download",
+                      label: "register",
                       location: "hero",
+                      page: window.location.pathname,
                     });
                   }}
                   style={{
@@ -285,7 +286,7 @@ export default function HomeClient() {
                     e.currentTarget.style.boxShadow = "0 14px 34px rgba(0,0,0,.20)";
                   }}
                 >
-                  Start Free
+                  Create Free Account
                 </a>
 
                 <a
@@ -294,6 +295,7 @@ export default function HomeClient() {
                     trackEvent("cta_click", {
                       label: "pricing",
                       location: "hero",
+                      page: window.location.pathname,
                     });
                   }}
                   style={{
@@ -333,7 +335,7 @@ export default function HomeClient() {
                   letterSpacing: ".01em",
                 }}
               >
-                No complicated setup • No contracts • Get started in under 2 minutes
+                Create your account in under 2 minutes • No credit card required
               </div>
 
               <div
@@ -417,6 +419,7 @@ export default function HomeClient() {
                       trackEvent("cta_click", {
                         label: "features",
                         location: "hero_secondary",
+                        page: window.location.pathname,
                       });
                     }}
                     style={{
@@ -761,6 +764,7 @@ export default function HomeClient() {
                 trackEvent("cta_click", {
                   label: "features",
                   location: "features_section",
+                  page: window.location.pathname,
                 });
               }}
               style={{
@@ -962,6 +966,41 @@ export default function HomeClient() {
                     trackEvent("cta_click", {
                       label: "pricing",
                       location: "pricing_section",
+                      page: window.location.pathname,
+                    });
+                  }}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 999,
+                    padding: "10px 16px",
+                    fontWeight: 950,
+                    textDecoration: "none",
+                    background: "#fff",
+                    color: "var(--ink)",
+                    border: "1px solid var(--ring)",
+                    transition: "transform .2s ease, box-shadow .2s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow = "0 16px 34px rgba(10,37,64,.12)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                >
+                  See Pricing
+                </a>
+
+                <a
+                  href={links.portalRegister}
+                  onClick={() => {
+                    trackEvent("cta_click", {
+                      label: "register",
+                      location: "pricing_section",
+                      page: window.location.pathname,
                     });
                   }}
                   style={{
@@ -985,39 +1024,7 @@ export default function HomeClient() {
                     e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  See Pricing
-                </a>
-
-                <a
-                  href={links.download}
-                  onClick={() => {
-                    trackEvent("cta_click", {
-                      label: "download",
-                      location: "pricing_section",
-                    });
-                  }}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 999,
-                    padding: "10px 16px",
-                    fontWeight: 950,
-                    textDecoration: "none",
-                    background: "var(--brand-700)",
-                    color: "#fff",
-                    transition: "transform .2s ease, box-shadow .2s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow = "0 16px 34px rgba(10,37,64,.12)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
-                >
-                  Start Free
+                  Create Free Account
                 </a>
               </div>
             </div>
@@ -1148,11 +1155,12 @@ export default function HomeClient() {
 
             <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap", marginTop: 10 }}>
               <a
-                href={links.download}
+                href={links.portalRegister}
                 onClick={() => {
                   trackEvent("cta_click", {
-                    label: "download",
+                    label: "register",
                     location: "final_cta",
+                    page: window.location.pathname,
                   });
                 }}
                 style={{
@@ -1173,15 +1181,16 @@ export default function HomeClient() {
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                Start Free
+                Create Free Account
               </a>
 
               <a
-                href={links.features}
+                href={links.download}
                 onClick={() => {
                   trackEvent("cta_click", {
-                    label: "features",
-                    location: "final_cta",
+                    label: "download",
+                    location: "final_cta_secondary",
+                    page: window.location.pathname,
                   });
                 }}
                 style={{
@@ -1189,8 +1198,9 @@ export default function HomeClient() {
                   padding: "10px 18px",
                   fontWeight: 950,
                   textDecoration: "none",
-                  background: "var(--brand-700)",
-                  color: "#fff",
+                  background: "#fff",
+                  color: "var(--ink)",
+                  border: "1px solid var(--ring)",
                   transition: "transform .2s ease, box-shadow .2s ease",
                 }}
                 onMouseEnter={(e) => {
@@ -1202,7 +1212,7 @@ export default function HomeClient() {
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                Explore Features
+                Download App
               </a>
             </div>
           </div>
@@ -1237,10 +1247,10 @@ export default function HomeClient() {
       `}</style>
 
       <StickyCta
-        primaryHref={links.download}
-        primaryLabel="Start Free"
-        secondaryHref={links.pricing}
-        secondaryLabel="See Pricing"
+        primaryHref={links.portalRegister}
+        primaryLabel="Create Free Account"
+        secondaryHref={links.download}
+        secondaryLabel="Download App"
       />
     </main>
   );

@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import { Suspense } from "react";
-
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 import AnalyticsPageTracker from "@/components/AnalyticsPageTracker";
 
 const SITE = "https://ekasibooks.co.za";
@@ -164,6 +164,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <BackToTop />
+        <WhatsAppFloat />
       </body>
     </html>
   );

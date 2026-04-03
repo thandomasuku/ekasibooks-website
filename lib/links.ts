@@ -1,7 +1,7 @@
 // lib/links.ts
 
-// Toggle this later when portal is live
-const PORTAL_LIVE = false;
+// Portal is live
+const PORTAL_LIVE = true;
 
 // Base URLs (single source of truth)
 const MARKETING_BASE = "";
@@ -22,8 +22,12 @@ export const links = {
   homeFeatures: `${MARKETING_BASE}/#features`,
 
   // ─────────────────────────────
-  // Portal (safe now, live later)
+  // Portal
   // ─────────────────────────────
+  portalRegister: PORTAL_LIVE
+    ? `${PORTAL_BASE}/register`
+    : "/pricing",
+
   portalLogin: PORTAL_LIVE
     ? `${PORTAL_BASE}/login`
     : "/pricing",

@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import StickyCta from "@/components/StickyCta";
 import { links } from "@/lib/links";
+import { trackEvent } from "@/lib/analytics";
 
 type FeatureCard = {
   icon: string;
@@ -289,7 +290,14 @@ export default function FeaturesClient() {
             }}
           >
             <a
-              href={links.download}
+              href={links.portalRegister}
+              onClick={() => {
+                trackEvent("features_cta_click", {
+                  label: "register",
+                  location: "hero",
+                  page: window.location.pathname,
+                });
+              }}
               style={{
                 borderRadius: 999,
                 padding: "11px 18px",
@@ -302,11 +310,18 @@ export default function FeaturesClient() {
                 transition: "transform .2s ease, box-shadow .2s ease",
               }}
             >
-              Download the app
+              Create Free Account
             </a>
 
             <a
               href={links.pricing}
+              onClick={() => {
+                trackEvent("features_cta_click", {
+                  label: "pricing",
+                  location: "hero",
+                  page: window.location.pathname,
+                });
+              }}
               style={{
                 borderRadius: 999,
                 padding: "11px 18px",
@@ -381,7 +396,7 @@ export default function FeaturesClient() {
                 See eKasiBooks in action
               </h2>
               <p className="muted" style={{ margin: 0, maxWidth: 820, marginInline: "auto", lineHeight: 1.6 }}>
-                Real screens from the app — so you know exactly what you’re getting before you download.
+                Real screens from the app — so you know exactly what you’re getting before you start.
               </p>
             </div>
 
@@ -450,7 +465,14 @@ export default function FeaturesClient() {
 
             <div className="reveal" style={{ textAlign: "center", marginTop: 14 }}>
               <a
-                href={links.download}
+                href={links.portalRegister}
+                onClick={() => {
+                  trackEvent("features_cta_click", {
+                    label: "register",
+                    location: "showcase",
+                    page: window.location.pathname,
+                  });
+                }}
                 style={{
                   display: "inline-block",
                   borderRadius: 999,
@@ -462,7 +484,7 @@ export default function FeaturesClient() {
                   boxShadow: "0 12px 28px rgba(10,37,64,.14)",
                 }}
               >
-                Download and start billing
+                Create your free account
               </a>
             </div>
           </div>
@@ -521,12 +543,19 @@ export default function FeaturesClient() {
                 Ready to invoice like a pro?
               </h3>
               <p className="muted" style={{ marginTop: 0 }}>
-                Download eKasiBooks and start billing today.
+                Create your free account, then download eKasiBooks and start billing.
               </p>
 
               <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
                 <a
-                  href={links.download}
+                  href={links.portalRegister}
+                  onClick={() => {
+                    trackEvent("features_cta_click", {
+                      label: "register",
+                      location: "final_cta",
+                      page: window.location.pathname,
+                    });
+                  }}
                   style={{
                     borderRadius: 999,
                     padding: "10px 18px",
@@ -536,10 +565,17 @@ export default function FeaturesClient() {
                     textDecoration: "none",
                   }}
                 >
-                  Download the app
+                  Create Free Account
                 </a>
                 <a
-                  href={links.pricing}
+                  href={links.download}
+                  onClick={() => {
+                    trackEvent("features_cta_click", {
+                      label: "download",
+                      location: "final_cta_secondary",
+                      page: window.location.pathname,
+                    });
+                  }}
                   style={{
                     borderRadius: 999,
                     padding: "10px 18px",
@@ -550,7 +586,7 @@ export default function FeaturesClient() {
                     textDecoration: "none",
                   }}
                 >
-                  See Pricing
+                  Download App
                 </a>
               </div>
             </div>
@@ -590,8 +626,8 @@ export default function FeaturesClient() {
       </section>
 
       <StickyCta
-        primaryHref={links.download}
-        primaryLabel="Download eKasiBooks"
+        primaryHref={links.portalRegister}
+        primaryLabel="Create Free Account"
         secondaryHref={links.pricing}
         secondaryLabel="See Pricing"
       />

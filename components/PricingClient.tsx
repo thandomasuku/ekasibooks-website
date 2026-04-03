@@ -461,6 +461,7 @@ export default function PricingClient() {
                 trackEvent("pricing_cta_click", {
                   label: "start_free_no_card",
                   location: "hero",
+                  page: window.location.pathname,
                 });
               }}
               style={{
@@ -484,6 +485,7 @@ export default function PricingClient() {
                 trackEvent("pricing_cta_click", {
                   label: "download",
                   location: "hero",
+                  page: window.location.pathname,
                 });
               }}
               style={{
@@ -538,7 +540,10 @@ export default function PricingClient() {
               <button
                 type="button"
                 onClick={() => {
-                  trackEvent("billing_toggle", { selected: "monthly" });
+                  trackEvent("billing_toggle", {
+                    selected: "monthly",
+                    page: window.location.pathname,
+                  });
                   setBillingCycle("monthly");
                 }}
                 style={{
@@ -559,7 +564,10 @@ export default function PricingClient() {
               <button
                 type="button"
                 onClick={() => {
-                  trackEvent("billing_toggle", { selected: "annual" });
+                  trackEvent("billing_toggle", {
+                    selected: "annual",
+                    page: window.location.pathname,
+                  });
                   setBillingCycle("annual");
                 }}
                 style={{
@@ -629,7 +637,7 @@ export default function PricingClient() {
 
               const note = isTrial
                 ? "Start free instantly. Upgrade anytime when you need more."
-                : "You’ll be asked to log in first if you’re not signed in.";
+                : "You’ll be asked to log in or create an account if you’re not signed in.";
 
               return (
                 <PricingCard
@@ -648,6 +656,7 @@ export default function PricingClient() {
                           trackEvent("plan_selected", {
                             plan: p.key,
                             billing: billingCycle,
+                            page: window.location.pathname,
                           });
                         }}
                         style={{
@@ -673,6 +682,7 @@ export default function PricingClient() {
                             plan: p.key,
                             billing: billingCycle,
                             action: isTrial ? "download_app" : "view_billing",
+                            page: window.location.pathname,
                           });
                         }}
                         style={{
@@ -904,32 +914,35 @@ export default function PricingClient() {
 
               <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
                 <a
-                  href={links.download}
+                  href={portalRegister}
                   onClick={() => {
                     trackEvent("pricing_cta_click", {
-                      label: "download",
+                      label: "register",
                       location: "bottom",
+                      page: window.location.pathname,
                     });
                   }}
                   style={{
                     borderRadius: 999,
                     padding: "10px 18px",
                     border: "1px solid #d9e4f2",
-                    background: "#fff",
-                    color: "#0d2030",
+                    background: "var(--brand)",
+                    color: "#fff",
                     fontWeight: 950,
                     textDecoration: "none",
                     transition: "transform .2s ease, box-shadow .2s ease",
                   }}
                 >
-                  Download the app
+                  Create free account
                 </a>
+
                 <a
                   href={portalBilling}
                   onClick={() => {
                     trackEvent("pricing_cta_click", {
                       label: "view_billing",
                       location: "bottom",
+                      page: window.location.pathname,
                     });
                   }}
                   style={{
@@ -1005,10 +1018,10 @@ export default function PricingClient() {
       </section>
 
       <StickyCta
-        primaryHref={portalBilling}
-        primaryLabel="View plans & billing"
-        secondaryHref={links.download}
-        secondaryLabel="Download app"
+        primaryHref={portalRegister}
+        primaryLabel="Create Free Account"
+        secondaryHref={portalBilling}
+        secondaryLabel="View Plans"
       />
     </main>
   );

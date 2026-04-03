@@ -190,8 +190,68 @@ export default function DownloadClient() {
               lineHeight: 1.65,
             }}
           >
-            Install once. Sign in. Work offline day-to-day.
+            Download the app, create your free account, and work offline day-to-day after sign-in.
           </p>
+
+          <div
+            className="reveal"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 12,
+              flexWrap: "wrap",
+              marginTop: 20,
+            }}
+          >
+            <a
+              href="/downloads/desktop/eKasiBooks-Setup.exe"
+              onClick={() => {
+                trackEvent("download_click", {
+                  platform: "windows",
+                  href: "/downloads/desktop/eKasiBooks-Setup.exe",
+                  location: "hero",
+                  page: window.location.pathname,
+                });
+              }}
+              style={{
+                borderRadius: 999,
+                padding: "11px 18px",
+                fontWeight: 950,
+                textDecoration: "none",
+                background: "#fff",
+                color: "var(--brand-700)",
+                border: "1px solid rgba(255,255,255,.25)",
+                boxShadow: "0 10px 22px rgba(0,0,0,.18)",
+                transition: "transform .2s ease, box-shadow .2s ease",
+              }}
+            >
+              Download for Windows
+            </a>
+
+            <a
+              href={links.portalRegister}
+              onClick={() => {
+                trackEvent("download_page_cta_click", {
+                  label: "register",
+                  location: "hero",
+                  page: window.location.pathname,
+                });
+              }}
+              style={{
+                borderRadius: 999,
+                padding: "11px 18px",
+                fontWeight: 950,
+                textDecoration: "none",
+                background: "rgba(255,255,255,.12)",
+                color: "#fff",
+                border: "1px solid rgba(255,255,255,.25)",
+                backdropFilter: "blur(10px)",
+                transition: "transform .2s ease, box-shadow .2s ease",
+              }}
+            >
+              Create Free Account
+            </a>
+          </div>
         </div>
       </section>
 
@@ -224,6 +284,7 @@ export default function DownloadClient() {
                           platform: d.label,
                           status: "disabled",
                           location: "download_cards",
+                          page: window.location.pathname,
                         });
                         return;
                       }
@@ -232,6 +293,7 @@ export default function DownloadClient() {
                         platform: d.label,
                         href: d.href,
                         location: "download_cards",
+                        page: window.location.pathname,
                       });
                     }}
                     style={{
@@ -362,6 +424,9 @@ export default function DownloadClient() {
                       <li>
                         Follow the installer prompts. After installation, you can open eKasiBooks from the Start Menu.
                       </li>
+                      <li>
+                        Open the app and <strong>create your free account</strong> or sign in to get started.
+                      </li>
                     </ol>
 
                     <div className="installNote">
@@ -401,8 +466,8 @@ export default function DownloadClient() {
 
               <div className="reveal" style={{ paddingLeft: 2 }}>
                 <p className="muted" style={{ margin: 0, fontSize: 13.5, lineHeight: 1.6 }}>
-                  Tip: You’ll need internet to sign in. After that, you can work offline day-to-day. Internet is also
-                  needed for updates and upgrades.
+                  Tip: You’ll need internet to sign in or create your account. After that, you can work offline day-to-day.
+                  Internet is also needed for updates and upgrades.
                 </p>
               </div>
             </div>
@@ -456,6 +521,57 @@ export default function DownloadClient() {
                     </span>
                   ))}
                 </div>
+
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 14 }}>
+                  <a
+                    href={links.portalRegister}
+                    onClick={() => {
+                      trackEvent("download_page_cta_click", {
+                        label: "register",
+                        location: "preview_card",
+                        page: window.location.pathname,
+                      });
+                    }}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: 999,
+                      padding: "10px 16px",
+                      fontWeight: 950,
+                      textDecoration: "none",
+                      background: "var(--brand)",
+                      color: "#fff",
+                    }}
+                  >
+                    Create Free Account
+                  </a>
+
+                  <a
+                    href={links.pricing}
+                    onClick={() => {
+                      trackEvent("download_page_cta_click", {
+                        label: "pricing",
+                        location: "preview_card",
+                        page: window.location.pathname,
+                      });
+                    }}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: 999,
+                      padding: "10px 16px",
+                      fontWeight: 950,
+                      textDecoration: "none",
+                      background: "#fff",
+                      color: "var(--ink)",
+                      border: "1px solid var(--ring)",
+                    }}
+                  >
+                    See Pricing
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -502,7 +618,7 @@ export default function DownloadClient() {
               <li>
                 <strong style={{ color: "var(--ink)" }}>macOS:</strong> Monterey (12) or later, 500 MB free space
               </li>
-              <li>Internet connection required for sign-in, updates, and upgrades</li>
+              <li>Internet connection required for sign-in, account creation, updates, and upgrades</li>
             </ul>
 
             <p className="muted" style={{ marginTop: 14, fontSize: 13.5 }}>
@@ -514,6 +630,7 @@ export default function DownloadClient() {
                   trackEvent("download_page_link_click", {
                     label: "privacy_policy",
                     location: "requirements",
+                    page: window.location.pathname,
                   });
                 }}
               >
@@ -610,10 +727,10 @@ export default function DownloadClient() {
       </section>
 
       <StickyCta
-        primaryHref={links.download}
+        primaryHref="/downloads/desktop/eKasiBooks-Setup.exe"
         primaryLabel="Download eKasiBooks"
-        secondaryHref={links.pricing}
-        secondaryLabel="See Pricing"
+        secondaryHref={links.portalRegister}
+        secondaryLabel="Create Free Account"
       />
     </main>
   );
